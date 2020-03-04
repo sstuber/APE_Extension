@@ -1,5 +1,5 @@
 package com.uu.app.SLTL;
 
 public interface NoopSLTLFold<T> {
-	T Fold(NoopSLTL obj);
+	T Fold(NoopSLTL obj, SLTLFoldData<T> data);
 }

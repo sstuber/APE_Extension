@@ -18,10 +18,18 @@ public class UnarySLTL extends SLTL {
 	String moduleName;
 
 	@Override
-	<T> T Fold(BinarySLTLFold<T> binarySLTLFold, UnarySLTLFold<T> unarySLTLFold, NoopSLTLFold<T> noopSLTLFold) {
+	<T> T Fold(SLTLFoldData<T> data) {
 
-		T rightFold = right.Fold(binarySLTLFold, unarySLTLFold, noopSLTLFold);
+		T rightFold = right.Fold(data);
 
-		return unarySLTLFold.Fold(rightFold, this);
+		return data.unaryFold.Fold(rightFold, this, data);
+	}
+
+	@Override
+	public String toString() {
+		if (op == UnarySLTLOp.Next)
+			return "<" + this.moduleName + "> " + right.toString();
+
+		return op.toString() + " " + right.toString();
 	}
 }

@@ -12,11 +12,16 @@ public class BinarySLTL extends SLTL {
 	}
 
 	@Override
-	<T> T Fold(BinarySLTLFold<T> binarySLTLFold, UnarySLTLFold<T> unarySLTLFold, NoopSLTLFold<T> noopSLTLFold) {
+	<T> T Fold(SLTLFoldData<T> data) {
 
-		T leftFold = left.Fold(binarySLTLFold, unarySLTLFold, noopSLTLFold);
-		T rightFold = right.Fold(binarySLTLFold, unarySLTLFold, noopSLTLFold);
+		T leftFold = left.Fold(data);
+		T rightFold = right.Fold(data);
 
-		return binarySLTLFold.Fold(leftFold, rightFold, this);
+		return data.binaryFold.Fold(leftFold, rightFold, this, data);
+	}
+
+	@Override
+	public String toString() {
+		return left.toString() + " " + op.toString() + " " + right.toString();
 	}
 }
