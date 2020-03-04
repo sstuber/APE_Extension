@@ -21,6 +21,11 @@ public class GatlParserHandler {
 
 		ParseTree tree = parser.gatl(); // begin parsing at init rule
 
+		ConstraintVisitor visitor = new ConstraintVisitor();
+
+		String test =  visitor.visit(tree);
+
+
 		System.out.println(tree.toStringTree(parser)); // print LISP-style tree
 	}
 

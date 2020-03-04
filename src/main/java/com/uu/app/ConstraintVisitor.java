@@ -35,7 +35,9 @@ public class ConstraintVisitor extends GatlBaseVisitor<String> {
 					.addUnary(UnarySLTLOp.Neg)
 					.AddBinaryRight(child, BinarySLTLOp.Until);
 
-				constraints.add(current.getResult());
+				SLTL finalSLTL = current.getResult();
+
+				constraints.add(finalSLTL);
 
 
 				// everything that is non null is the name of the function below
