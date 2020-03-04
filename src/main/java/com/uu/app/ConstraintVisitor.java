@@ -1,6 +1,6 @@
 package com.uu.app;
 
-import com.uu.app.SLTL.SLTL;
+import com.uu.app.SLTL.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +26,18 @@ public class ConstraintVisitor extends GatlBaseVisitor<String> {
 			.map(this::visit)
 			.filter(Objects::nonNull) // get idents of lower functions
 			.forEach(childName -> {
+
+				SLTLBuilder child = new SLTLBuilder("true")
+					.addNext(childName);
+
+				SLTLBuilder current = new SLTLBuilder("true")
+					.addNext(name)
+					.addUnary(UnarySLTLOp.Neg)
+					.AddBinaryRight(child, BinarySLTLOp.Until);
+
+				constraints.add(current.getResult());
+
+
 				// everything that is non null is the name of the function below
 				// add a constraint linking this node and the child node
 			});
