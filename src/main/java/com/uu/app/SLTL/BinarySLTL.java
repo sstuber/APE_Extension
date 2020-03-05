@@ -1,9 +1,9 @@
 package com.uu.app.SLTL;
 
 public class BinarySLTL extends SLTL {
-	BinarySLTLOp op;
-	SLTL left;
-	SLTL right;
+	public BinarySLTLOp op;
+	public SLTL left;
+	public SLTL right;
 
 	public BinarySLTL(BinarySLTLOp op, SLTL left, SLTL right) {
 		this.op = op;
