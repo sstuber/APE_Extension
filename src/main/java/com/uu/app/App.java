@@ -1,6 +1,7 @@
 package com.uu.app;
 
 import com.bpodgursky.jbool_expressions.Expression;
+import com.bpodgursky.jbool_expressions.rules.RuleSet;
 import com.uu.app.SLTL.SLTL;
 import com.uu.app.SLTL.SLTLBuilder;
 import com.uu.app.SLTL.SLTLFoldData;
@@ -24,8 +25,12 @@ public class App {
 		SLTLFoldData<Expression<StateData>> test2 = SLTLFoldData.CreateStateFold(2);
 
 		Expression<StateData> res = test.Fold(test2);
-
 		// f <sigma> <interpol> true yields ((sigma(s1) & interpol(s2) & true(s2)) | sigma(s2)
+
+		System.out.println(res);
+		res = RuleSet.toCNF(res);
+
+		System.out.println(res);
 
 		System.out.println("Hello World!");
 	}
