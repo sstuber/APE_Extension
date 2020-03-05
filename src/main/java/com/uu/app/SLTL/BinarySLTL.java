@@ -12,7 +12,7 @@ public class BinarySLTL extends SLTL {
 	}
 
 	@Override
-	<T> T Fold(SLTLFoldData<T> data) {
+	public <T> T Fold(SLTLFoldData<T> data) {
 
 		T leftFold = left.Fold(data);
 		T rightFold = right.Fold(data);

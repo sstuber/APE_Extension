@@ -13,16 +13,16 @@ public class UnarySLTL extends SLTL {
 		this.moduleName = null;
 	}
 
-	SLTL right;
-	UnarySLTLOp op;
-	String moduleName;
+	public SLTL right;
+	public UnarySLTLOp op;
+	public String moduleName;
 
 	@Override
-	<T> T Fold(SLTLFoldData<T> data) {
+	public <T> T Fold(SLTLFoldData<T> data) {
 
-		T rightFold = right.Fold(data);
+		//T rightFold = right.Fold(data);
 
-		return data.unaryFold.Fold(rightFold, this, data);
+		return data.unaryFold.Fold(this, data);
 	}
 
 	@Override
