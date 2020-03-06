@@ -7,6 +7,7 @@ import com.uu.app.SLTL.NoopSLTL;
 import com.uu.app.SLTL.NoopSLTLFold;
 import com.uu.app.SLTL.SLTLFoldData;
 import com.uu.app.StateData;
+import com.uu.app.StateType;
 
 public class NoopSLTLStateFold implements NoopSLTLFold<Expression<StateData>> {
 
@@ -22,6 +23,7 @@ public class NoopSLTLStateFold implements NoopSLTLFold<Expression<StateData>> {
 		StateData state = new StateData();
 		state.name = objSLTL.typeName;
 		state.stateId = data.currentState;
+		state.type = StateType.Type;
 
 		//Expression<StateData> test = Variable.of();
 

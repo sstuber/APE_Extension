@@ -6,6 +6,7 @@ import com.uu.app.SLTL.UnarySLTL;
 import com.uu.app.SLTL.UnarySLTLFold;
 import com.uu.app.SLTL.UnarySLTLOp;
 import com.uu.app.StateData;
+import com.uu.app.StateType;
 
 public class UnarySLTLStateFold implements UnarySLTLFold<Expression<StateData>> {
 	@Override
@@ -50,6 +51,7 @@ public class UnarySLTLStateFold implements UnarySLTLFold<Expression<StateData>> 
 				StateData nextState = new StateData();
 				nextState.stateId = data.currentState; // State is increase at the start of this fn
 				nextState.name = obj.moduleName;
+				nextState.type = StateType.Module;
 
 				result = Variable.of(nextState);
 				result = arg1 == null ? result : And.of(result, arg1);
