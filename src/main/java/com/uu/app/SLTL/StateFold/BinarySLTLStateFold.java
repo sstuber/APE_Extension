@@ -25,18 +25,44 @@ public class BinarySLTLStateFold implements BinarySLTLFold<Expression<StateData>
 
 		switch (obj.op) {
 			case Or: {
-				result = Or.of(arg1, arg2);
+				if (arg1 != null && arg2 != null)
+					result = Or.of(arg1, arg2);
+
+				if (arg1 == null)
+					result = arg2;
+
+				if (arg2 == null)
+					result = arg1;
+
 				break;
 			}
 			case And: {
-				result = And.of(arg1, arg2);
+				if (arg1 != null && arg2 != null)
+					result = And.of(arg1, arg2);
+
+				if (arg1 == null)
+					result = arg2;
+
+				if (arg2 == null)
+					result = arg1;
 				break;
 			}
 			case Until: {
 				Expression<StateData> untilExpr = IncreaseStateFold(obj, data);
-				result = untilExpr == null ? arg1 : And.of(arg1, untilExpr);
+				if (arg1 != null && untilExpr != null)
+					result = And.of(arg1, untilExpr);
 
-				result = Or.of(arg2, result);
+				if (untilExpr == null)
+					result = arg1;
+
+				if (arg1 == null)
+					result = untilExpr;
+
+				if (result != null && arg2 != null)
+					result = Or.of(arg2, result);
+
+				if (result == null)
+					result = arg2;
 				break;
 			}
 		}

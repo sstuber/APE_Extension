@@ -26,6 +26,9 @@ public class UnarySLTLStateFold implements UnarySLTLFold<Expression<StateData>> 
 			return null;
 		}
 
+		if (arg1 == null && obj.op != UnarySLTLOp.Next)
+			return null;
+
 		Expression<StateData> result = null;
 
 		switch (obj.op) {
