@@ -17,6 +17,7 @@ import nl.uu.cs.ape.sat.models.enums.WorkflowElement;
 import nl.uu.cs.ape.sat.utils.APEDomainSetup;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class SLTLConstraintBuilder implements ExternalConstraintBuilder {
@@ -45,7 +46,47 @@ public class SLTLConstraintBuilder implements ExternalConstraintBuilder {
 		this.atomMappings = atomMappings;
 
 
-		return null;
+		return WalkCnf();
+	}
+
+	StringBuilder WalkCnf() {
+		List<Expression<StateData>> conjunctionExpressions = this.booleanCnfConstraint.getChildren();
+
+		StringBuilder conjunctionString = conjunctionExpressions.stream()
+			.map(disjunctionExpr -> {
+				StringBuilder disjunctionString = new StringBuilder();
+
+				if (isSingleVariable(disjunctionExpr)) {
+					disjunctionString.append(TranslateSingleVariable(disjunctionExpr));
+					disjunctionString.append(" 0\n");
+
+					return disjunctionString;
+				}
+
+
+				disjunctionExpr.getExprType();
+
+				return disjunctionString;
+			})
+			.reduce(new StringBuilder(), StringBuilder::append);
+
+		return conjunctionString;
+	}
+
+	boolean isSingleVariable(Expression<StateData> value) {
+		return value.getExprType().equals("variable") || value.getExprType().equals("not");
+	}
+
+	StringBuilder TranslateSingleVariable(Expression<StateData> value) {
+		StringBuilder variableString = new StringBuilder();
+		StateData variable = (StateData) value.getAllK().toArray()[0];
+
+		if (value.getExprType().equals("not"))
+			variableString.append("-");
+
+		int literal = LookupModuleLiteral(variable);
+
+		return variableString.append(literal);
 	}
 
 	// maxbound and k should be the same
@@ -54,22 +95,22 @@ public class SLTLConstraintBuilder implements ExternalConstraintBuilder {
 		if (stateData.type == StateType.Type)
 			return null;
 
-		int stateIndex = stateData.stateId -1;
+		int stateIndex = stateData.stateId - 1;
 		State state = moduleAutomaton.get(stateIndex);
 
 		AbstractModule module = allModules.get(stateData.name);
 		WorkflowElement elementType = WorkflowElement.MODULE;
 
 		// If module didn't within APE it is an external module
-		if (module == null){
+		if (module == null) {
 			module = CreateNewModule(stateData.name);
 			elementType = WorkflowElement.EXTERNAL;
 		}
 
-		return atomMappings.add(module,state,elementType);
+		return atomMappings.add(module, state, elementType);
 	}
 
-	Module CreateNewModule(String name){
+	Module CreateNewModule(String name) {
 		return new Module(name, name, "ToolsTaxonomy", null);
 	}
 
