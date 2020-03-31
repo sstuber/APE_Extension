@@ -2,15 +2,44 @@ package com.uu.app;
 
 import com.bpodgursky.jbool_expressions.Expression;
 import com.bpodgursky.jbool_expressions.rules.RuleSet;
+import com.uu.app.APE.APEHandler;
+import com.uu.app.APE.SLTLConstraintBuilder;
 import com.uu.app.SLTL.*;
 import com.uu.app.SLTL.StateFold.StateData;
+import nl.uu.cs.ape.sat.core.implSAT.SATsolutionsList;
+
+import java.io.IOException;
+import java.rmi.server.ExportException;
 
 /**
  * Hello world!
  */
 public class App {
 	public static void main(String[] args) {
+		String apeConfigPath = "C:\\University\\scriptie\\APE_fork\\ape.configuration";
 
+		APEHandler ape = null;
+		try {
+
+			ape = new APEHandler(apeConfigPath);
+		} catch (Exception e) {
+			System.err.println(e);
+			return;
+		}
+
+		SLTLBuilder sltlBuilder = new SLTLBuilder("true")
+			.addNext("add_cpt")
+			.addUnary(UnarySLTLOp.Future);
+
+		SLTLConstraintBuilder constraint = new SLTLConstraintBuilder(sltlBuilder.getResult(), 7);
+
+		System.out.println(constraint.GetCnfString());
+
+		ape.AddConstraint(constraint);
+		ape.RunSynthesis();
+	}
+
+	public static void TestStateFold() {
 		GatlParserHandler handler = new GatlParserHandler();
 
 		handler.ParseAndPrint("reify(pi(sigma( interpol(noise,locations),euros)) )");
@@ -39,4 +68,6 @@ public class App {
 
 		System.out.println("Hello World!");
 	}
+
+
 }
