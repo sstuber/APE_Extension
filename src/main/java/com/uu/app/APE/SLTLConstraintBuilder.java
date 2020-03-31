@@ -16,9 +16,9 @@ import nl.uu.cs.ape.sat.models.Module;
 import nl.uu.cs.ape.sat.models.enums.WorkflowElement;
 import nl.uu.cs.ape.sat.utils.APEDomainSetup;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.security.PublicKey;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class SLTLConstraintBuilder implements ExternalConstraintBuilder {
 	Expression<StateData> booleanCnfConstraint;
@@ -49,13 +49,17 @@ public class SLTLConstraintBuilder implements ExternalConstraintBuilder {
 	StringBuilder WalkCnf() {
 		List<Expression<StateData>> conjunctionExpressions = this.booleanCnfConstraint.getChildren();
 
+		if (this.booleanCnfConstraint.getExprType().equals("or"))
+			conjunctionExpressions = Collections.singletonList(this.booleanCnfConstraint);
+
+
 		StringBuilder conjunctionString = conjunctionExpressions.stream()
 			.map(disjunctionExpr -> {
 				StringBuilder disjunctionString = new StringBuilder();
 
 				if (isSingleVariable(disjunctionExpr)) {
 					disjunctionString.append(TranslateSingleVariable(disjunctionExpr));
-					disjunctionString.append("0\n");
+					disjunctionString.append("0\n ");
 
 					return disjunctionString;
 				}
@@ -65,7 +69,8 @@ public class SLTLConstraintBuilder implements ExternalConstraintBuilder {
 
 				StringBuilder result = test.stream()
 					.map(this::TranslateSingleVariable)
-					.reduce(disjunctionString, StringBuilder::append);
+					.reduce(disjunctionString, StringBuilder::append)
+					.append("0\n ");
 
 
 				//disjunctionExpr.getExprType();
@@ -116,6 +121,10 @@ public class SLTLConstraintBuilder implements ExternalConstraintBuilder {
 
 	Module CreateNewModule(String name) {
 		return new Module(name, name, "ToolsTaxonomy", null);
+	}
+
+	public String GetCnfString() {
+		return booleanCnfConstraint.toString();
 	}
 
 }
