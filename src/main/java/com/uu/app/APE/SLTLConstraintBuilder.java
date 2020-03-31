@@ -21,9 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class SLTLConstraintBuilder implements ExternalConstraintBuilder {
-
 	Expression<StateData> booleanCnfConstraint;
-	ArrayList<String> toolNames;
 
 	// Null until called in APE
 	AllModules allModules;
@@ -31,8 +29,7 @@ public class SLTLConstraintBuilder implements ExternalConstraintBuilder {
 	TypeAutomaton typeAutomaton;
 	AtomMappings atomMappings;
 
-	public SLTLConstraintBuilder(SLTL temporalConstraint, ArrayList<String> toolNames, int maxBound) {
-		this.toolNames = toolNames;
+	public SLTLConstraintBuilder(SLTL temporalConstraint, int maxBound) {
 		booleanCnfConstraint = temporalConstraint.StateFold(maxBound);
 
 		booleanCnfConstraint = RuleSet.toCNF(booleanCnfConstraint);
@@ -58,13 +55,20 @@ public class SLTLConstraintBuilder implements ExternalConstraintBuilder {
 
 				if (isSingleVariable(disjunctionExpr)) {
 					disjunctionString.append(TranslateSingleVariable(disjunctionExpr));
-					disjunctionString.append(" 0\n");
+					disjunctionString.append("0\n");
 
 					return disjunctionString;
 				}
 
+				List<Expression<StateData>> test = disjunctionExpr
+					.getChildren();
 
-				disjunctionExpr.getExprType();
+				StringBuilder result = test.stream()
+					.map(this::TranslateSingleVariable)
+					.reduce(disjunctionString, StringBuilder::append);
+
+
+				//disjunctionExpr.getExprType();
 
 				return disjunctionString;
 			})
@@ -86,7 +90,7 @@ public class SLTLConstraintBuilder implements ExternalConstraintBuilder {
 
 		int literal = LookupModuleLiteral(variable);
 
-		return variableString.append(literal);
+		return variableString.append(literal).append(' ');
 	}
 
 	// maxbound and k should be the same
