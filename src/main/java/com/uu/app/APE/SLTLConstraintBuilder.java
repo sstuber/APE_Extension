@@ -4,11 +4,16 @@ import com.bpodgursky.jbool_expressions.Expression;
 import com.bpodgursky.jbool_expressions.rules.RuleSet;
 import com.uu.app.SLTL.SLTL;
 import com.uu.app.SLTL.StateFold.StateData;
+import com.uu.app.SLTL.StateFold.StateType;
 import nl.uu.cs.ape.sat.automaton.ModuleAutomaton;
+import nl.uu.cs.ape.sat.automaton.State;
 import nl.uu.cs.ape.sat.automaton.TypeAutomaton;
 import nl.uu.cs.ape.sat.core.extrernal.ExternalConstraintBuilder;
+import nl.uu.cs.ape.sat.models.AbstractModule;
 import nl.uu.cs.ape.sat.models.AllModules;
 import nl.uu.cs.ape.sat.models.AtomMappings;
+import nl.uu.cs.ape.sat.models.Module;
+import nl.uu.cs.ape.sat.models.enums.WorkflowElement;
 import nl.uu.cs.ape.sat.utils.APEDomainSetup;
 
 import java.util.ArrayList;
@@ -43,9 +48,29 @@ public class SLTLConstraintBuilder implements ExternalConstraintBuilder {
 		return null;
 	}
 
+	// maxbound and k should be the same
 	Integer LookupModuleLiteral(StateData stateData) {
 
-		return null;
+		if (stateData.type == StateType.Type)
+			return null;
+
+		int stateIndex = stateData.stateId -1;
+		State state = moduleAutomaton.get(stateIndex);
+
+		AbstractModule module = allModules.get(stateData.name);
+		WorkflowElement elementType = WorkflowElement.MODULE;
+
+		// If module didn't within APE it is an external module
+		if (module == null){
+			module = CreateNewModule(stateData.name);
+			elementType = WorkflowElement.EXTERNAL;
+		}
+
+		return atomMappings.add(module,state,elementType);
+	}
+
+	Module CreateNewModule(String name){
+		return new Module(name, name, "ToolsTaxonomy", null);
 	}
 
 }
