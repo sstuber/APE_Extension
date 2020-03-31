@@ -4,7 +4,7 @@ import com.bpodgursky.jbool_expressions.Expression;
 import com.uu.app.SLTL.StateFold.BinarySLTLStateFold;
 import com.uu.app.SLTL.StateFold.NoopSLTLStateFold;
 import com.uu.app.SLTL.StateFold.UnarySLTLStateFold;
-import com.uu.app.StateData;
+import com.uu.app.SLTL.StateFold.StateData;
 
 public class SLTLFoldData<T> {
 

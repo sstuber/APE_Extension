@@ -1,4 +1,4 @@
-package com.uu.app;
+package com.uu.app.SLTL.StateFold;
 
 public class StateData {
 	public String name;

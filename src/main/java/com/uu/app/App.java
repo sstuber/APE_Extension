@@ -3,6 +3,7 @@ package com.uu.app;
 import com.bpodgursky.jbool_expressions.Expression;
 import com.bpodgursky.jbool_expressions.rules.RuleSet;
 import com.uu.app.SLTL.*;
+import com.uu.app.SLTL.StateFold.StateData;
 
 /**
  * Hello world!

@@ -6,8 +6,6 @@ import com.bpodgursky.jbool_expressions.Or;
 import com.uu.app.SLTL.BinarySLTL;
 import com.uu.app.SLTL.BinarySLTLFold;
 import com.uu.app.SLTL.SLTLFoldData;
-import com.uu.app.SLTL.UnarySLTL;
-import com.uu.app.StateData;
 
 public class BinarySLTLStateFold implements BinarySLTLFold<Expression<StateData>> {
 	@Override

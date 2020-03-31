@@ -5,8 +5,6 @@ import com.uu.app.SLTL.SLTLFoldData;
 import com.uu.app.SLTL.UnarySLTL;
 import com.uu.app.SLTL.UnarySLTLFold;
 import com.uu.app.SLTL.UnarySLTLOp;
-import com.uu.app.StateData;
-import com.uu.app.StateType;
 
 public class UnarySLTLStateFold implements UnarySLTLFold<Expression<StateData>> {
 	@Override

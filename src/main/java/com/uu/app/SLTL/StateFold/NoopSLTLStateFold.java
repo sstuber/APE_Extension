@@ -1,13 +1,10 @@
 package com.uu.app.SLTL.StateFold;
 
 import com.bpodgursky.jbool_expressions.*;
-import com.bpodgursky.jbool_expressions.rules.RuleSet;
 
 import com.uu.app.SLTL.NoopSLTL;
 import com.uu.app.SLTL.NoopSLTLFold;
 import com.uu.app.SLTL.SLTLFoldData;
-import com.uu.app.StateData;
-import com.uu.app.StateType;
 
 public class NoopSLTLStateFold implements NoopSLTLFold<Expression<StateData>> {
 
