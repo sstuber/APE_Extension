@@ -31,9 +31,9 @@ public class App {
 			.addNext("add_cpt")
 			.addUnary(UnarySLTLOp.Future);
 
-		SLTLConstraintBuilder constraint = new SLTLConstraintBuilder(sltlBuilder.getResult(), 7);
+		SLTLConstraintBuilder constraint = new SLTLConstraintBuilder(sltlBuilder.getResult());
 
-		System.out.println(constraint.GetCnfString());
+		System.out.println(constraint.GetCnfString(5));
 
 		ape.AddConstraint(constraint);
 		ape.RunSynthesis();

@@ -22,6 +22,7 @@ import java.util.stream.Stream;
 
 public class SLTLConstraintBuilder implements ExternalConstraintBuilder {
 	Expression<StateData> booleanCnfConstraint;
+	SLTL temporalConstraint;
 
 	// Null until called in APE
 	AllModules allModules;
@@ -29,19 +30,19 @@ public class SLTLConstraintBuilder implements ExternalConstraintBuilder {
 	TypeAutomaton typeAutomaton;
 	AtomMappings atomMappings;
 
-	public SLTLConstraintBuilder(SLTL temporalConstraint, int maxBound) {
-		booleanCnfConstraint = temporalConstraint.StateFold(maxBound);
-
-		booleanCnfConstraint = RuleSet.toCNF(booleanCnfConstraint);
+	public SLTLConstraintBuilder(SLTL temporalConstraint) {
+		this.temporalConstraint = temporalConstraint;
 	}
 
 	@Override
-	public StringBuilder Build(APEDomainSetup apeDomainSetup, ModuleAutomaton moduleAutomaton, TypeAutomaton typeAutomaton, AtomMappings atomMappings) {
+	public StringBuilder Build(APEDomainSetup apeDomainSetup, ModuleAutomaton moduleAutomaton, TypeAutomaton typeAutomaton, AtomMappings atomMappings, int maxBound) {
 		this.allModules = apeDomainSetup.getAllModules();
 		this.moduleAutomaton = moduleAutomaton;
 		this.typeAutomaton = typeAutomaton;
 		this.atomMappings = atomMappings;
 
+		booleanCnfConstraint = temporalConstraint.StateFold(maxBound);
+		booleanCnfConstraint = RuleSet.toCNF(booleanCnfConstraint);
 
 		return WalkCnf();
 	}
@@ -123,8 +124,8 @@ public class SLTLConstraintBuilder implements ExternalConstraintBuilder {
 		return new Module(name, name, "ToolsTaxonomy", null);
 	}
 
-	public String GetCnfString() {
-		return booleanCnfConstraint.toString();
+	public String GetCnfString(int bound) {
+		return RuleSet.toCNF(temporalConstraint.StateFold(bound)).toString();
 	}
 
 }
