@@ -59,7 +59,7 @@ public class SLTLConstraintBuilder implements ExternalConstraintBuilder {
 
 				if (isSingleVariable(disjunctionExpr)) {
 					disjunctionString.append(TranslateSingleVariable(disjunctionExpr));
-					disjunctionString.append("0\n ");
+					disjunctionString.append("0\n");
 
 					return disjunctionString;
 				}
@@ -70,7 +70,7 @@ public class SLTLConstraintBuilder implements ExternalConstraintBuilder {
 				StringBuilder result = test.stream()
 					.map(this::TranslateSingleVariable)
 					.reduce(disjunctionString, StringBuilder::append)
-					.append("0\n ");
+					.append("0\n");
 
 
 				//disjunctionExpr.getExprType();
