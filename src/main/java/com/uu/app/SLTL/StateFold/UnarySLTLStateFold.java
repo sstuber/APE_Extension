@@ -49,6 +49,12 @@ public class UnarySLTLStateFold implements UnarySLTLFold<Expression<StateData>> 
 				break;
 			}
 			case Next: {
+				// When a next is used without modulename we just want the next states with the increased values;
+				if (obj.moduleName == null) {
+					result = arg1;
+					break;
+				}
+
 				StateData nextState = new StateData();
 				nextState.stateId = data.currentState; // State is increase at the start of this fn
 				nextState.name = obj.moduleName;
