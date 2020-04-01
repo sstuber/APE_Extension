@@ -8,6 +8,10 @@ public class SLTLBuilder {
 		this.result = new NoopSLTL(type);
 	}
 
+	public SLTLBuilder() {
+		this.result = new NoopSLTL("true");
+	}
+
 	public SLTLBuilder addUnary(UnarySLTLOp op) {
 		result = new UnarySLTL(result, op);
 		return this;
