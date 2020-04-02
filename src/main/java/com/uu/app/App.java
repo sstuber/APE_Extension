@@ -3,6 +3,7 @@ package com.uu.app;
 import com.bpodgursky.jbool_expressions.Expression;
 import com.bpodgursky.jbool_expressions.rules.RuleSet;
 import com.uu.app.APE.APEHandler;
+import com.uu.app.APE.ApeSltlFactory;
 import com.uu.app.APE.SLTLConstraintBuilder;
 import com.uu.app.SLTL.*;
 import com.uu.app.SLTL.StateFold.StateData;
@@ -27,7 +28,7 @@ public class App {
 			System.err.println(e);
 			return;
 		}
-
+/*
 		SLTLBuilder sltlBuilder = new SLTLBuilder("true")
 			.addNext("add_cpt")
 			.addUnary(UnarySLTLOp.Future);
@@ -35,8 +36,17 @@ public class App {
 		SLTLConstraintBuilder constraint = new SLTLConstraintBuilder(sltlBuilder.getResult());
 
 		System.out.println(constraint.GetCnfString(5));
+*/
 
-		ape.AddConstraint(constraint);
+		ape.AddConstraint(ApeSltlFactory.IfThenNot("Points_and_lines", "Basemaps"));
+		//ape.AddConstraint(ApeSltlFactory.UseBAfterA("initGMT", "Plot_creation"));
+		ape.AddConstraint(ApeSltlFactory.UseModule("Draw_water"));
+		ape.AddConstraint(ApeSltlFactory.UseModule("Draw_land"));
+		ape.AddConstraint(ApeSltlFactory.UseModule("Draw_political_borders"));
+		ape.AddConstraint(ApeSltlFactory.UseModule("Points_and_lines"));
+
+
+		//ape.AddConstraint(constraint);
 		ape.RunSynthesis();
 	}
 
