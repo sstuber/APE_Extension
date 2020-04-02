@@ -40,7 +40,7 @@ public class ApeSltlFactory {
 	public static SLTLConstraintBuilder UseBAfterA(String param1, String param2) {
 		SLTLBuilder leftSide = DoNotUseModule(param1);
 
-		SLTLBuilder rightSide = new SLTLBuilder().addNext(param2);
+		SLTLBuilder rightSide = new SLTLBuilder().addNext(param2).addUnary(UnarySLTLOp.Next);
 
 		SLTLBuilder finalFormula = leftSide
 			.AddBinaryRight(rightSide, BinarySLTLOp.Or)
