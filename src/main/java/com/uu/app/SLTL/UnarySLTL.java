@@ -27,7 +27,7 @@ public class UnarySLTL extends SLTL {
 
 	@Override
 	public String toString() {
-		if (op == UnarySLTLOp.Next)
+		if (op == UnarySLTLOp.Next && this.moduleName != null)
 			return "<" + this.moduleName + "> " + right.toString();
 
 		return op.toString() + " " + right.toString();
