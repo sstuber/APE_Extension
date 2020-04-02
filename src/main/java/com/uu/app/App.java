@@ -16,12 +16,13 @@ import java.rmi.server.ExportException;
  */
 public class App {
 	public static void main(String[] args) {
-		String apeConfigPath = "C:\\University\\scriptie\\APE_fork\\ape.configuration";
+		String apeConfigPath = "./ape.configuration";
+		String apeExtensionConfigPath = "./apeExt.configuration";
 
 		APEHandler ape = null;
 		try {
 
-			ape = new APEHandler(apeConfigPath);
+			ape = new APEHandler(apeExtensionConfigPath);
 		} catch (Exception e) {
 			System.err.println(e);
 			return;
