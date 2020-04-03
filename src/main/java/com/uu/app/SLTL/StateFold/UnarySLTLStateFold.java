@@ -15,6 +15,9 @@ public class UnarySLTLStateFold implements UnarySLTLFold<Expression<StateData>> 
 			// we need a copy so 2 nexts after each other don't share the same object;
 			data = data.Copy();
 			data.currentState += 1;
+			if (data.currentState > data.maxBound) {
+				return Literal.of(false);
+			}
 		}
 
 		Expression<StateData> arg1 = obj.right.Fold(data);
@@ -78,7 +81,7 @@ public class UnarySLTLStateFold implements UnarySLTLFold<Expression<StateData>> 
 		SLTLFoldData<Expression<StateData>> data2 = data.Copy();
 		data2.currentState += 1;
 
-		if (data2.currentState == data2.maxBound)
+		if (data2.currentState >= data2.maxBound)
 			return null;
 
 		return obj.Fold(data2);
