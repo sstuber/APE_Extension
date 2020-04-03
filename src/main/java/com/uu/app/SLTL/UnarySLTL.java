@@ -30,6 +30,6 @@ public class UnarySLTL extends SLTL {
 		if (op == UnarySLTLOp.Next && this.moduleName != null)
 			return "<" + this.moduleName + "> " + right.toString();
 
-		return op.toString() + " " + right.toString();
+		return op.toString() + " (" + right.toString() + ")";
 	}
 }
