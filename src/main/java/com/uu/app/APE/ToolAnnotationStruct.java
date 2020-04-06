@@ -1,6 +1,6 @@
 package com.uu.app.APE;
 
-public class ToolAnnotation {
+public class ToolAnnotationStruct {
 	String name;
 	String gataAnnotation;
 

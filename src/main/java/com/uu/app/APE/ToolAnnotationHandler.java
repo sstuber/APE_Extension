@@ -33,14 +33,14 @@ public class ToolAnnotationHandler {
 			.map(this::transformAnnotation);
 	}
 
-	public Stream<ToolAnnotation> getAnnotationStreamFromJson() {
+	public Stream<ToolAnnotationStruct> getAnnotationStreamFromJson() {
 		try {
 			String content = FileUtils.readFileToString(new File(path), "utf-8");
 			JSONObject jsonObject = new JSONObject(content);
 
 			JSONArray annotations = jsonObject.getJSONArray(mainKey);
 
-			Stream<ToolAnnotation> annotationList = annotations.toList().stream()
+			Stream<ToolAnnotationStruct> annotationList = annotations.toList().stream()
 				.map(this::collectAnnotation);
 
 			return annotationList;
@@ -52,7 +52,7 @@ public class ToolAnnotationHandler {
 
 	// G ( tool -> fn1 and fn2)
 	// G ( ! tool or (fn1 and fn2))
-	private SLTL transformAnnotation(ToolAnnotation annotation) {
+	private SLTL transformAnnotation(ToolAnnotationStruct annotation) {
 		SLTLBuilder toolside = new SLTLBuilder()
 			.addNext(annotation.name)
 			.addUnary(UnarySLTLOp.Neg);
@@ -64,8 +64,8 @@ public class ToolAnnotationHandler {
 			.getResult();
 	}
 
-	private ToolAnnotation collectAnnotation(Object test) {
-		ToolAnnotation result = new ToolAnnotation();
+	private ToolAnnotationStruct collectAnnotation(Object test) {
+		ToolAnnotationStruct result = new ToolAnnotationStruct();
 
 		result.name = ((HashMap<String, String>) test).get(toolKey);
 		result.gataAnnotation = ((HashMap<String, String>) test).get(gataAnnotation);

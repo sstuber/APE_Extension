@@ -20,7 +20,7 @@ import java.security.PublicKey;
 import java.util.*;
 import java.util.stream.Stream;
 
-public class SLTLConstraintBuilder implements ExternalConstraintBuilder {
+public class CnfToSatConstraintBuilder implements ExternalConstraintBuilder {
 	Expression<StateData> booleanCnfConstraint;
 	SLTL temporalConstraint;
 
@@ -30,7 +30,7 @@ public class SLTLConstraintBuilder implements ExternalConstraintBuilder {
 	TypeAutomaton typeAutomaton;
 	AtomMappings atomMappings;
 
-	public SLTLConstraintBuilder(SLTL temporalConstraint) {
+	public CnfToSatConstraintBuilder(SLTL temporalConstraint) {
 		this.temporalConstraint = temporalConstraint;
 	}
 
