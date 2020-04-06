@@ -1,5 +1,6 @@
 package com.uu.app.APE;
 
+import com.uu.app.SLTL.SLTL;
 import guru.nidi.graphviz.attribute.RankDir;
 import nl.uu.cs.ape.sat.APE;
 import nl.uu.cs.ape.sat.core.extrernal.ExternalConstraintBuilder;
@@ -16,6 +17,10 @@ public class APEHandler {
 		this.configPath = configPath;
 		this.apeFramework = new APE(configPath);
 
+	}
+
+	public void AddConstraint(SLTL constraint) {
+		this.apeFramework.AddExternalConstraint(new CnfToSatConstraintBuilder(constraint));
 	}
 
 	public void AddConstraint(ExternalConstraintBuilder constraint) {

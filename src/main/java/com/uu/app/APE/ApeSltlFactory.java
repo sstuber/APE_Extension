@@ -20,7 +20,7 @@ public class ApeSltlFactory {
 
 	// G(¬ <Tool 1>true) | X G ¬ <Tool 2>true)
 	//	//	 X G ¬ <Tool 2>true)
-	public static CnfToSatConstraintBuilder IfThenNot(String param1, String param2) {
+	public static SLTL IfThenNot(String param1, String param2) {
 
 		SLTLBuilder leftSide = DoNotUseModule(param1);
 
@@ -32,12 +32,12 @@ public class ApeSltlFactory {
 			.AddBinaryRight(rightSide, BinarySLTLOp.Or)
 			.addUnary(UnarySLTLOp.Global);
 
-		return new CnfToSatConstraintBuilder(finalFormula.getResult());
+		return finalFormula.getResult();
 	}
 
 	// G(¬ <Tool 1>true |
 	//	 X <Tool 2>true)
-	public static CnfToSatConstraintBuilder UseBAfterA(String param1, String param2) {
+	public static SLTL UseBAfterA(String param1, String param2) {
 		SLTLBuilder leftSide = DoNotUseModule(param1);
 
 		SLTLBuilder rightSide = new SLTLBuilder().addNext(param2).addUnary(UnarySLTLOp.Next);
@@ -46,17 +46,15 @@ public class ApeSltlFactory {
 			.AddBinaryRight(rightSide, BinarySLTLOp.Or)
 			.addUnary(UnarySLTLOp.Global);
 
-		return new CnfToSatConstraintBuilder(finalFormula.getResult());
+		return finalFormula.getResult();
 	}
 
 	// F <Tool 1>true
-	public static CnfToSatConstraintBuilder UseModule(String param1) {
-		return new CnfToSatConstraintBuilder(
-			new SLTLBuilder()
-				.addNext(param1)
-				.addUnary(UnarySLTLOp.Future)
-				.getResult()
-		);
+	public static SLTL UseModule(String param1) {
+		return new SLTLBuilder()
+			.addNext(param1)
+			.addUnary(UnarySLTLOp.Future)
+			.getResult();
 	}
 
 
