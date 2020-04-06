@@ -1,6 +1,6 @@
 package com.uu.app.APE;
 
-import com.uu.app.GatlParserHandler;
+import com.uu.app.GATA.GataParserHandler;
 import com.uu.app.SLTL.BinarySLTLOp;
 import com.uu.app.SLTL.SLTL;
 import com.uu.app.SLTL.SLTLBuilder;
@@ -57,7 +57,7 @@ public class ToolAnnotationHandler {
 			.addNext(annotation.name)
 			.addUnary(UnarySLTLOp.Neg);
 
-		SLTLBuilder functionSide = GatlParserHandler.ParseGataToolAnnotation(annotation.gataAnnotation);
+		SLTLBuilder functionSide = GataParserHandler.ParseGataToolAnnotation(annotation.gataAnnotation);
 
 		return toolside
 			.AddBinaryRight(functionSide, BinarySLTLOp.Or)

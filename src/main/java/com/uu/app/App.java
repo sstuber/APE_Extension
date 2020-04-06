@@ -5,6 +5,7 @@ import com.bpodgursky.jbool_expressions.rules.RuleSet;
 import com.uu.app.APE.APEHandler;
 import com.uu.app.APE.ApeSltlFactory;
 import com.uu.app.APE.ToolAnnotationHandler;
+import com.uu.app.GATA.GataParserHandler;
 import com.uu.app.SLTL.*;
 import com.uu.app.SLTL.StateFold.StateData;
 
@@ -51,7 +52,7 @@ public class App {
 	}
 
 	public static void TestStateFold() {
-		GatlParserHandler handler = new GatlParserHandler();
+		GataParserHandler handler = new GataParserHandler();
 
 		handler.ParseAndPrint("reify(pi(sigma( interpol(noise,locations),euros)) )");
 

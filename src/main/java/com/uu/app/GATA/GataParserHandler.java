@@ -1,5 +1,4 @@
-package com.uu.app;
-
+package com.uu.app.GATA;
 import com.uu.app.SLTL.BinarySLTLOp;
 import com.uu.app.SLTL.SLTL;
 import com.uu.app.SLTL.SLTLBuilder;
@@ -8,25 +7,9 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
-public class GatlParserHandler {
-
-	private static ParseTree parse(String input){
-		ANTLRInputStream inputStream = new ANTLRInputStream(input);
-
-		// create a lexer that feeds off of inputStream CharStream
-		GatlLexer lexer = new GatlLexer(inputStream);
-
-		// create a buffer of tokens pulled from the lexer
-		CommonTokenStream tokens = new CommonTokenStream(lexer);
-
-		// create a parser that feeds off the tokens buffer
-		GatlParser parser = new GatlParser(tokens);
-
-		return parser.gatl();
-	}
+public class GataParserHandler {
 
 	public static SLTLBuilder ParseGataToolAnnotation(String input)  {
 		ParseTree tree = parse(input);
@@ -44,7 +27,7 @@ public class GatlParserHandler {
 	}
 
 	public ArrayList<SLTL> ParseGataInput(String input){
-		ConstraintVisitor visitor = new ConstraintVisitor();
+		GataInputVisitor visitor = new GataInputVisitor();
 		ParseTree tree =  parse(input);
 
 		visitor.visit(tree);
@@ -52,7 +35,20 @@ public class GatlParserHandler {
 		return visitor.constraints;
 	}
 
+	private static ParseTree parse(String input){
+		ANTLRInputStream inputStream = new ANTLRInputStream(input);
 
+		// create a lexer that feeds off of inputStream CharStream
+		GatlLexer lexer = new GatlLexer(inputStream);
+
+		// create a buffer of tokens pulled from the lexer
+		CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+		// create a parser that feeds off the tokens buffer
+		GatlParser parser = new GatlParser(tokens);
+
+		return parser.gatl();
+	}
 
 	public void ParseAndPrint(String input) {
 		ANTLRInputStream inputStream = new ANTLRInputStream(input);
@@ -68,7 +64,7 @@ public class GatlParserHandler {
 
 		ParseTree tree = parser.gatl(); // begin parsing at init rule
 
-		ConstraintVisitor visitor = new ConstraintVisitor();
+		GataInputVisitor visitor = new GataInputVisitor();
 
 		String test =  visitor.visit(tree);
 

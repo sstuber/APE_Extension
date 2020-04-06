@@ -1,4 +1,4 @@
-package com.uu.app;
+package com.uu.app.GATA;
 
 import com.uu.app.SLTL.*;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ConstraintVisitor extends GatlBaseVisitor<String> {
+public class GataInputVisitor extends GatlBaseVisitor<String> {
 
 	ArrayList<SLTL> constraints = new ArrayList<>();
 

@@ -1,5 +1,4 @@
-package com.uu.app;
-
+package com.uu.app.GATA;
 import java.util.ArrayList;
 
 public class GataAnnotationVisitor extends GatlBaseVisitor<String> {
