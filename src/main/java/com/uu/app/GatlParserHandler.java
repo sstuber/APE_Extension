@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class GatlParserHandler {
 
-	private ParseTree parse(String input){
+	private static ParseTree parse(String input){
 		ANTLRInputStream inputStream = new ANTLRInputStream(input);
 
 		// create a lexer that feeds off of inputStream CharStream
@@ -28,7 +28,7 @@ public class GatlParserHandler {
 		return parser.gatl();
 	}
 
-	public SLTL ParseGataToolAnnotation(String input)  {
+	public static SLTLBuilder ParseGataToolAnnotation(String input)  {
 		ParseTree tree = parse(input);
 		GataAnnotationVisitor visitor = new GataAnnotationVisitor();
 
@@ -40,7 +40,6 @@ public class GatlParserHandler {
 			.reduce((acc, test) -> acc.AddBinaryRight(test, BinarySLTLOp.And));
 
 		return conjunctionOfNames
-			.map(SLTLBuilder::getResult)
 			.orElse(null);
 	}
 
