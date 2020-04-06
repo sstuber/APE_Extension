@@ -4,19 +4,19 @@ import com.bpodgursky.jbool_expressions.Expression;
 import com.bpodgursky.jbool_expressions.rules.RuleSet;
 import com.uu.app.APE.APEHandler;
 import com.uu.app.APE.ApeSltlFactory;
-import com.uu.app.APE.SLTLConstraintBuilder;
+import com.uu.app.APE.ToolAnnotationHandler;
 import com.uu.app.SLTL.*;
 import com.uu.app.SLTL.StateFold.StateData;
-import nl.uu.cs.ape.sat.core.implSAT.SATsolutionsList;
-
-import java.io.IOException;
-import java.rmi.server.ExportException;
 
 /**
  * Hello world!
  */
 public class App {
 	public static void main(String[] args) {
+		ToolAnnotationHandler testHandler = new ToolAnnotationHandler();
+
+		testHandler.GetToolAnnotationConstraints().forEach(System.out::println);
+
 		String apeConfigPath = "./ape.configuration";
 		String apeExtensionConfigPath = "./apeExt.configuration";
 
