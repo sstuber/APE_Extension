@@ -60,7 +60,7 @@ public class ToolAnnotationHandler {
 		SLTLBuilder functionSide = GataParserHandler.ParseGataToolAnnotation(annotation.gataAnnotation);
 
 		return toolside
-			.AddBinaryRight(functionSide, BinarySLTLOp.Or)
+			.addBinaryRight(functionSide, BinarySLTLOp.Or)
 			.getResult();
 	}
 

@@ -62,7 +62,8 @@ public class App {
 			.addUnary(UnarySLTLOp.Future);
 
 		SLTL finalSltl = new SLTLBuilder("true")
-			.AddBinaryRight(test, BinarySLTLOp.Until).getResult();
+			.addBinaryRight(test, BinarySLTLOp.Until).getResult();
+
 
 		//SLTLFoldData<Expression<StateData>> test2 = SLTLFoldData.CreateStateFold(2);
 

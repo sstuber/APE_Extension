@@ -22,7 +22,7 @@ public class SLTLBuilder {
 		return this;
 	}
 
-	public SLTLBuilder AddBinaryRight(SLTLBuilder builder, BinarySLTLOp op) {
+	public SLTLBuilder addBinaryRight(SLTLBuilder builder, BinarySLTLOp op) {
 		result = new BinarySLTL(op, result, builder.getResult());
 		return this;
 	}

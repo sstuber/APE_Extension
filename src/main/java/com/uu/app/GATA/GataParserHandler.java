@@ -20,7 +20,7 @@ public class GataParserHandler {
 
 		Optional<SLTLBuilder> conjunctionOfNames = usedFunctions.stream()
 			.map(name -> new SLTLBuilder().addNext(name))
-			.reduce((acc, test) -> acc.AddBinaryRight(test, BinarySLTLOp.And));
+			.reduce((acc, test) -> acc.addBinaryRight(test, BinarySLTLOp.And));
 
 		return conjunctionOfNames
 			.orElse(null);

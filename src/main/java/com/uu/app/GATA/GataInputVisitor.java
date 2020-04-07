@@ -3,7 +3,6 @@ package com.uu.app.GATA;
 import com.uu.app.SLTL.*;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class GataInputVisitor extends GatlBaseVisitor<String> {
@@ -33,7 +32,7 @@ public class GataInputVisitor extends GatlBaseVisitor<String> {
 				SLTLBuilder current = new SLTLBuilder("true")
 					.addNext(name)
 					.addUnary(UnarySLTLOp.Neg)
-					.AddBinaryRight(child, BinarySLTLOp.Until);
+					.addBinaryRight(child, BinarySLTLOp.Until);
 
 				SLTL finalSLTL = current.getResult();
 
