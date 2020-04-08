@@ -20,6 +20,7 @@ public class ApeSltlFactory {
 			.addUnary(UnarySLTLOp.Neg);
 	}
 
+	//ite_m
 	//G(¬ <Tool 1>true | X F <Tool 2>true)
 	public static SLTL IfThenUse(String param1, String param2) {
 		SLTLBuilder leftside = DoNotUseTool(param1);
@@ -36,6 +37,7 @@ public class ApeSltlFactory {
 		return finalFormula.getResult();
 	}
 
+	//itn_m
 	// G(¬ <Tool 1>true) | X G ¬ <Tool 2>true)
 	public static SLTL IfThenNot(String param1, String param2) {
 
@@ -57,6 +59,7 @@ public class ApeSltlFactory {
 		return finalFormula.getResult();
 	}
 
+	// next_m
 	// G(¬ <Tool 1>true | X <Tool 2>true)
 	public static SLTL UseBAfterA(String param1, String param2) {
 		SLTLBuilder leftSide = DoNotUseTool(param1);

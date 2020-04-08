@@ -24,7 +24,7 @@ public class App {
 
 		testHandler.GetToolAnnotationConstraints().forEach(System.out::println);
 
-		ApeTester tester = ApeTester.basicSimpleDemoTester();
+		ApeTester tester = ApeTester.GeoExample1();
 
 		System.out.println(tester.test());
 	}
