@@ -16,12 +16,12 @@
   "number_of_generated_graphs": "10",
   "inputs": [
     {
-      "TypesTaxonomy": []
+      "TypesTaxonomy": "XYZ_table_file"
     }
   ],
   "outputs": [
     {
-      "TypesTaxonomy": []
+      "TypesTaxonomy": "PostScript"
     }
   ],
   "debug_mode": "true",

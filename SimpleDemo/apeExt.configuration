@@ -11,17 +11,17 @@
   "solution_max_length": "8",
   "max_solutions": "100",
   "execution_scripts_folder": "./SimpleDemo/Implementations/",
-  "number_of_execution_scripts": "6",
+  "number_of_execution_scripts": "0",
   "solution_graphs_folder": "./SimpleDemo/Extension_figures",
   "number_of_generated_graphs": "10",
   "inputs": [
     {
-      "TypesTaxonomy": []
+      "TypesTaxonomy": "XYZ_table_file"
     }
   ],
   "outputs": [
     {
-      "TypesTaxonomy": []
+      "TypesTaxonomy": "PostScript"
     }
   ],
   "debug_mode": "true",

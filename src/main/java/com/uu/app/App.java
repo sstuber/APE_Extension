@@ -18,17 +18,36 @@ public class App {
 
 		testHandler.GetToolAnnotationConstraints().forEach(System.out::println);
 
-		String apeConfigPath = "./ape.configuration";
-		String apeExtensionConfigPath = "./apeExt.configuration";
+		ApeTester tester = ApeTester.basicSimpleDemoTester();
+
+		tester.test();
+	}
+
+	public static void testApe(String[] args) {
+		ToolAnnotationHandler testHandler = new ToolAnnotationHandler();
+
+		testHandler.GetToolAnnotationConstraints().forEach(System.out::println);
+
+		String apeConfigPath = "./SimpleDemo/ape.configuration";
+		String apeExtensionConfigPath = "./SimpleDemo/apeExt.configuration";
 
 		APEHandler ape = null;
 		try {
 
-			ape = new APEHandler(apeExtensionConfigPath);
+			ape = new APEHandler(apeConfigPath);
 		} catch (Exception e) {
 			System.err.println(e);
 			return;
 		}
+
+		SLTL test = new SLTLBuilder().addNext("test")
+			.addUnary(UnarySLTLOp.Next)
+			.getResult();
+
+		Expression<StateData> test2 = test.StateFold(3);
+
+		System.out.println(test2);
+		System.out.println(RuleSet.toCNF(test2));
 /*
 		SLTLBuilder sltlBuilder = new SLTLBuilder("true")
 			.addNext("add_cpt")
@@ -40,7 +59,7 @@ public class App {
 */
 
 		ape.AddConstraint(ApeSltlFactory.IfThenNot("Points_and_lines", "Basemaps"));
-		//ape.AddConstraint(ApeSltlFactory.UseBAfterA("initGMT", "Plot_creation"));
+		ape.AddConstraint(ApeSltlFactory.UseBAfterA("initGMT", "Plot_creation"));
 		ape.AddConstraint(ApeSltlFactory.UseModule("Draw_water"));
 		ape.AddConstraint(ApeSltlFactory.UseModule("Draw_land"));
 		ape.AddConstraint(ApeSltlFactory.UseModule("Draw_political_borders"));
@@ -50,6 +69,7 @@ public class App {
 		//ape.AddConstraint(constraint);
 		ape.RunSynthesis();
 	}
+
 
 	public static void TestStateFold() {
 		GataParserHandler handler = new GataParserHandler();
