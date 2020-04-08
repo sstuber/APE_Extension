@@ -1,6 +1,9 @@
 package com.uu.app;
 
+import com.bpodgursky.jbool_expressions.And;
 import com.bpodgursky.jbool_expressions.Expression;
+import com.bpodgursky.jbool_expressions.Not;
+import com.bpodgursky.jbool_expressions.Variable;
 import com.bpodgursky.jbool_expressions.rules.RuleSet;
 import com.uu.app.APE.APEHandler;
 import com.uu.app.APE.ApeSltlFactory;
@@ -14,14 +17,57 @@ import com.uu.app.SLTL.StateFold.StateData;
  */
 public class App {
 	public static void main(String[] args) {
+
+		testConstraints();
+
 		ToolAnnotationHandler testHandler = new ToolAnnotationHandler();
 
 		testHandler.GetToolAnnotationConstraints().forEach(System.out::println);
 
 		ApeTester tester = ApeTester.basicSimpleDemoTester();
 
-		tester.test();
+		System.out.println(tester.test());
 	}
+
+	public static void testConstraints() {
+		printSLTL(ApeSltlFactory.DoNotUseModule("test"));        // correct
+		printSLTL(ApeSltlFactory.IfThenNot("test1", "test2"));            // correct
+		printSLTL(ApeSltlFactory.IfThenUse("test1", "test2"));            // correct
+		printSLTL(ApeSltlFactory.UseBAfterA("test1", "test2"));            // correct
+		printSLTL(ApeSltlFactory.UseModule("test"));            // correct
+		printSLTL(ApeSltlFactory.UseModuleLast("test"));        // correct
+
+		StateData testtest1 = new StateData();
+		testtest1.stateId = 1;
+		testtest1.name = "test";
+
+		StateData testtest2 = new StateData();
+		testtest2.stateId = 2;
+		testtest2.name = "test";
+
+		StateData testtest3 = new StateData();
+		testtest3.stateId = 3;
+		testtest3.name = "test";
+
+		Expression<StateData> finalTest = And.of(
+			Not.of(Variable.of(testtest1)),
+			Not.of(Variable.of(testtest2)),
+			Variable.of(testtest3)
+		);
+
+		Expression<StateData> finalTest2 = RuleSet.simplify(ApeSltlFactory.UseModuleLast("test").StateFold(3));
+
+		System.out.println(finalTest2.equals(finalTest));
+	}
+
+	public static void printSLTL(SLTL sltl) {
+		System.out.println("-------------------------");
+		System.out.println(sltl);
+		System.out.println(sltl.StateFold(3));
+		System.out.println("-------------------------");
+		System.out.println(RuleSet.simplify(sltl.StateFold(3)));
+	}
+
 
 	public static void testApe(String[] args) {
 		ToolAnnotationHandler testHandler = new ToolAnnotationHandler();
