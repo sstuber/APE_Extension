@@ -14,4 +14,8 @@ if [ -d "$1" ]; then
   sed -i 's/constraints.json/constraintsEmpty.json/g' "${1}/apeExt.configuration"
   sed -i 's/Figures/Extension_figures/g' "${1}/apeExt.configuration"
 
+  if [ "$2" != "" ]; then
+    sed -i "s/\"max_solutions\": \"3000\"/\"max_solutions\": \"${2}\"/g" "${1}/apeExt.configuration"
+    sed -i "s/\"max_solutions\": \"3000\"/\"max_solutions\": \"${2}\"/g" "${1}/ape.configuration"
+  fi
 fi
