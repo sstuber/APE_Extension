@@ -1,4 +1,5 @@
 package com.uu.app.GATA;
+
 import com.uu.app.SLTL.BinarySLTLOp;
 import com.uu.app.SLTL.SLTL;
 import com.uu.app.SLTL.SLTLBuilder;
@@ -11,7 +12,7 @@ import java.util.Optional;
 
 public class GataParserHandler {
 
-	public static SLTLBuilder ParseGataToolAnnotation(String input)  {
+	public static SLTLBuilder ParseGataToolAnnotation(String input) {
 		ParseTree tree = parse(input);
 		GataAnnotationVisitor visitor = new GataAnnotationVisitor();
 
@@ -26,16 +27,16 @@ public class GataParserHandler {
 			.orElse(null);
 	}
 
-	public ArrayList<SLTL> ParseGataInput(String input){
+	public ArrayList<SLTL> ParseGataInput(String input) {
 		GataInputVisitor visitor = new GataInputVisitor();
-		ParseTree tree =  parse(input);
+		ParseTree tree = parse(input);
 
 		visitor.visit(tree);
 
 		return visitor.constraints;
 	}
 
-	private static ParseTree parse(String input){
+	public static ParseTree parse(String input) {
 		ANTLRInputStream inputStream = new ANTLRInputStream(input);
 
 		// create a lexer that feeds off of inputStream CharStream
@@ -66,7 +67,7 @@ public class GataParserHandler {
 
 		GataInputVisitor visitor = new GataInputVisitor();
 
-		String test =  visitor.visit(tree);
+		String test = visitor.visit(tree);
 
 
 		System.out.println(tree.toStringTree(parser)); // print LISP-style tree
