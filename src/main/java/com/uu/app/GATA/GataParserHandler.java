@@ -9,6 +9,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class GataParserHandler {
 
@@ -27,13 +28,13 @@ public class GataParserHandler {
 			.orElse(null);
 	}
 
-	public ArrayList<SLTL> ParseGataInput(String input) {
+	public Stream<SLTL> ParseGataInput(String input) {
 		GataInputVisitor visitor = new GataInputVisitor();
 		ParseTree tree = parse(input);
 
 		visitor.visit(tree);
 
-		return visitor.constraints;
+		return visitor.constraints.build();
 	}
 
 	public static ParseTree parse(String input) {

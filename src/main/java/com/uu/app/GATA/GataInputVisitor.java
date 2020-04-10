@@ -2,12 +2,12 @@ package com.uu.app.GATA;
 
 import com.uu.app.SLTL.*;
 
-import java.util.ArrayList;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class GataInputVisitor extends GatlBaseVisitor<String> {
 
-	ArrayList<SLTL> constraints = new ArrayList<>();
+	public Stream.Builder<SLTL> constraints = Stream.<SLTL>builder();
 
 	@Override
 	public String visitData(GatlParser.DataContext ctx) {
@@ -37,7 +37,6 @@ public class GataInputVisitor extends GatlBaseVisitor<String> {
 				SLTL finalSLTL = current.getResult();
 
 				constraints.add(finalSLTL);
-
 
 				// everything that is non null is the name of the function below
 				// add a constraint linking this node and the child node
