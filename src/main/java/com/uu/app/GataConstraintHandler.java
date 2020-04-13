@@ -16,23 +16,13 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.stream.Stream;
 
-public class GataExtensionHandler {
-
-	APEHandler apeHandler = null;
-
+public class GataConstraintHandler {
 	String basePath;
 	String annotationFileName = "gata_annotation.json";
 	String gataFileName = "gata_input.gata";
-
-
-	public GataExtensionHandler(String configPath, String basePath) {
+	
+	public GataConstraintHandler(String basePath) {
 		this.basePath = basePath;
-
-		try {
-			apeHandler = new APEHandler(configPath);
-		} catch (Exception e) {
-			System.err.println(e);
-		}
 	}
 
 	public Stream<SLTL> getToolAnnotationConstraints() {
@@ -42,17 +32,31 @@ public class GataExtensionHandler {
 		return handler.GetToolAnnotationConstraints();
 	}
 
+	public APEHandler AddGataConstraintsToApe(APEHandler handler) {
+		Stream.concat(
+			getToolAnnotationConstraints(),
+			getInputConstraints()
+		)
+			.forEach(handler::AddConstraint);
+
+		return handler;
+	}
+
+
 	/**
 	 * Reads the GATA input and generates the constraints related to the input
 	 *
 	 * @return Returns a Stream with the SLTL constraints
-	 * @throws IOException
 	 */
-	public Stream<SLTL> getInputConstraints() throws IOException {
+	public Stream<SLTL> getInputConstraints() {
 		File gataInputFile = new File(basePath + gataFileName);
 
-		String inputString = FileUtils.readFileToString(gataInputFile, "UTF-8");
-
+		String inputString = "";
+		try {
+			inputString = FileUtils.readFileToString(gataInputFile, "UTF-8");
+		} catch (Error | IOException e) {
+			System.err.println("gata file was wrong");
+		}
 
 		ParseTree gataTree = GataParserHandler.parse(inputString);
 
