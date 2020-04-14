@@ -1,0 +1,32 @@
+{
+  "annotations": [
+    {
+      "tool": "pstext",
+      "functions": "reify(pi(sigma(test)) )"
+    },
+    {
+      "tool": "pscoast_I",
+      "functions": "function1(test)"
+    },
+    {
+      "tool": "pscoast_N",
+      "functions": "function2(test)"
+    },
+    {
+      "tool": "psxy_p",
+      "functions": "function3(test)"
+    },
+    {
+      "tool": "psxy_l",
+      "functions": "reify(pi(test ) )"
+    },
+    {
+      "tool": "pscoast_N",
+      "functions": "sigma(test)"
+    },
+    {
+      "tool": "initGMT",
+      "functions": "interpol(noise,locations)"
+    }
+  ]
+}
