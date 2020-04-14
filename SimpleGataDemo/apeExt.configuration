@@ -1,0 +1,30 @@
+{
+  "ontology_path": "./SimpleGataDemo/GMT_Demo_UseCase.owl",
+  "toolsTaxonomyRoot": "ToolsTaxonomy",
+  "dataTaxonomyRoot": "DataTaxonomy",
+  "dataSubTaxonomyRoot": [ TypesTaxonomy ],
+  "tool_annotations_path": "./SimpleGataDemo/tool_annotations.json",
+  "constraints_path": "./SimpleGataDemo/constraintsEmpty.json",
+  "shared_memory": "true",
+  "solutions_path": "./SimpleGataDemo/sat_solutions.txt",
+  "solution_min_length": "1",
+  "solution_max_length": "8",
+  "max_solutions": "100",
+  "execution_scripts_folder": "./SimpleGataDemo/Implementations/",
+  "number_of_execution_scripts": "6",
+  "solution_graphs_folder": "./SimpleGataDemo/Extension_figures",
+  "number_of_generated_graphs": "10",
+  "inputs": [
+    {
+      "TypesTaxonomy": "XYZ_table_file"
+    }
+  ],
+  "outputs": [
+    {
+      "TypesTaxonomy": "PostScript"
+    }
+  ],
+  "debug_mode": "true",
+  "use_workflow_input": "all",
+  "use_all_generated_data": "one"
+}
