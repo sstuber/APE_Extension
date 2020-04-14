@@ -1,5 +1,6 @@
 package com.uu.app.APE;
 
+import com.uu.app.GataConstraintHandler;
 import com.uu.app.SLTL.SLTL;
 import guru.nidi.graphviz.attribute.RankDir;
 import nl.uu.cs.ape.sat.APE;
@@ -19,6 +20,15 @@ public class APEHandler {
 
 	}
 
+	public static APEHandler GataApeHandler(String basepath) throws IOException {
+		APEHandler handler = new APEHandler(basepath + "apeExt.configuration");
+
+		GataConstraintHandler constraintHandler = new GataConstraintHandler(basepath);
+
+		constraintHandler.AddGataConstraintsToApe(handler);
+		return handler;
+	}
+
 	public void AddConstraint(SLTL constraint) {
 		this.apeFramework.AddExternalConstraint(new CnfToSatConstraintBuilder(constraint));
 	}
@@ -27,7 +37,7 @@ public class APEHandler {
 		this.apeFramework.AddExternalConstraint(constraint);
 	}
 
-	public SATsolutionsList RunSynthesisWithResults(){
+	public SATsolutionsList RunSynthesisWithResults() {
 		SATsolutionsList solutions = null;
 		try {
 			solutions = apeFramework.runSynthesis(this.configPath);
@@ -38,7 +48,6 @@ public class APEHandler {
 
 		return solutions;
 	}
-
 
 
 	public void RunSynthesis() {
