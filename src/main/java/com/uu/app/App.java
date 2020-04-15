@@ -11,6 +11,9 @@ import com.uu.app.APE.ToolAnnotationHandler;
 import com.uu.app.GATA.GataParserHandler;
 import com.uu.app.SLTL.*;
 import com.uu.app.SLTL.StateFold.StateData;
+import nl.uu.cs.ape.sat.core.implSAT.SATsolutionsList;
+
+import java.io.IOException;
 
 /**
  * Hello world!
@@ -18,15 +21,38 @@ import com.uu.app.SLTL.StateFold.StateData;
 public class App {
 	public static void main(String[] args) {
 
-		testConstraints();
+		testSimpleGataDemo();
 
-		ToolAnnotationHandler testHandler = new ToolAnnotationHandler();
 
-		testHandler.GetToolAnnotationConstraints().forEach(System.out::println);
+//		testConstraints();
 
-		ApeTester tester = ApeTester.GeoExample1();
+//		ToolAnnotationHandler testHandler = new ToolAnnotationHandler();
 
-		System.out.println(tester.test());
+//		testHandler.GetToolAnnotationConstraints().forEach(System.out::println);
+
+//		ApeTester tester = ApeTester.basicSimpleDemoTester();
+
+//		System.out.println(tester.test());
+	}
+
+	public static void testSimpleGataDemo() {
+
+		APEHandler handler = null;
+
+		try {
+			handler = APEHandler.GataApeHandler("./SimpleGataDemo/");
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.err.println("creating handler failed");
+			return;
+		}
+
+		SATsolutionsList testlist = handler.RunSynthesisWithResults();
+
+		System.out.println(
+			testlist.get(0).getReadableSolution()
+		);
+
 	}
 
 	public static void testConstraints() {

@@ -20,7 +20,7 @@ public class GataConstraintHandler {
 	String basePath;
 	String annotationFileName = "gata_annotation.json";
 	String gataFileName = "gata_input.gata";
-	
+
 	public GataConstraintHandler(String basePath) {
 		this.basePath = basePath;
 	}
@@ -103,8 +103,8 @@ public class GataConstraintHandler {
 
 	public HashSet<String> AllFunctionNames() {
 		HashSet<String> allNames = new HashSet<>();
-		allNames.add("name1");
-		allNames.add("name2");
+		allNames.add("function1");
+		allNames.add("function2");
 		allNames.add("reify");
 		allNames.add("pi");
 		allNames.add("sigma");
