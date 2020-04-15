@@ -13,19 +13,14 @@ import java.util.stream.Stream;
 
 public class GataParserHandler {
 
-	public static SLTLBuilder ParseGataToolAnnotation(String input) {
+	public static ArrayList<String> ParseGataToolAnnotation(String input) {
 		ParseTree tree = parse(input);
 		GataAnnotationVisitor visitor = new GataAnnotationVisitor();
 
 		visitor.visit(tree);
 		ArrayList<String> usedFunctions = visitor.usedFunctions;
 
-		Optional<SLTLBuilder> conjunctionOfNames = usedFunctions.stream()
-			.map(name -> new SLTLBuilder().addNext(name))
-			.reduce((acc, test) -> acc.addBinaryRight(test, BinarySLTLOp.And));
-
-		return conjunctionOfNames
-			.orElse(null);
+		return usedFunctions;
 	}
 
 	public Stream<SLTL> ParseGataInput(String input) {
