@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -36,8 +37,18 @@ public class ToolAnnotationHandler {
 	}
 
 	public Stream<SLTL> GetToolAnnotationConstraints() {
-		return getAnnotationStreamFromJson()
-			.map(this::transformAnnotation);
+
+		ArrayList<SLTL> toolToFunctionConstraints = getAnnotationStreamFromJson()
+			.map(this::transformAnnotation)
+			.collect(Collectors.toCollection(ArrayList::new));
+
+		// functionToolListMap is created as a side effect of toolToFunctionConstraints
+		Stream<SLTL> functionToToolContraints = functionToolListMap.entrySet().stream()
+			.map(mapEntry ->
+				buildFunctionUsedSltl(mapEntry.getKey(), mapEntry.getValue())
+			);
+
+		return Stream.concat(toolToFunctionConstraints.stream(), functionToToolContraints);
 	}
 
 	public Stream<ToolAnnotationStruct> getAnnotationStreamFromJson() {
@@ -71,6 +82,26 @@ public class ToolAnnotationHandler {
 		}
 
 		return buildToolUsedSltl(annotation.name, functionsInAnnotation);
+	}
+
+	private SLTL buildFunctionUsedSltl(String functionName, ArrayList<String> toolNames) {
+		SLTLBuilder toolside = new SLTLBuilder()
+			.addNext(functionName)
+			.addUnary(UnarySLTLOp.Neg);
+
+		SLTLBuilder functionSide = toolNames.stream()
+			.map(name -> new SLTLBuilder().addNext(name))
+			.reduce((acc, test) -> acc.addBinaryRight(test, BinarySLTLOp.Or))
+			.orElse(null);
+
+		if (functionSide == null) {
+			System.err.println(String.format("Error in annotation at %s", functionName));
+			return null;
+		}
+
+		return toolside
+			.addBinaryRight(functionSide, BinarySLTLOp.Or)
+			.getResult();
 	}
 
 	private SLTL buildToolUsedSltl(String toolName, ArrayList<String> functionNames) {
