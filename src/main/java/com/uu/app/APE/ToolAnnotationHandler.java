@@ -101,6 +101,7 @@ public class ToolAnnotationHandler {
 
 		return toolside
 			.addBinaryRight(functionSide, BinarySLTLOp.Or)
+			.addUnary(UnarySLTLOp.Global)
 			.getResult();
 	}
 
@@ -121,6 +122,7 @@ public class ToolAnnotationHandler {
 
 		return toolside
 			.addBinaryRight(functionSide, BinarySLTLOp.Or)
+			.addUnary(UnarySLTLOp.Global)
 			.getResult();
 	}
 
