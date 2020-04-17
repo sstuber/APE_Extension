@@ -53,6 +53,8 @@ public class App {
 			testlist.get(0).getReadableSolution()
 		);
 
+		handler.GenerateGraphs();
+
 	}
 
 	public static void testConstraints() {

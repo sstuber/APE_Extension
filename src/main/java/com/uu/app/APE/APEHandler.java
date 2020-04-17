@@ -14,6 +14,8 @@ public class APEHandler {
 	APE apeFramework;
 	String configPath;
 
+	SATsolutionsList solutionsList;
+
 	public APEHandler(String configPath) throws IOException {
 		this.configPath = configPath;
 		this.apeFramework = new APE(configPath);
@@ -46,7 +48,23 @@ public class APEHandler {
 
 		}
 
+		solutionsList = solutions;
+
 		return solutions;
+	}
+
+	public void GenerateGraphs() {
+		if (solutionsList == null)
+			return;
+
+		try {
+			apeFramework.writeSolutionToFile(solutionsList);
+			apeFramework.writeControlFlowGraphs(solutionsList, RankDir.LEFT_TO_RIGHT);
+		} catch (IOException e) {
+			System.err.println("Error in writing the solutions. to the file system.");
+			e.printStackTrace();
+		}
+
 	}
 
 
