@@ -25,7 +25,9 @@ public class ToolAnnotationHandler {
 	String toolKey = "tool";
 	String gataAnnotation = "functions";
 
-	HashMap<String, ArrayList<String>> functionToolListMap;
+	public HashMap<String, ArrayList<String>> functionToolListMap;
+
+	public ArrayList<ToolAnnotationStruct> annotationStructs;
 
 	public ToolAnnotationHandler() {
 		functionToolListMap = new HashMap<>();
@@ -37,8 +39,8 @@ public class ToolAnnotationHandler {
 	}
 
 	public Stream<SLTL> GetToolAnnotationConstraints() {
-
-		ArrayList<SLTL> toolToFunctionConstraints = getAnnotationStreamFromJson()
+		collectAnnotationsFromJson();
+		ArrayList<SLTL> toolToFunctionConstraints = annotationStructs.stream()
 			.map(this::transformAnnotation)
 			.collect(Collectors.toCollection(ArrayList::new));
 
@@ -51,21 +53,19 @@ public class ToolAnnotationHandler {
 		return Stream.concat(toolToFunctionConstraints.stream(), functionToToolContraints);
 	}
 
-	public Stream<ToolAnnotationStruct> getAnnotationStreamFromJson() {
+	public void collectAnnotationsFromJson() {
 		try {
 			String content = FileUtils.readFileToString(new File(path), "utf-8");
 			JSONObject jsonObject = new JSONObject(content);
 
 			JSONArray annotations = jsonObject.getJSONArray(mainKey);
 
-			Stream<ToolAnnotationStruct> annotationList = annotations.toList().stream()
+			annotationStructs = annotations.toList().stream()
 				.map(obj -> (HashMap<String, String>) obj)
-				.map(this::collectAnnotation);
-
-			return annotationList;
+				.map(this::collectAnnotation)
+				.collect(Collectors.toCollection(ArrayList::new));
 		} catch (IOException e) {
 			e.printStackTrace();
-			return null;
 		}
 	}
 

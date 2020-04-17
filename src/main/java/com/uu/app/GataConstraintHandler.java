@@ -21,15 +21,19 @@ public class GataConstraintHandler {
 	String annotationFileName = "gata_annotation.json";
 	String gataFileName = "gata_input.gata";
 
+	ToolAnnotationHandler toolAnnotationHandler;
+
 	public GataConstraintHandler(String basePath) {
 		this.basePath = basePath;
+
+		String annotationPath = basePath + annotationFileName;
+		toolAnnotationHandler = new ToolAnnotationHandler(annotationPath);
+
 	}
 
 	public Stream<SLTL> getToolAnnotationConstraints() {
-		String annotationPath = basePath + annotationFileName;
-		ToolAnnotationHandler handler = new ToolAnnotationHandler(annotationPath);
 
-		return handler.GetToolAnnotationConstraints();
+		return toolAnnotationHandler.GetToolAnnotationConstraints();
 	}
 
 	public APEHandler AddGataConstraintsToApe(APEHandler handler) {
@@ -105,15 +109,10 @@ public class GataConstraintHandler {
 
 	public HashSet<String> AllFunctionNames() {
 		HashSet<String> allNames = new HashSet<>();
-		allNames.add("function1");
-		allNames.add("function2");
-		allNames.add("function3");
-		allNames.add("reify");
-		allNames.add("pi");
-		allNames.add("sigma");
-		allNames.add("interpol");
-		return allNames;
 
+		toolAnnotationHandler.functionToolListMap.forEach((key, value) -> allNames.add(key));
+
+		return allNames;
 	}
 
 
