@@ -1,36 +1,6 @@
 {
   "functions": [
     {
-      "name": "add_cpt",
-      "operation": "add_cpt",
-      "taxonomyTerms": [
-        "add_cpt"
-      ],
-      "outputs": [
-        {
-          "TypesTaxonomy": [
-            "Color_palette_table"
-          ]
-        }
-      ],
-      "implementation": {
-      }
-    },
-    {
-      "name": "add_XYZ_table",
-      "operation": "add_XYZ_table",
-      "outputs": [
-        {
-          "TypesTaxonomy_OR": [
-            "XYZ_table_file"
-          ]
-        }
-      ],
-      "implementation": {
-        "code": "echo \"Enter path to the XYZ table file:\" EOL read XYZ_table_file"
-      }
-    },
-    {
       "name": "initGMT",
       "operation": "initGMT",
       "outputs": {
@@ -134,74 +104,6 @@
         ]
       },
       "implementation": {
-      }
-    },
-    {
-      "name": "pscoast_B",
-      "operation": "pscoast_B",
-      "inputs": {
-        "TypesTaxonomy": [
-          "PostScript"
-        ]
-      },
-      "outputs": {
-        "TypesTaxonomy": [
-          "PostScript"
-        ]
-      },
-      "implementation": {
-        "code": "gmt pscoast -R -J -N1p/thinner -Df -O -K >> $PostScript"
-      }
-    },
-    {
-      "name": "psbasemap_B",
-      "operation": "psbasemap_B",
-      "inputs": {
-        "TypesTaxonomy": [
-          "PostScript"
-        ]
-      },
-      "outputs": {
-        "TypesTaxonomy": [
-          "PostScript"
-        ]
-      },
-      "implementation": {
-        "code": "gmt psbasemap -R -J -N1p/thinner -Df -O -K >> $PostScript"
-      }
-    },
-    {
-      "name": "pscoast_G",
-      "operation": "pscoast_G",
-      "inputs": {
-        "TypesTaxonomy": [
-          "PostScript"
-        ]
-      },
-      "outputs": {
-        "TypesTaxonomy": [
-          "PostScript"
-        ]
-      },
-      "implementation": {
-        "code": "gmt pscoast -R -J -Gdarkseagreen2 -N1p/thinner -Df -K -O -P >> $PostScript"
-      }
-    },
-    {
-      "name": "pscoast_S",
-      "operation": "pscoast_S",
-      "inputs": {
-        "TypesTaxonomy": [
-          "PostScript"
-        ]
-      },
-      "outputs": {
-        "TypesTaxonomy": [
-          "PostScript"
-        ]
-      },
-      "implementation": {
-        "code": "gmt pscoast -R -J -Scornflowerblue -Df -K -P -O >> $PostScript"
       }
     },
     {

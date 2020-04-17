@@ -36,8 +36,10 @@ public class GataConstraintHandler {
 		Stream.concat(
 			getToolAnnotationConstraints(),
 			getInputConstraints()
-		)
-			.forEach(handler::AddConstraint);
+		).forEach(constraint -> {
+			System.out.println(constraint);
+			handler.AddConstraint(constraint);
+		});
 
 		return handler;
 	}
@@ -105,6 +107,7 @@ public class GataConstraintHandler {
 		HashSet<String> allNames = new HashSet<>();
 		allNames.add("function1");
 		allNames.add("function2");
+		allNames.add("function3");
 		allNames.add("reify");
 		allNames.add("pi");
 		allNames.add("sigma");

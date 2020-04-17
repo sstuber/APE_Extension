@@ -9,7 +9,7 @@
       "functions": "function1(test)"
     },
     {
-      "tool": "pscoast_N",
+      "tool": "psscale",
       "functions": "function2(test)"
     },
     {
