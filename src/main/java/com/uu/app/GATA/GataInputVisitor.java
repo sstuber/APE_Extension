@@ -11,15 +11,18 @@ public class GataInputVisitor extends GatlBaseVisitor<String> {
 
 	@Override
 	public String visitData(GatlParser.DataContext ctx) {
-
-
 		return null;
 	}
 
 	@Override
 	public String visitFunction(GatlParser.FunctionContext ctx) {
-
 		String name = ctx.Ident().getText();
+
+		SLTL useFunctionConstraint = new SLTLBuilder()
+			.addNext(name)
+			.addUnary(UnarySLTLOp.Future)
+			.getResult();
+		constraints.add(useFunctionConstraint);
 
 		ctx.gatl().stream()
 			.map(this::visit)
