@@ -5,14 +5,17 @@ import com.bpodgursky.jbool_expressions.Expression;
 import com.bpodgursky.jbool_expressions.Not;
 import com.bpodgursky.jbool_expressions.Variable;
 import com.bpodgursky.jbool_expressions.rules.RuleSet;
+import com.bpodgursky.jbool_expressions.rules.RulesHelper;
 import com.uu.app.APE.APEHandler;
 import com.uu.app.APE.ApeSltlFactory;
 import com.uu.app.APE.ToolAnnotationHandler;
 import com.uu.app.GATA.GataParserHandler;
 import com.uu.app.SLTL.*;
 import com.uu.app.SLTL.StateFold.StateData;
+import gnu.trove.impl.sync.TSynchronizedShortByteMap;
 import nl.uu.cs.ape.sat.core.implSAT.SATsolutionsList;
 
+import javax.naming.ldap.UnsolicitedNotification;
 import java.io.IOException;
 
 /**
@@ -21,7 +24,39 @@ import java.io.IOException;
 public class App {
 	public static void main(String[] args) {
 
-		testSimpleGataDemo();
+
+		SLTLBuilder left = new SLTLBuilder().addNext("sigma");
+
+		SLTLBuilder right = new SLTLBuilder()
+			.addNext("sigma")
+			.addUnary(UnarySLTLOp.Future)
+			.addUnary(UnarySLTLOp.Next);
+
+		SLTLBuilder level1 = left.addBinaryRight(right, BinarySLTLOp.And).addUnary(UnarySLTLOp.Future);
+
+		SLTLBuilder level2 = new SLTLBuilder().addNext("testtest")
+			.addBinaryRight(
+				level1
+					.addUnary(UnarySLTLOp.Next),
+				BinarySLTLOp.And)
+			.addUnary(UnarySLTLOp.Future);
+
+		SLTLBuilder level3 = new SLTLBuilder().addNext("sigma")
+			.addBinaryRight(
+				level2
+					.addUnary(UnarySLTLOp.Next),
+				BinarySLTLOp.And)
+			.addUnary(UnarySLTLOp.Future);
+
+		SLTLBuilder finalFormula = level3;
+
+		System.out.println(finalFormula.getResult());
+
+		System.out.println(finalFormula.getResult().StateFold(5));
+
+
+		System.out.println(RuleSet.simplify(finalFormula.getResult().StateFold(5)));
+		//testSimpleGataDemo();
 
 
 //		testConstraints();
