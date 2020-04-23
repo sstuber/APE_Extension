@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class GataCountFunctionsVisitor extends GatlBaseVisitor<String>  {
 
-	HashMap<String,Integer> countMap = new HashMap<>();
+	public HashMap<String,Integer> countMap = new HashMap<>();
 
 	@Override
 	public String visitData(GatlParser.DataContext ctx) {

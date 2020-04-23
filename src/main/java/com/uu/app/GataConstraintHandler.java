@@ -2,10 +2,7 @@ package com.uu.app;
 
 import com.uu.app.APE.APEHandler;
 import com.uu.app.APE.ToolAnnotationHandler;
-import com.uu.app.GATA.GataFunctionVisitor;
-import com.uu.app.GATA.GataInputVisitor;
-import com.uu.app.GATA.GataOrderVisitor;
-import com.uu.app.GATA.GataParserHandler;
+import com.uu.app.GATA.*;
 import com.uu.app.SLTL.BinarySLTLOp;
 import com.uu.app.SLTL.SLTL;
 import com.uu.app.SLTL.SLTLBuilder;
@@ -17,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.stream.Stream;
 
 public class GataConstraintHandler {
@@ -134,6 +132,37 @@ public class GataConstraintHandler {
 			intermediateResult = intermediateResult.addUnary(UnarySLTLOp.Future);
 
 			result = intermediateResult;
+		}
+
+		return result.getResult();
+	}
+
+	public Stream<SLTL> getFunctionCountConstraints(ParseTree tree) {
+		GataCountFunctionsVisitor visitor = new GataCountFunctionsVisitor();
+		visitor.visit(tree);
+
+		return visitor.countMap.entrySet().stream()
+			.map(this::transformFunctionCount);
+	}
+
+	SLTL transformFunctionCount(Map.Entry<String, Integer> entry) {
+		int depth = entry.getValue();
+		String name = entry.getKey();
+		SLTLBuilder result = new SLTLBuilder();
+
+		while (depth > 0) {
+			// <name> true
+			SLTLBuilder intermediateResult = new SLTLBuilder().addNext(name);
+
+			// <name> true and result
+			intermediateResult = intermediateResult.addBinaryRight(result, BinarySLTLOp.And);
+
+			// F (<name> true and result)
+			intermediateResult = intermediateResult.addUnary(UnarySLTLOp.Future);
+
+			result = intermediateResult;
+
+			depth--;
 		}
 
 		return result.getResult();
