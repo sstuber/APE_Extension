@@ -4,7 +4,9 @@ import com.uu.app.APE.APEHandler;
 import com.uu.app.APE.ToolAnnotationHandler;
 import com.uu.app.GATA.GataFunctionVisitor;
 import com.uu.app.GATA.GataInputVisitor;
+import com.uu.app.GATA.GataOrderVisitor;
 import com.uu.app.GATA.GataParserHandler;
+import com.uu.app.SLTL.BinarySLTLOp;
 import com.uu.app.SLTL.SLTL;
 import com.uu.app.SLTL.SLTLBuilder;
 import com.uu.app.SLTL.UnarySLTLOp;
@@ -13,6 +15,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.stream.Stream;
 
@@ -105,6 +108,35 @@ public class GataConstraintHandler {
 				.addUnary(UnarySLTLOp.Global)
 				.getResult()
 			);
+	}
+
+	public Stream<SLTL> getOrderFunctionConstraints(ParseTree tree) {
+		GataOrderVisitor visitor = new GataOrderVisitor();
+		ArrayList<ArrayList<String>> list = visitor.visit(tree);
+
+		return list.stream()
+			.map(this::transformFunctionOrder);
+	}
+
+	SLTL transformFunctionOrder(ArrayList<String> functionOrder) {
+		SLTLBuilder result = new SLTLBuilder();
+
+		for (int i = functionOrder.size() - 1; i >= 0; i--) {
+			String name = functionOrder.get(i);
+
+			// <name> true
+			SLTLBuilder intermediateResult = new SLTLBuilder().addNext(name);
+
+			// <name> true and result
+			intermediateResult = intermediateResult.addBinaryRight(result, BinarySLTLOp.And);
+
+			// F (<name> true and result)
+			intermediateResult = intermediateResult.addUnary(UnarySLTLOp.Future);
+
+			result = intermediateResult;
+		}
+
+		return result.getResult();
 	}
 
 	public HashSet<String> AllFunctionNames() {
