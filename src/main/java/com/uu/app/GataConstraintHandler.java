@@ -67,10 +67,11 @@ public class GataConstraintHandler {
 
 		ParseTree gataTree = GataParserHandler.parse(inputString);
 
-		Stream<SLTL> inputConstraints = getDirectInputConstraints(gataTree);
+		Stream<SLTL> orderConstraints = getOrderFunctionConstraints(gataTree);
 		Stream<SLTL> presentFunctions = getPresentFunctionsConstraints(gataTree);
+		Stream<SLTL> functionTallyConstraints = getFunctionCountConstraints(gataTree);
 
-		return Stream.concat(inputConstraints, presentFunctions);
+		return Stream.of(orderConstraints, presentFunctions, functionTallyConstraints).flatMap(x -> x);
 	}
 
 	// should get the formula's for the order
