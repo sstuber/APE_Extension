@@ -156,7 +156,7 @@ public class GataConstraintHandler {
 			SLTLBuilder intermediateResult = new SLTLBuilder().addNext(name);
 
 			// <name> true and result
-			intermediateResult = intermediateResult.addBinaryRight(result, BinarySLTLOp.And);
+			intermediateResult = intermediateResult.addBinaryRight(result.addUnary(UnarySLTLOp.Next), BinarySLTLOp.And);
 
 			// F (<name> true and result)
 			intermediateResult = intermediateResult.addUnary(UnarySLTLOp.Future);
