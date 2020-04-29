@@ -4,6 +4,7 @@ import com.bpodgursky.jbool_expressions.And;
 import com.bpodgursky.jbool_expressions.Expression;
 import com.bpodgursky.jbool_expressions.Not;
 import com.bpodgursky.jbool_expressions.Variable;
+import com.bpodgursky.jbool_expressions.rules.RuleSet;
 import com.uu.app.SLTL.StateFold.StateData;
 import nl.uu.cs.ape.sat.automaton.ModuleAutomaton;
 import nl.uu.cs.ape.sat.automaton.TypeAutomaton;
@@ -38,19 +39,21 @@ public class AtMostNConstraintBuilder extends AbstractConstraintBuilder {
 
 	StringBuilder generateConstraints(int maxBound) {
 		List<Expression<StateData>> test = countMap.entrySet().stream()
+			.filter(entry -> entry.getValue() < maxBound)
 			.map(entry -> transformEntry(entry, maxBound))
 			.map(Collection::stream)
 			.flatMap(x -> x)
 			.collect(Collectors.toCollection(ArrayList::new));
 
 		return test.stream()
+			.map(RuleSet::toCNF)
 			.map(this::WalkCnf)
 			.reduce(new StringBuilder(), StringBuilder::append);
 	}
 
 	List<Expression<StateData>> transformEntry(Map.Entry<String, Integer> entry, int maxBound) {
 		List<Expression<StateData>> constraintList = new ArrayList<>();
-		Iterator<int[]> iterator = generate(entry.getValue(), maxBound);
+		Iterator<int[]> iterator = generate(maxBound, entry.getValue() + 1);
 
 		while (iterator.hasNext()) {
 			List<Expression<StateData>> expressionList = new ArrayList<>();
