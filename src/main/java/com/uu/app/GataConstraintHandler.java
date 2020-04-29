@@ -1,6 +1,7 @@
 package com.uu.app;
 
 import com.uu.app.APE.APEHandler;
+import com.uu.app.APE.AtMostNConstraintBuilder;
 import com.uu.app.APE.ToolAnnotationHandler;
 import com.uu.app.GATA.*;
 import com.uu.app.SLTL.BinarySLTLOp;
@@ -46,26 +47,19 @@ public class GataConstraintHandler {
 			handler.AddConstraint(constraint);
 		});
 
+		handler.AddConstraint(getAtMostNConstraintBuilder());
+
 		return handler;
 	}
-
 
 	/**
 	 * Reads the GATA input and generates the constraints related to the input
 	 *
 	 * @return Returns a Stream with the SLTL constraints
 	 */
+
 	public Stream<SLTL> getInputConstraints() {
-		File gataInputFile = new File(basePath + gataFileName);
-
-		String inputString = "";
-		try {
-			inputString = FileUtils.readFileToString(gataInputFile, "UTF-8");
-		} catch (Error | IOException e) {
-			System.err.println("gata file was wrong");
-		}
-
-		ParseTree gataTree = GataParserHandler.parse(inputString);
+		ParseTree gataTree = getParseTree();
 
 		Stream<SLTL> orderConstraints = getOrderFunctionConstraints(gataTree);
 		Stream<SLTL> presentFunctions = getPresentFunctionsConstraints(gataTree);
@@ -169,6 +163,20 @@ public class GataConstraintHandler {
 		return result.getResult();
 	}
 
+	/**
+	 * Generates a constraint builder that for each function, if the function appears N times
+	 * prevents the function from appearing N+1 times
+	 *
+	 * @return
+	 */
+	public AtMostNConstraintBuilder getAtMostNConstraintBuilder() {
+		ParseTree tree = getParseTree();
+		GataCountFunctionsVisitor visitor = new GataCountFunctionsVisitor();
+		visitor.visit(tree);
+
+		return new AtMostNConstraintBuilder(visitor.countMap);
+	}
+
 	public HashSet<String> AllFunctionNames() {
 		HashSet<String> allNames = new HashSet<>();
 
@@ -177,5 +185,18 @@ public class GataConstraintHandler {
 		return allNames;
 	}
 
+
+	private ParseTree getParseTree() {
+		File gataInputFile = new File(basePath + gataFileName);
+
+		String inputString = "";
+		try {
+			inputString = FileUtils.readFileToString(gataInputFile, "UTF-8");
+		} catch (Error | IOException e) {
+			System.err.println("gata file was wrong");
+		}
+
+		return GataParserHandler.parse(inputString);
+	}
 
 }
