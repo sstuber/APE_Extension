@@ -32,7 +32,7 @@ public class APEHandler {
 	}
 
 	public void AddConstraint(SLTL constraint) {
-		this.apeFramework.AddExternalConstraint(new CnfToSatConstraintBuilder(constraint));
+		this.apeFramework.AddExternalConstraint(new SltlToSatConstraintBuilder(constraint));
 	}
 
 	public void AddConstraint(ExternalConstraintBuilder constraint) {
