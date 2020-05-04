@@ -1,10 +1,10 @@
 {
-  "solutions_path": "./sat_solutions.txt",
+  "solutions_path": "./BaseCoreConcept/sat_solutions.txt",
   "ontologyPrexifIRI": "http://geographicknowledge.de/vocab/CoreConceptData.rdf#",
-  "solution_graphs_folder": "./figs",
-  "tool_annotations_path": "./ToolDescription_TransformationAlgebra.json",
-  "ontology_path": "./GISTaxonomy.rdf",
-  "constraints_path": "./constraints.json",
+  "solution_graphs_folder": "./BaseCoreConcept/figs",
+  "tool_annotations_path": "./BaseCoreConcept/ToolDescription_TransformationAlgebra.json",
+  "ontology_path": "./BaseCoreConcept/GISTaxonomy.rdf",
+  "constraints_path": "./BaseCoreConcept/constraints.json",
   "toolsTaxonomyRoot": "http://geographicknowledge.de/vocab/GISTools.rdf#Tool",
   "dataTaxonomyRoot": "Attribute",
   "dataSubTaxonomyRoot": [

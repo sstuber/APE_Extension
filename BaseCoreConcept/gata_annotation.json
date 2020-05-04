@@ -1,95 +1,95 @@
 {
   "annotations": [
     {
-      "functions": "groupby_avg bowtie* sigmae lotopo pi1 field x objectregions y in field x",
+      "functions": "groupby_avg (bowtie* (sigmae (lotopo (pi1 (field_x), objectregions_y), in), field_x)",
       "tool": "ZonalStatisticsMeanInterval"
     },
     {
-      "functions": "bowtie field x deify merge pi2 objectregions x",
+      "functions": "bowtie (field_x, deify (merge (pi2 (objectregions_x))))",
       "tool": "ClipField2ObjectExtent"
     },
     {
-      "functions": "groupby_avg bowtie* sigmae otopo objectregions x objectregions y in objects z",
+      "functions": "groupby_avg (bowtie* (sigmae (otopo (objectregions_x, objectregions_y), in), objects_z)   )",
       "tool": "SpatialJoinMeanTessRatio"
     },
     {
-      "functions": "groupby_count sigmae otopo objectregions x objectregions y in",
+      "functions": "groupby_count (sigmae (otopo (objectregions_x, objectregions_y), in))",
       "tool": "SpatialJoinCountTess"
     },
     {
-      "functions": "invert field x",
+      "functions": "invert (field_x)",
       "tool": "RasterToContourInterval"
     },
     {
-      "functions": "groupby_sum bowtie* sigmae otopo objectregions x objectregions y in objects z",
+      "functions": "groupby_sum (bowtie* (sigmae (otopo (objectregions_x, objectregions_y), in), objects_z))",
       "tool": "SpatialJoinSumTessRatio"
     },
     {
-      "functions": "bowtie objectregions x pi1 sigmae otopo objectregions x objectregions y in",
+      "functions": "bowtie (objectregions_x, pi1 (sigmae (otopo (objectregions_x, objectregions_y), in) ) )",
       "tool": "SelectLayerByLocationObjects"
     },
     {
-      "functions": "sigmae amountpatches x nominal y",
+      "functions": "sigmae (amountpatches_x, nominal_y)",
       "tool": "SelectFeaturesCoverageToExistenceVector"
     },
     {
-      "functions": "revert amountpatches x",
+      "functions": "revert (amountpatches_x)",
       "tool": "CoverageToNominalFieldRaster"
     },
     {
-      "functions": "sigmale field x ordinal y",
+      "functions": "sigmale (field_x, ordinal_y)",
       "tool": "LocalMapAlgebraSubOrder"
     },
     {
-      "functions": "bowtie_ratio objects x objects y",
+      "functions": "bowtie_ratio (objects_x, objects_y)",
       "tool": "CalculateRatio"
     },
     {
-      "functions": "groupby_avg bowtie* sigmae otopo objectregions x objectregions y in objects z",
+      "functions": "groupby_avg (bowtie* (sigmae (otopo (objectregions_x, objectregions_y), in), objects_z)",
       "tool": "SpatialJoinMeanTessInterval"
     },
     {
-      "functions": "groupby_size sigmae lotopo deify merge pi2 objectregions x objectregions x in",
+      "functions": "groupby_size (sigmae (lotopo (deify (merge (pi2 (objectregions_x)))), objectregions_x) in))",
       "tool": "AddArea"
     },
     {
-      "functions": "revert contour x",
+      "functions": "revert (contour_x)",
       "tool": "ContourToFieldRaster"
     },
     {
-      "functions": "reify pi1 field x",
+      "functions": "reify (pi1 (field_x)",
       "tool": "RegionFromRasterExtent"
     },
     {
-      "functions": "interpol pointmeasures x deify merge pi2 objectregions y",
+      "functions": "interpol (pointmeasures_x, deify (merge (pi2 (objectregions_y))))",
       "tool": "IDWInterval"
     },
     {
-      "functions": "sigmae objectregions x object y",
+      "functions": "sigmae (objectregions_x, object_y)",
       "tool": "SelectLayerByAttributeObjects"
     },
     {
-      "functions": "groupby_sum bowtie* sigmae otopo objectregions x objectregions y in objectcounts z",
+      "functions": "groupby_sum (bowtie* (sigmae (otopo (objectregions_x, objectregions_y), in), objectcounts_z))",
       "tool": "SpatialJoinSumTessCount"
     },
     {
-      "functions": "groupby_avg bowtie* sigmae otopo objectregions x objectregions y in objectcounts z",
+      "functions": "groupby_avg (bowtie* (sigmae (otopo (objectregions_x, objectregions_y), in), objectcounts_z)",
       "tool": "SpatialJoinMeanTessCount"
     },
     {
-      "functions": "sigmale contour x ordinal y",
+      "functions": "sigmale (contour_x, ordinal_y)",
       "tool": "SelectFeaturesContourToExistenceVector"
     },
     {
-      "functions": "pointmeasures x",
+      "functions": "pointmeasures_x",
       "tool": "MakePointMeasuresFromTable"
     },
     {
-      "functions": "interpol pointmeasures x deify merge pi2 objectregions y",
+      "functions": "interpol (pointmeasures_x, (deify (merge (pi2 (objectregions_y)))))",
       "tool": "KrigingInterval"
     },
     {
-      "functions": "groupby_size sigmae lotopo pi1 field x objectregions y in",
+      "functions": "groupby_size (sigmae (lotopo (pi1 (field_x), objectregions_y), in))",
       "tool": "ZonalStatisticsSize"
     }
   ]
