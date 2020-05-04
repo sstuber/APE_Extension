@@ -1,1 +1,8 @@
-reify(pi(sigma( interpol(noise,locations))) )
+reify(
+    multiple(
+                interpol(noise),
+            sigma(
+                reify(noise))
+            )
+
+    )
