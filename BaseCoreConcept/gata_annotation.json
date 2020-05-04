@@ -81,10 +81,6 @@
       "tool": "SelectFeaturesContourToExistenceVector"
     },
     {
-      "functions": "pointmeasures_x",
-      "tool": "MakePointMeasuresFromTable"
-    },
-    {
       "functions": "interpol (pointmeasures_x, deify (merge (pi2 (objectregions_y))))",
       "tool": "KrigingInterval"
     },
