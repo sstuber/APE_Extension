@@ -20,7 +20,7 @@ public class GataInputVisitor extends GatlBaseVisitor<String> {
 
 		SLTL useFunctionConstraint = new SLTLBuilder()
 			.addNext(name)
-			.addUnary(UnarySLTLOp.Future)
+			.addUnary(UnarySLTLOp.Finally)
 			.getResult();
 		constraints.add(useFunctionConstraint);
 

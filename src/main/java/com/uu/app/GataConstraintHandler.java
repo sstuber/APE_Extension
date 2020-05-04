@@ -124,7 +124,7 @@ public class GataConstraintHandler {
 			intermediateResult = intermediateResult.addBinaryRight(result, BinarySLTLOp.And);
 
 			// F (<name> true and result)
-			intermediateResult = intermediateResult.addUnary(UnarySLTLOp.Future);
+			intermediateResult = intermediateResult.addUnary(UnarySLTLOp.Finally);
 
 			result = intermediateResult;
 		}
@@ -153,7 +153,7 @@ public class GataConstraintHandler {
 			intermediateResult = intermediateResult.addBinaryRight(result.addUnary(UnarySLTLOp.Next), BinarySLTLOp.And);
 
 			// F (<name> true and result)
-			intermediateResult = intermediateResult.addUnary(UnarySLTLOp.Future);
+			intermediateResult = intermediateResult.addUnary(UnarySLTLOp.Finally);
 
 			result = intermediateResult;
 

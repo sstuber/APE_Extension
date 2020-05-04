@@ -5,7 +5,6 @@ import com.uu.app.SLTL.BinarySLTLOp;
 import com.uu.app.SLTL.SLTL;
 import com.uu.app.SLTL.SLTLBuilder;
 import com.uu.app.SLTL.UnarySLTLOp;
-import org.semanticweb.owlapi.util.InferredEntityAxiomGenerator;
 
 /*  HelperClass
 	Makes creating common SLTL formula's easier
@@ -27,7 +26,7 @@ public class ApeSltlFactory {
 
 		SLTLBuilder rightside = new SLTLBuilder()
 			.addNext(param2)
-			.addUnary(UnarySLTLOp.Future)
+			.addUnary(UnarySLTLOp.Finally)
 			.addUnary(UnarySLTLOp.Next);
 
 		SLTLBuilder finalFormula = leftside
@@ -77,7 +76,7 @@ public class ApeSltlFactory {
 	public static SLTL UseModule(String param1) {
 		return new SLTLBuilder()
 			.addNext(param1)
-			.addUnary(UnarySLTLOp.Future)
+			.addUnary(UnarySLTLOp.Finally)
 			.getResult();
 	}
 
@@ -94,7 +93,7 @@ public class ApeSltlFactory {
 	public static SLTL UseModuleLast(String param1) {
 		SLTLBuilder leftSide = new SLTLBuilder()
 			.addNext(param1)
-			.addUnary(UnarySLTLOp.Future);
+			.addUnary(UnarySLTLOp.Finally);
 
 		SLTLBuilder middle = DoNotUseTool(param1);
 

@@ -29,24 +29,24 @@ public class App {
 
 		SLTLBuilder right = new SLTLBuilder()
 			.addNext("sigma")
-			.addUnary(UnarySLTLOp.Future)
+			.addUnary(UnarySLTLOp.Finally)
 			.addUnary(UnarySLTLOp.Next);
 
-		SLTLBuilder level1 = left.addBinaryRight(right, BinarySLTLOp.And).addUnary(UnarySLTLOp.Future);
+		SLTLBuilder level1 = left.addBinaryRight(right, BinarySLTLOp.And).addUnary(UnarySLTLOp.Finally);
 
 		SLTLBuilder level2 = new SLTLBuilder().addNext("testtest")
 			.addBinaryRight(
 				level1
 					.addUnary(UnarySLTLOp.Next),
 				BinarySLTLOp.And)
-			.addUnary(UnarySLTLOp.Future);
+			.addUnary(UnarySLTLOp.Finally);
 
 		SLTLBuilder level3 = new SLTLBuilder().addNext("sigma")
 			.addBinaryRight(
 				level2
 					.addUnary(UnarySLTLOp.Next),
 				BinarySLTLOp.And)
-			.addUnary(UnarySLTLOp.Future);
+			.addUnary(UnarySLTLOp.Finally);
 
 		SLTLBuilder finalFormula = level3;
 
@@ -188,7 +188,7 @@ public class App {
 		SLTLBuilder test = new SLTLBuilder("true")
 			.addNext("interpol")
 			.addNext("sigma")
-			.addUnary(UnarySLTLOp.Future);
+			.addUnary(UnarySLTLOp.Finally);
 
 		SLTL finalSltl = new SLTLBuilder("true")
 			.addBinaryRight(test, BinarySLTLOp.Until).getResult();

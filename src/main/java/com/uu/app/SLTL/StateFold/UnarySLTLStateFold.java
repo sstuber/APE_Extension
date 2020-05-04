@@ -37,7 +37,7 @@ public class UnarySLTLStateFold implements UnarySLTLFold<Expression<StateData>> 
 				result = Not.of(arg1);
 				break;
 			}
-			case Future: {
+			case Finally: {
 				// Create continuation of Future
 				Expression<StateData> rightExpr = IncreaseStateFold(obj, data);
 				result = arg1;
