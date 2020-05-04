@@ -65,6 +65,7 @@ public class ToolAnnotationHandler {
 				.map(this::collectAnnotation)
 				.collect(Collectors.toCollection(ArrayList::new));
 		} catch (IOException e) {
+			System.err.println("error in reading the tools");
 			e.printStackTrace();
 		}
 	}
@@ -95,7 +96,8 @@ public class ToolAnnotationHandler {
 			.orElse(null);
 
 		if (functionSide == null) {
-			System.err.println(String.format("Error in annotation at %s", functionName));
+			System.err.println(String.format("Error in annotation at function used: %s", functionName));
+
 			return null;
 		}
 
@@ -116,7 +118,7 @@ public class ToolAnnotationHandler {
 			.orElse(null);
 
 		if (functionSide == null) {
-			System.err.println(String.format("Error in annotation at %s", toolName));
+			System.err.println(String.format("Error in annotation at tool used: %s", toolName));
 			return null;
 		}
 

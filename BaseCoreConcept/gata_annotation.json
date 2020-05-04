@@ -1,7 +1,7 @@
 {
   "annotations": [
     {
-      "functions": "groupby_avg (bowtie* (sigmae (lotopo (pi1 (field_x), objectregions_y), in), field_x)",
+      "functions": "groupby_avg (bowtie* (sigmae (lotopo (pi1 (field_x), objectregions_y), in), field_x))",
       "tool": "ZonalStatisticsMeanInterval"
     },
     {
@@ -45,11 +45,11 @@
       "tool": "CalculateRatio"
     },
     {
-      "functions": "groupby_avg (bowtie* (sigmae (otopo (objectregions_x, objectregions_y), in), objects_z)",
+      "functions": "groupby_avg (bowtie* (sigmae (otopo (objectregions_x, objectregions_y), in), objects_z))",
       "tool": "SpatialJoinMeanTessInterval"
     },
     {
-      "functions": "groupby_size (sigmae (lotopo (deify (merge (pi2 (objectregions_x)))), objectregions_x) in))",
+      "functions": "groupby_size (sigmae (lotopo (deify (merge (pi2 (objectregions_x)))), objectregions_x), in))",
       "tool": "AddArea"
     },
     {
@@ -57,7 +57,7 @@
       "tool": "ContourToFieldRaster"
     },
     {
-      "functions": "reify (pi1 (field_x)",
+      "functions": "reify (pi1 (field_x))",
       "tool": "RegionFromRasterExtent"
     },
     {
@@ -73,7 +73,7 @@
       "tool": "SpatialJoinSumTessCount"
     },
     {
-      "functions": "groupby_avg (bowtie* (sigmae (otopo (objectregions_x, objectregions_y), in), objectcounts_z)",
+      "functions": "groupby_avg (bowtie* (sigmae (otopo (objectregions_x, objectregions_y), in), objectcounts_z))",
       "tool": "SpatialJoinMeanTessCount"
     },
     {
@@ -85,7 +85,7 @@
       "tool": "MakePointMeasuresFromTable"
     },
     {
-      "functions": "interpol (pointmeasures_x, (deify (merge (pi2 (objectregions_y)))))",
+      "functions": "interpol (pointmeasures_x, deify (merge (pi2 (objectregions_y))))",
       "tool": "KrigingInterval"
     },
     {
