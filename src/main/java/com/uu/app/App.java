@@ -5,24 +5,49 @@ import com.bpodgursky.jbool_expressions.Expression;
 import com.bpodgursky.jbool_expressions.Not;
 import com.bpodgursky.jbool_expressions.Variable;
 import com.bpodgursky.jbool_expressions.rules.RuleSet;
-import com.bpodgursky.jbool_expressions.rules.RulesHelper;
 import com.uu.app.APE.APEHandler;
 import com.uu.app.APE.ApeSltlFactory;
 import com.uu.app.APE.ToolAnnotationHandler;
 import com.uu.app.GATA.GataParserHandler;
 import com.uu.app.SLTL.*;
 import com.uu.app.SLTL.StateFold.StateData;
-import gnu.trove.impl.sync.TSynchronizedShortByteMap;
 import nl.uu.cs.ape.sat.core.implSAT.SATsolutionsList;
+import org.antlr.v4.runtime.tree.ParseTree;
 
-import javax.naming.ldap.UnsolicitedNotification;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Hello world!
  */
 public class App {
 	public static void main(String[] args) {
+
+		GataConstraintHandler handler = new GataConstraintHandler("./");
+
+		//ParseTree tree = GataParserHandler.parse("reify(interpol(noise),sigma(interpol(noise)))");
+		ParseTree tree = GataParserHandler.parse("reify(pi1(sigmale(bowtie(revert(contour_noise),deify(merge(pi2(sigmae(objectregions_muni, object_Utrecht))))),70)))");
+
+		ArrayList<Expression<StateData>> arrayList = handler.getOrderFunctionConstraints(tree)
+			.map(sltl -> sltl.StateFold(4))
+			.peek(System.out::println).collect(Collectors.toCollection(ArrayList::new));
+
+		Expression<StateData> test = And.of(arrayList);
+		System.out.println("results");
+		System.out.println(test);
+
+		long time1 = System.currentTimeMillis();
+		System.out.println(RuleSet.simplify(test));
+		System.out.printf("Simplify time: %f", (System.currentTimeMillis() - time1) / 1000f);
+
+		long time3 = System.currentTimeMillis();
+		System.out.println(RuleSet.toCNF(RuleSet.simplify(test)));
+		System.out.printf("CNF time: %f", (System.currentTimeMillis() - time3) / 1000f);
+
+		long time2 = System.currentTimeMillis();
+		System.out.println(RuleSet.toCNF(test));
+		System.out.printf("CNF time: %f", (System.currentTimeMillis() - time2) / 1000f);
 
 
 		SLTLBuilder left = new SLTLBuilder().addNext("sigma");
@@ -56,7 +81,7 @@ public class App {
 
 
 		System.out.println(RuleSet.simplify(finalFormula.getResult().StateFold(5)));
-		//testSimpleGataDemo();
+		testSimpleGataDemo();
 
 
 //		testConstraints();
@@ -75,7 +100,7 @@ public class App {
 		APEHandler handler = null;
 
 		try {
-			handler = APEHandler.GataApeHandler("./SimpleGataDemo/");
+			handler = APEHandler.GataApeHandler("./BaseCoreConcept/");
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.err.println("creating handler failed");
