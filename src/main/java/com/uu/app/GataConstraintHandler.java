@@ -132,6 +132,57 @@ public class GataConstraintHandler {
 		return result.getResult();
 	}
 
+	SLTL transformFunctionOrder2(ArrayList<String> functionOrder, Set<String> multipleParamFunctionSet) {
+		List<SLTLBuilder> intermediateList = new ArrayList<>();
+		intermediateList.add(new SLTLBuilder());
+
+		for (int i = functionOrder.size() - 1; i >= 1; i--) {
+			String name = functionOrder.get(i);
+
+			if (multipleParamFunctionSet.contains(name)) {
+				SLTLBuilder combinedList = SLTLBuilder.combineList(intermediateList, BinarySLTLOp.Or);
+
+				// <name> true
+				SLTLBuilder intermediateResult = new SLTLBuilder().addNext(name);
+				// <name> true and result
+				intermediateResult = intermediateResult.addBinaryRight(combinedList, BinarySLTLOp.And);
+				// F (<name> true and result)
+				intermediateResult = intermediateResult.addUnary(UnarySLTLOp.Finally);
+
+				SLTLBuilder finalIntermediateResult = intermediateResult;
+				intermediateList = new ArrayList<SLTLBuilder>() {{
+					add(finalIntermediateResult);
+				}};
+				continue;
+			}
+
+			List<SLTLBuilder> test = new ArrayList<>();
+			for (SLTLBuilder sltlBuilder : intermediateList) {
+				SLTLBuilder sameState = new SLTLBuilder().addNext(name);
+				SLTLBuilder nextState = new SLTLBuilder().addNext(name).addUnary(UnarySLTLOp.Next);
+
+				test.add(sameState.addBinaryRight(sltlBuilder, BinarySLTLOp.And));
+				test.add(nextState.addBinaryRight(sltlBuilder, BinarySLTLOp.And));
+			}
+
+			intermediateList = test;
+
+		}
+
+		SLTLBuilder combinedList = SLTLBuilder.combineList(intermediateList, BinarySLTLOp.Or);
+		String name = functionOrder.get(0);
+		// <name> true
+		SLTLBuilder intermediateResult = new SLTLBuilder().addNext(name);
+		// <name> true and result
+		intermediateResult = intermediateResult.addBinaryRight(combinedList, BinarySLTLOp.And);
+		// F (<name> true and result)
+		intermediateResult = intermediateResult.addUnary(UnarySLTLOp.Finally);
+
+		SLTLBuilder result = intermediateResult;
+
+		return result.getResult();
+	}
+
 	public Stream<SLTL> getFunctionCountConstraints(ParseTree tree) {
 		GataCountFunctionsVisitor visitor = new GataCountFunctionsVisitor();
 		visitor.visit(tree);
