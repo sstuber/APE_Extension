@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 public class GataOrderVisitor extends GatlBaseVisitor<ArrayList<ArrayList<String>>> {
 
+	public Set<String> multipleParamFunctionSet = new HashSet<>();
+
 	@Override
 	public ArrayList<ArrayList<String>> visitData(GatlParser.DataContext ctx) {
 		return null;
@@ -14,6 +16,9 @@ public class GataOrderVisitor extends GatlBaseVisitor<ArrayList<ArrayList<String
 	@Override
 	public ArrayList<ArrayList<String>> visitFunction(GatlParser.FunctionContext ctx) {
 		String name = ctx.Ident().getText();
+
+		if (ctx.gatl().size() > 1)
+			multipleParamFunctionSet.add(name);
 
 		ArrayList<ArrayList<String>> result;
 		result = ctx.gatl().stream()
