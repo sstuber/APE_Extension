@@ -13,9 +13,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class GataConstraintHandler {
@@ -108,10 +106,57 @@ public class GataConstraintHandler {
 		ArrayList<ArrayList<String>> list = visitor.visit(tree);
 
 		return list.stream()
-			.map(this::transformFunctionOrder);
+			.flatMap(orderList -> transformSimpleOrder(orderList, visitor.multipleParamFunctionSet));
 	}
 
-	SLTL transformFunctionOrder(ArrayList<String> functionOrder) {
+	Stream<SLTL> transformSimpleOrder(ArrayList<String> functionOrder, Set<String> multipleParamFunctionSet) {
+		Stream.Builder<SLTL> resultList = Stream.builder();
+
+		for (int i = 0; i < functionOrder.size() - 1; i++) {
+			String firstName = functionOrder.get(i);
+			String secondName = functionOrder.get(i + 1);
+
+			SLTL result = multipleParamFunctionSet.contains(secondName)
+				? transformNaryFunction(firstName, secondName)
+				: transformUnaryFunction(firstName, secondName);
+			resultList.add(result);
+		}
+
+		return resultList.build();
+	}
+
+	SLTL transformNaryFunction(String firstName, String secondName) {
+		SLTLBuilder firstPart = new SLTLBuilder()
+			.addNext(firstName);
+
+		SLTLBuilder secondPart = new SLTLBuilder()
+			.addNext(secondName)
+			.addUnary(UnarySLTLOp.Finally);
+
+		return firstPart.addBinaryRight(secondPart, BinarySLTLOp.And)
+			.addUnary(UnarySLTLOp.Finally)
+			.getResult();
+	}
+
+	SLTL transformUnaryFunction(String firstName, String secondName) {
+		SLTLBuilder firstPart = new SLTLBuilder()
+			.addNext(firstName);
+
+		SLTLBuilder secondPart = new SLTLBuilder()
+			.addNext(secondName);
+
+		SLTLBuilder intermediate = secondPart
+			.addBinaryRight(
+				new SLTLBuilder().addNext(secondName).addUnary(UnarySLTLOp.Next),
+				BinarySLTLOp.Or
+			);
+
+		return firstPart.addBinaryRight(intermediate, BinarySLTLOp.And)
+			.addUnary(UnarySLTLOp.Finally)
+			.getResult();
+	}
+
+	SLTL transformFunctionOrder(ArrayList<String> functionOrder, Set<String> multipleParamFunctionSet) {
 		SLTLBuilder result = new SLTLBuilder();
 
 		for (int i = functionOrder.size() - 1; i >= 0; i--) {
@@ -162,7 +207,7 @@ public class GataConstraintHandler {
 				SLTLBuilder nextState = new SLTLBuilder().addNext(name).addUnary(UnarySLTLOp.Next);
 
 				test.add(sameState.addBinaryRight(sltlBuilder, BinarySLTLOp.And));
-				test.add(nextState.addBinaryRight(sltlBuilder, BinarySLTLOp.And));
+				test.add(nextState.addBinaryRight(sltlBuilder.addUnary(UnarySLTLOp.Next), BinarySLTLOp.And));
 			}
 
 			intermediateList = test;

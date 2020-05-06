@@ -30,7 +30,10 @@ public class App {
 		ParseTree tree = GataParserHandler.parse("reify(pi1(sigmale(bowtie(revert(contour_noise),deify(merge(pi2(sigmae(objectregions_muni, object_Utrecht))))),70)))");
 
 		ArrayList<Expression<StateData>> arrayList = handler.getOrderFunctionConstraints(tree)
+			.peek(System.out::println)
 			.map(sltl -> sltl.StateFold(4))
+			.peek(System.out::println)
+			.map(RuleSet::simplify)
 			.peek(System.out::println).collect(Collectors.toCollection(ArrayList::new));
 
 		Expression<StateData> test = And.of(arrayList);
