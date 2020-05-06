@@ -1,7 +1,7 @@
 {
   "solutions_path": "./BaseCoreConcept/sat_solutions.txt",
   "ontologyPrexifIRI": "http://geographicknowledge.de/vocab/CoreConceptData.rdf#",
-  "solution_graphs_folder": "./BaseCoreConcept/figs",
+  "solution_graphs_folder": "./BaseCoreConcept/extFigs",
   "tool_annotations_path": "./BaseCoreConcept/ToolDescription_TransformationAlgebra.json",
   "ontology_path": "./BaseCoreConcept/GISTaxonomy.rdf",
   "constraints_path": "./BaseCoreConcept/constraints.json",
@@ -20,21 +20,21 @@
   "number_of_generated_graphs": "20",
   "inputs": [
     {
-	"CoreConceptQ": ["FieldQ"], 
-    "LayerA": ["VectorTessellationA"],
-	"NominalA": ["PlainOrdinalA"]      
+      "CoreConceptQ": ["FieldQ"],
+      "LayerA": ["TessellationA"],
+      "NominalA": ["OrdinalA"]
     },
     {
-	"CoreConceptQ": ["ObjectQ"],
-    "LayerA": ["VectorTessellationA"],
-	"NominalA": ["NominalA"]    
+      "CoreConceptQ": ["ObjectQ"],
+      "LayerA": ["VectorA"],
+      "NominalA": ["NominalA"]
     }
   ],
   "outputs": [
     {
-    "CoreConceptQ": ["ObjectQ"], 
-    "LayerA": ["VectorTessellationA"],
-	"NominalA": ["RatioA"] 
+      "CoreConceptQ": ["CoreConceptQ"],
+      "LayerA": ["LayerA"],
+      "NominalA": ["NominalA"]
     }
   ],
   "debug_mode": "true",
