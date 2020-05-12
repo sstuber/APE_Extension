@@ -1,0 +1,124 @@
+reify(pi1(sigmale(bowtie(revert(contour_noise),deify(merge(pi2(sigmae(objectregions_muni, object_Utrecht))))),70)))
+
+reify(
+  pi1(
+    sigmale(
+      bowtie(
+        revert(contour_noise),
+        deify(
+          merge(
+            pi2(sigmae(objectregions_muni, object_Utrecht))
+          )
+        )
+      )
+    ,
+      70
+    )
+  )
+)
+
+bowtie_ratio (groupby_size (sigmae (lotopo (pi1 (sigmale(revert(contour_noise), 70)),sigmae(objectregions_muni, object_Amsterdam)), in)), groupby_size (sigmae (lotopo (deify (merge (pi2 (objectregions_muni))),sigmae(objectregions_muni, object_Amsterdam)),in)))
+
+bowtie_ratio (
+    groupby_size (sigmae (lotopo (
+                                  pi1 (sigmale(revert(contour_noise), 70)),
+                                  sigmae(objectregions_muni, object_Amsterdam)
+                                 )
+                         , in))
+    , groupby_size (sigmae (lotopo (deify (merge (pi2 (objectregions_muni))),
+                                    sigmae(objectregions_muni, object_Amsterdam)),
+                            in))
+
+)
+
+ContourToFieldRaster: revert (contour_x)
+https://pro.arcgis.com/en/pro-app/tool-reference/conversion/polygon-to-raster.htm
+     "inputs": [{
+          "CoreConceptQ": ["FieldQ"],
+          "LayerA": ["TessellationA"],
+          "NominalA": ["OrdinalA"]
+        },
+         "outputs": [{
+           "CoreConceptQ": ["FieldQ"],
+           "LayerA": ["RasterA"],
+           "NominalA": ["PlainOrdinalA"]
+         }
+SelectLayerByAttributeObjects: sigmae (objectregions_x, object_y)
+https://pro.arcgis.com/en/pro-app/tool-reference/data-management/select-layer-by-attribute.htm
++
+https://pro.arcgis.com/en/pro-app/tool-reference/data-management/copy-features.htm
+    "inputs": [{
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["NominalA"]
+          }],
+      "outputs": [{
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["NominalA"]
+        }
+
+LocalMapAlgebraSubOrder: sigmale (field_x, ordinal_y)
+https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/raster-calculator.htm
+      "inputs": [{
+          "CoreConceptQ": ["FieldQ"],
+          "LayerA": ["RasterA"],
+          "NominalA": ["OrdinalA"]
+        }],
+      "outputs": [{
+          "CoreConceptQ": ["FieldQ"],
+          "LayerA": ["RasterA"],
+          "NominalA": ["BooleanA"]
+        }
+
+
+ZonalStatisticsSize: groupby_size (sigmae (lotopo (pi1 (field_x), objectregions_y), in))
+https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/zonal-statistics-as-table.htm
++
+https://pro.arcgis.com/en/pro-app/tool-reference/data-management/join-field.htm
+       "inputs": [{
+           "CoreConceptQ": ["FieldQ"],
+           "LayerA": ["RasterA"],
+           "NominalA": ["NominalA"]
+         },
+         {
+           "CoreConceptQ": ["ObjectQ"],
+           "LayerA": ["TessellationA","VectorA"],
+           "NominalA": ["NominalA"]
+         }],
+       "outputs": [{
+                 "CoreConceptQ": ["ObjectQ"],
+                 "LayerA": ["VectorA","TessellationA"],
+                 "NominalA": ["PlainRatioA"]
+               }],
+
+AddArea: groupby_size (sigmae (lotopo (deify (merge (pi2 (objectregions_x))), objectregions_x), in))
+https://pro.arcgis.com/en/pro-app/tool-reference/data-management/add-geometry-attributes.htm
+      "inputs": [{
+        "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["NominalA"]
+        }],
+      "outputs": [{
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["PlainRatioA"]
+          }
+
+CalculateRatio: bowtie_ratio (objects_x, objects_y)
+https://pro.arcgis.com/en/pro-app/tool-reference/data-management/calculate-field.htm
+      "inputs": [{
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["RatioA"]
+        },
+        {
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["RatioA"]
+        }],
+"outputs": [{
+         "CoreConceptQ": ["ObjectQ"],
+         "LayerA": ["VectorA"],
+         "NominalA": ["PlainRatioA"]
+       }],
