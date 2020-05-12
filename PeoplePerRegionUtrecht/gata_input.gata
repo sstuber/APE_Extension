@@ -1,17 +1,9 @@
-reify(
-  pi1(
-    sigmale(
-      bowtie(
-        revert(contour_noise),
-        deify(
-          merge(
-            pi2(sigmae(objectregions_muni, object_Utrecht))
-          )
-        )
-      )
-    ,
-      70
-    )
-  )
-)
-
+groupby_sum (bowtie* (sigmae (otopo (
+                                     objectregions_households,
+                                     bowtie (objectregions_neighbourhoods,
+                                            pi1 (sigmae (otopo (
+                                                            objectregions_neighbourhoods,
+                                                            sigmae (objectregions_muni, object_utrecht)
+                                                            ), in) ) )
+                                     ),in),
+                      objectcount_households))
