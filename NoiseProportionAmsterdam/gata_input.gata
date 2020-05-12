@@ -1,17 +1,11 @@
-reify(
-  pi1(
-    sigmale(
-      bowtie(
-        revert(contour_noise),
-        deify(
-          merge(
-            pi2(sigmae(objectregions_muni, object_Utrecht))
-          )
-        )
-      )
-    ,
-      70
-    )
-  )
-)
+bowtie_ratio (
+    groupby_size (sigmae (lotopo (
+                                  pi1 (sigmale(revert(contour_noise), 70)),
+                                  sigmae(objectregions_muni, object_Amsterdam)
+                                 )
+                         , in))
+    , groupby_size (sigmae (lotopo (deify (merge (pi2 (objectregions_muni))),
+                                    sigmae(objectregions_muni, object_Amsterdam)),
+                            in))
 
+)

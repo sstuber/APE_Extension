@@ -17,6 +17,20 @@ reify(
   )
 )
 
+bowtie_ratio (groupby_size (sigmae (lotopo (pi1 (sigmale(revert(contour_noise), 70)),sigmae(objectregions_muni, object_Amsterdam)), in)), groupby_size (sigmae (lotopo (deify (merge (pi2 (objectregions_muni))),sigmae(objectregions_muni, object_Amsterdam)),in)))
+
+bowtie_ratio (
+    groupby_size (sigmae (lotopo (
+                                  pi1 (sigmale(revert(contour_noise), 70)),
+                                  sigmae(objectregions_muni, object_Amsterdam)
+                                 )
+                         , in))
+    , groupby_size (sigmae (lotopo (deify (merge (pi2 (objectregions_muni))),
+                                    sigmae(objectregions_muni, object_Amsterdam)),
+                            in))
+
+)
+
 ContourToFieldRaster: revert (contour_x)
 https://pro.arcgis.com/en/pro-app/tool-reference/conversion/polygon-to-raster.htm
      "inputs": [{
@@ -78,7 +92,7 @@ https://pro.arcgis.com/en/pro-app/tool-reference/data-management/join-field.htm
                  "NominalA": ["PlainRatioA"]
                }],
 
-AddArea: groupby_size (sigmae (lotopo (deify (merge (pi2 (objectregions_x)))), objectregions_x), in))
+AddArea: groupby_size (sigmae (lotopo (deify (merge (pi2 (objectregions_x))), objectregions_x), in))
 https://pro.arcgis.com/en/pro-app/tool-reference/data-management/add-geometry-attributes.htm
       "inputs": [{
         "CoreConceptQ": ["ObjectQ"],
