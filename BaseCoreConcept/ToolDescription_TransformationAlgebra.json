@@ -728,7 +728,7 @@
             "RasterA"
           ],
           "NominalA": [
-            "IntervalA"
+            "PlainOrdinalA"
           ]
         },
         {
