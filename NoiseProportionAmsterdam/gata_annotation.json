@@ -1,0 +1,92 @@
+{
+  "annotations": [
+    {
+      "functions": "groupby_avg (bowtie* (sigmae (lotopo (pi1 (field_x), objectregions_y), in), field_x))",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#ZonalStatisticsMeanInterval"
+    },
+    {
+      "functions": "bowtie (field_x, deify (merge (pi2 (objectregions_x))))",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#ClipField2ObjectExtent"
+    },
+    {
+      "functions": "groupby_avg (bowtie* (sigmae (otopo (objectregions_x, objectregions_y), in), objects_z)   )",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#SpatialJoinMeanTessRatio"
+    },
+    {
+      "functions": "groupby_count (sigmae (otopo (objectregions_x, objectregions_y), in))",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#SpatialJoinCountTess"
+    },
+    {
+      "functions": "invert (field_x)",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#RasterToContourInterval"
+    },
+    {
+      "functions": "groupby_sum (bowtie* (sigmae (otopo (objectregions_x, objectregions_y), in), objects_z))",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#SpatialJoinSumTessRatio"
+    },
+    {
+      "functions": "bowtie (objectregions_x, pi1 (sigmae (otopo (objectregions_x, objectregions_y), in) ) )",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#SelectLayerByLocationObjects"
+    },
+    {
+      "functions": "sigmae (amountpatches_x, nominal_y)",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#SelectFeaturesCoverageToExistenceVector"
+    },
+    {
+      "functions": "revert (amountpatches_x)",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#CoverageToNominalFieldRaster"
+    },
+    {
+      "functions": "sigmale (field_x, ordinal_y)",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#LocalMapAlgebraSubOrder"
+    },
+    {
+      "functions": "bowtie_ratio (objects_x, objects_y)",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#CalculateRatio"
+    },
+    {
+      "functions": "groupby_avg (bowtie* (sigmae (otopo (objectregions_x, objectregions_y), in), objects_z))",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#SpatialJoinMeanTessInterval"
+    },
+    {
+      "functions": "groupby_size (sigmae (lotopo (deify (merge (pi2 (objectregions_x)))), objectregions_x), in))",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#AddArea"
+    },
+    {
+      "functions": "revert (contour_x)",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#ContourToFieldRaster"
+    },
+    {
+      "functions": "reify (pi1 (field_x))",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#RegionFromRasterExtent"
+    },
+    {
+      "functions": "interpol (pointmeasures_x, deify (merge (pi2 (objectregions_y))))",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#IDWInterval"
+    },
+    {
+      "functions": "sigmae (objectregions_x, object_y)",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#SelectLayerByAttributeObjects"
+    },
+    {
+      "functions": "groupby_sum (bowtie* (sigmae (otopo (objectregions_x, objectregions_y), in), objectcounts_z))",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#SpatialJoinSumTessCount"
+    },
+    {
+      "functions": "groupby_avg (bowtie* (sigmae (otopo (objectregions_x, objectregions_y), in), objectcounts_z))",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#SpatialJoinMeanTessCount"
+    },
+    {
+      "functions": "sigmale (contour_x, ordinal_y)",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#SelectFeaturesContourToExistenceVector"
+    },
+    {
+      "functions": "interpol (pointmeasures_x, deify (merge (pi2 (objectregions_y))))",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#KrigingInterval"
+    },
+    {
+      "functions": "groupby_size (sigmae (lotopo (pi1 (field_x), objectregions_y), in))",
+      "tool": "http://geographicknowledge.de/vocab/GISTools.rdf#ZonalStatisticsSize"
+    }
+  ]
+}
