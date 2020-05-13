@@ -5,7 +5,7 @@ bowtie_ratio (
                                  )
                          , in))
     , groupby_size (sigmae (lotopo (deify (merge (pi2 (objectregions_muni))),
-                                    sigmae(objectregions_muni, object_Amsterdam)),
-                            in))
+                                    sigmae(objectregions_muni, object_Amsterdam))
+                            ,in))
 
 )
