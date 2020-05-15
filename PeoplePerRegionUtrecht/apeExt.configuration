@@ -1,10 +1,10 @@
 {
-  "solutions_path": "./BaseCoreConcept/sat_solutions.txt",
+  "solutions_path": "./PeoplePerRegionUtrecht/sat_solutions.txt",
   "ontologyPrexifIRI": "http://geographicknowledge.de/vocab/CoreConceptData.rdf#",
-  "solution_graphs_folder": "./BaseCoreConcept/extFigs",
-  "tool_annotations_path": "./BaseCoreConcept/ToolDescription_TransformationAlgebra.json",
-  "ontology_path": "./BaseCoreConcept/GISTaxonomy.rdf",
-  "constraints_path": "./BaseCoreConcept/constraints.json",
+  "solution_graphs_folder": "./PeoplePerRegionUtrecht/extFigs",
+  "tool_annotations_path": "./PeoplePerRegionUtrecht/ToolDescription_TransformationAlgebra.json",
+  "ontology_path": "./PeoplePerRegionUtrecht/GISTaxonomy.rdf",
+  "constraints_path": "./PeoplePerRegionUtrecht/constraints.json",
   "toolsTaxonomyRoot": "http://geographicknowledge.de/vocab/GISTools.rdf#Tool",
   "dataTaxonomyRoot": "Attribute",
   "dataSubTaxonomyRoot": [
@@ -15,26 +15,31 @@
   "shared_memory": "true",
   "solution_min_length": "1",
   "solution_max_length": "10",
-  "max_solutions": "20",
+  "max_solutions": "100",
   "number_of_execution_scripts": "0",
   "number_of_generated_graphs": "20",
   "inputs": [
     {
-      "CoreConceptQ": ["FieldQ"],
-      "LayerA": ["TessellationA"],
-      "NominalA": ["OrdinalA"]
+      "CoreConceptQ": ["ObjectQ"],
+      "LayerA": ["VectorA"],
+      "NominalA": ["NominalA"]
     },
     {
       "CoreConceptQ": ["ObjectQ"],
       "LayerA": ["VectorA"],
       "NominalA": ["NominalA"]
+    },
+    {
+      "CoreConceptQ": ["ObjectQ"],
+      "LayerA": ["VectorA"],
+      "NominalA": ["CountA"]
     }
   ],
-  "outputs": [
-    {
-      "CoreConceptQ": ["CoreConceptQ"],
-      "LayerA": ["LayerA"],
-      "NominalA": ["NominalA"]
+  "outputs": [{
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["TessellationA","VectorA"],
+          "NominalA": ["CountA"
+          ]
     }
   ],
   "debug_mode": "true",

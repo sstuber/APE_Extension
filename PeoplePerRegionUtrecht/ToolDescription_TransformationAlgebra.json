@@ -44,8 +44,7 @@
             "VectorA"
           ],
           "NominalA": [
-            "CountA",
-            "http://geographicknowledge.de/vocab/ExtensiveMeasures.rdf#ERA"
+            "CountA"
           ]
         },
         {
@@ -72,8 +71,7 @@
             "VectorA"
           ],
           "NominalA": [
-            "CountA",
-            "http://geographicknowledge.de/vocab/ExtensiveMeasures.rdf#ERA"
+            "CountA"
           ]
         }
       ],

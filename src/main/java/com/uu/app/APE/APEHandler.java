@@ -59,7 +59,7 @@ public class APEHandler {
 
 		try {
 			apeFramework.writeSolutionToFile(solutionsList);
-			apeFramework.writeControlFlowGraphs(solutionsList, RankDir.LEFT_TO_RIGHT);
+			apeFramework.writeDataFlowGraphs(solutionsList, RankDir.LEFT_TO_RIGHT);
 		} catch (IOException e) {
 			System.err.println("Error in writing the solutions. to the file system.");
 			e.printStackTrace();
