@@ -1,6 +1,7 @@
 package com.uu.app.APE;
 
 import com.bpodgursky.jbool_expressions.Expression;
+import com.bpodgursky.jbool_expressions.Literal;
 import com.uu.app.SLTL.StateFold.StateData;
 import com.uu.app.SLTL.StateFold.StateType;
 import nl.uu.cs.ape.sat.automaton.ModuleAutomaton;
@@ -30,6 +31,8 @@ public abstract class AbstractConstraintBuilder implements ExternalConstraintBui
 		if (booleanCnfConstraint.getExprType().equals("or"))
 			conjunctionExpressions = Collections.singletonList(booleanCnfConstraint);
 
+		if (booleanCnfConstraint.equals(Literal.of(false)))
+			return new StringBuilder().append("0\n");
 
 		StringBuilder conjunctionString = conjunctionExpressions.stream()
 			.map(disjunctionExpr -> {
