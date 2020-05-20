@@ -62,8 +62,13 @@ public class GataConstraintHandler {
 		Stream<SLTL> orderConstraints = getOrderFunctionConstraints(gataTree);
 		Stream<SLTL> presentFunctions = getPresentFunctionsConstraints(gataTree);
 		Stream<SLTL> functionTallyConstraints = getFunctionCountConstraints(gataTree);
+		Stream<SLTL> finalFunctionConstraint = getFinalFunctionConstraint(gataTree);
 
-		return Stream.of(orderConstraints, presentFunctions, functionTallyConstraints).flatMap(x -> x);
+		return Stream.of(
+			orderConstraints,
+			presentFunctions,
+			functionTallyConstraints,
+		).flatMap(x -> x);
 	}
 
 	// should get the formula's for the order
@@ -106,7 +111,24 @@ public class GataConstraintHandler {
 		ArrayList<ArrayList<String>> list = visitor.visit(tree);
 
 		return list.stream()
-			.flatMap(orderList -> transformSimpleOrder(orderList, visitor.multipleParamFunctionSet));
+			.flatMap(orderList -> transformTripleOrder(orderList, visitor.multipleParamFunctionSet));
+	}
+
+	Stream<SLTL> transformTripleOrder(ArrayList<String> functionOrder, Set<String> multipleParamFunctionSet) {
+		Stream.Builder<ArrayList<String>> orderList = Stream.builder();
+		if (functionOrder.size() < 3)
+			orderList.add(functionOrder);
+
+		for (int i = 2; i < functionOrder.size(); i++) {
+			ArrayList<String> tmpList = new ArrayList<>();
+
+			tmpList.add(functionOrder.get(i - 2));
+			tmpList.add(functionOrder.get(i - 1));
+			tmpList.add(functionOrder.get(i));
+			orderList.add(tmpList);
+		}
+
+		return orderList.build().map(list -> transformFunctionOrder2(list, multipleParamFunctionSet));
 	}
 
 	Stream<SLTL> transformSimpleOrder(ArrayList<String> functionOrder, Set<String> multipleParamFunctionSet) {
