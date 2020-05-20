@@ -1,6 +1,7 @@
 package com.uu.app;
 
 import com.uu.app.APE.APEHandler;
+import com.uu.app.APE.ApeSltlFactory;
 import com.uu.app.APE.AtMostNConstraintBuilder;
 import com.uu.app.APE.ToolAnnotationHandler;
 import com.uu.app.GATA.*;
@@ -68,6 +69,7 @@ public class GataConstraintHandler {
 			orderConstraints,
 			presentFunctions,
 			functionTallyConstraints,
+			finalFunctionConstraint
 		).flatMap(x -> x);
 	}
 
@@ -112,6 +114,19 @@ public class GataConstraintHandler {
 
 		return list.stream()
 			.flatMap(orderList -> transformTripleOrder(orderList, visitor.multipleParamFunctionSet));
+	}
+
+	public Stream<SLTL> getFinalFunctionConstraint(ParseTree tree) {
+		GataFinalFunctionVisitor visitor = new GataFinalFunctionVisitor();
+		String finalFunctionName = visitor.visit(tree);
+		Stream.Builder<SLTL> resultStream = Stream.builder();
+
+		if (finalFunctionName == null)
+			return resultStream.build();
+
+		resultStream.add(ApeSltlFactory.UseModuleLast(finalFunctionName));
+
+		return resultStream.build();
 	}
 
 	Stream<SLTL> transformTripleOrder(ArrayList<String> functionOrder, Set<String> multipleParamFunctionSet) {
