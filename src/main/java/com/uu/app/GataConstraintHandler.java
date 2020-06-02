@@ -113,7 +113,7 @@ public class GataConstraintHandler {
 		ArrayList<ArrayList<String>> list = visitor.visit(tree);
 
 		return list.stream()
-			.flatMap(orderList -> transformTripleOrder(orderList, visitor.multipleParamFunctionSet));
+			.flatMap(orderList -> transformSimpleOrder(orderList, visitor.multipleParamFunctionSet));
 	}
 
 	public Stream<SLTL> getFinalFunctionConstraint(ParseTree tree) {
