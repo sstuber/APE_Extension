@@ -1,9 +1,6 @@
 package com.uu.app;
 
-import com.bpodgursky.jbool_expressions.And;
-import com.bpodgursky.jbool_expressions.Expression;
-import com.bpodgursky.jbool_expressions.Not;
-import com.bpodgursky.jbool_expressions.Variable;
+import com.bpodgursky.jbool_expressions.*;
 import com.bpodgursky.jbool_expressions.rules.RuleSet;
 import com.uu.app.APE.APEHandler;
 import com.uu.app.APE.ApeSltlFactory;
@@ -27,31 +24,43 @@ public class App {
 		GataConstraintHandler handler = new GataConstraintHandler("./");
 
 		//ParseTree tree = GataParserHandler.parse("reify(interpol(noise),sigma(interpol(noise)))");
-		ParseTree tree = GataParserHandler.parse("reify(pi1(sigmale(bowtie(revert(contour_noise),deify(merge(pi2(sigmae(objectregions_muni, object_Utrecht))))),70)))");
+		//ParseTree tree = GataParserHandler.parse("reify(pi1(sigmale(bowtie(revert(contour_noise),deify(merge(pi2(sigmae(objectregions_muni, object_Utrecht))))),70)))");
+
+		ParseTree tree = GataParserHandler.parse("groupby_sum (bowtie* (sigmae (otopo (objectregions_households,bowtie (objectregions_neighbourhoods,pi1 (sigmae (otopo (objectregions_neighbourhoods,sigmae (objectregions_muni, object_utrecht)), in) ) )),in),objectcount_households))");
 
 		ArrayList<Expression<StateData>> arrayList = handler.getOrderFunctionConstraints(tree)
+			.skip(6)
 			.peek(System.out::println)
-			.map(sltl -> sltl.StateFold(4))
+			.map(sltl -> sltl.StateFold(3))
 			.peek(System.out::println)
 			.map(RuleSet::simplify)
-			.peek(System.out::println).collect(Collectors.toCollection(ArrayList::new));
+			.peek(System.out::println)
+			.collect(Collectors.toCollection(ArrayList::new));
 
-		Expression<StateData> test = And.of(arrayList);
-		System.out.println("results");
-		System.out.println(test);
+//		ArrayList<Expression<StateData>> arrayList = handler.getOrderFunctionConstraints(tree)
+//			.peek(System.out::println)
+//			.map(sltl -> sltl.StateFold(4))
+//			.peek(System.out::println)
+//			.map(RuleSet::simplify)
+//			.peek(System.out::println).collect(Collectors.toCollection(ArrayList::new));
+//
+//		Expression<StateData> test = And.of(arrayList);
+//		System.out.println("results");
+//		System.out.println(test);
+//
+//		long time1 = System.currentTimeMillis();
+//		System.out.println(RuleSet.simplify(test));
+//		System.out.printf("Simplify time: %f", (System.currentTimeMillis() - time1) / 1000f);
+//
+//		long time3 = System.currentTimeMillis();
+//		System.out.println(RuleSet.toCNF(RuleSet.simplify(test)));
+//		System.out.printf("CNF time: %f", (System.currentTimeMillis() - time3) / 1000f);
+//
+//		long time2 = System.currentTimeMillis();
+//		System.out.println(RuleSet.toCNF(test));
+//		System.out.printf("CNF time: %f", (System.currentTimeMillis() - time2) / 1000f);
 
-		long time1 = System.currentTimeMillis();
-		System.out.println(RuleSet.simplify(test));
-		System.out.printf("Simplify time: %f", (System.currentTimeMillis() - time1) / 1000f);
-
-		long time3 = System.currentTimeMillis();
-		System.out.println(RuleSet.toCNF(RuleSet.simplify(test)));
-		System.out.printf("CNF time: %f", (System.currentTimeMillis() - time3) / 1000f);
-
-		long time2 = System.currentTimeMillis();
-		System.out.println(RuleSet.toCNF(test));
-		System.out.printf("CNF time: %f", (System.currentTimeMillis() - time2) / 1000f);
-
+		//System.out.println(Literal.of(false).equals(arrayList.get(0)));
 
 		SLTLBuilder left = new SLTLBuilder().addNext("sigma");
 
@@ -78,12 +87,12 @@ public class App {
 
 		SLTLBuilder finalFormula = level3;
 
-		System.out.println(finalFormula.getResult());
-
-		System.out.println(finalFormula.getResult().StateFold(5));
-
-
-		System.out.println(RuleSet.simplify(finalFormula.getResult().StateFold(5)));
+//		System.out.println(finalFormula.getResult());
+//
+//		System.out.println(finalFormula.getResult().StateFold(5));
+//
+//
+//		System.out.println(RuleSet.simplify(finalFormula.getResult().StateFold(5)));
 		testSimpleGataDemo();
 
 
@@ -102,8 +111,8 @@ public class App {
 
 		APEHandler handler = null;
 
-		try {
-			handler = APEHandler.GataApeHandler("./BaseCoreConcept/");
+		try {// AverageTempPerNeighbourhoodUtrecht
+			handler = APEHandler.GataApeHandler("./AverageTempPerNeighbourhoodUtrecht/");
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.err.println("creating handler failed");
