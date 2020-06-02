@@ -1,10 +1,10 @@
 {
-  "solutions_path": "./BaseCoreConcept/sat_solutions.txt",
+  "solutions_path": "./AverageTempPerNeighbourhoodUtrecht/sat_solutions.txt",
   "ontologyPrexifIRI": "http://geographicknowledge.de/vocab/CoreConceptData.rdf#",
-  "solution_graphs_folder": "./BaseCoreConcept/extFigs",
-  "tool_annotations_path": "./BaseCoreConcept/ToolDescription_TransformationAlgebra.json",
-  "ontology_path": "./BaseCoreConcept/GISTaxonomy.rdf",
-  "constraints_path": "./BaseCoreConcept/constraints.json",
+  "solution_graphs_folder": "./AverageTempPerNeighbourhoodUtrecht/extFigs",
+  "tool_annotations_path": "./AverageTempPerNeighbourhoodUtrecht/ToolDescription_TransformationAlgebra.json",
+  "ontology_path": "./AverageTempPerNeighbourhoodUtrecht/GISTaxonomy.rdf",
+  "constraints_path": "./AverageTempPerNeighbourhoodUtrecht/constraints.json",
   "toolsTaxonomyRoot": "http://geographicknowledge.de/vocab/GISTools.rdf#Tool",
   "dataTaxonomyRoot": "Attribute",
   "dataSubTaxonomyRoot": [
@@ -20,10 +20,10 @@
   "number_of_generated_graphs": "20",
   "inputs": [
     {
-      "CoreConceptQ": ["FieldQ"],
-      "LayerA": ["TessellationA"],
-      "NominalA": ["OrdinalA"]
-    },
+              "CoreConceptQ": ["FieldQ"],
+              "LayerA": ["PointA"],
+              "NominalA": ["IntervalA"]
+            },
     {
       "CoreConceptQ": ["ObjectQ"],
       "LayerA": ["VectorA"],
@@ -32,10 +32,10 @@
   ],
   "outputs": [
     {
-      "CoreConceptQ": ["CoreConceptQ"],
-      "LayerA": ["LayerA"],
-      "NominalA": ["NominalA"]
-    }
+              "CoreConceptQ": ["ObjectQ"],
+              "LayerA": ["TessellationA","VectorA"],
+              "NominalA": ["PlainIntervalA"]
+            }
   ],
   "debug_mode": "true",
   "use_workflow_input": "all",

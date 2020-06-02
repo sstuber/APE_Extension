@@ -1,11 +1,6 @@
-bowtie_ratio (
-    groupby_size (sigmae (lotopo (
-                                  pi1 (sigmale(revert(contour_noise), 70)),
-                                  sigmae(objectregions_muni, object_Amsterdam)
-                                 )
-                         , in))
-    , groupby_size (sigmae (lotopo (deify (merge (pi2 (objectregions_muni))),
-                                    sigmae(objectregions_muni, object_Amsterdam)),
-                            in))
-
-)
+groupby_avg (bowtie* (sigmae (lotopo (
+                                  pi1 (interpol (pointmeasures_x, deify (merge (pi2 (sigmae (objectregions_x, object_y)))))),
+                                  bowtie (objectregions_x, pi1 (sigmae (otopo (objectregions_x, sigmae (objectregions_x, object_y)), in) ) )
+                                  ),
+                              in),
+                        interpol (pointmeasures_x, deify (merge (pi2 (sigmae (objectregions_x, object_y)))))))
