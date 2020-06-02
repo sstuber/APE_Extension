@@ -42,7 +42,7 @@ public class APEHandler {
 	public SATsolutionsList RunSynthesisWithResults() {
 		SATsolutionsList solutions = null;
 		try {
-			solutions = apeFramework.runSynthesis(this.configPath);
+			solutions = apeFramework.runSynthesis(this.configPath, apeFramework.getDomainSetup());
 		} catch (IOException e) {
 			System.err.println("Error in synthesis execution. Writing to the file system failed.");
 
@@ -71,7 +71,7 @@ public class APEHandler {
 	public void RunSynthesis() {
 		SATsolutionsList solutions = null;
 		try {
-			solutions = apeFramework.runSynthesis(this.configPath);
+			solutions = apeFramework.runSynthesis(this.configPath, apeFramework.getDomainSetup());
 		} catch (IOException e) {
 			System.err.println("Error in synthesis execution. Writing to the file system failed.");
 			return;
