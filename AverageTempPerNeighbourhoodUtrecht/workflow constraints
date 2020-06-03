@@ -1,3 +1,11 @@
+according to workflow
+groupby_avg (bowtie* (sigmae (lotopo (
+                                  pi1 (field_x),
+                                  bowtie (objectregions_x, pi1 (sigmae (otopo (objectregions_x, sigmae (objectregions_x, object_y)), in) ) )
+                                  ),
+                              in),
+                        interpol (pointmeasures_x, deify (merge (pi2 (objectregions_y))))))
+given
 
 groupby_avg (bowtie* (sigmae (lotopo (
                                   pi1 (interpol (pointmeasures_x, deify (merge (pi2 (sigmae (objectregions_x, object_y)))))),
@@ -5,6 +13,8 @@ groupby_avg (bowtie* (sigmae (lotopo (
                                   ),
                               in),
                         interpol (pointmeasures_x, deify (merge (pi2 (sigmae (objectregions_x, object_y)))))))
+
+
 
 MakePointMeasuresFromTable
   "inputs": [{
