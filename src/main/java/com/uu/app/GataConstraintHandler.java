@@ -63,12 +63,15 @@ public class GataConstraintHandler {
 		Stream<SLTL> orderConstraints = getOrderFunctionConstraints(gataTree);
 		Stream<SLTL> presentFunctions = getPresentFunctionsConstraints(gataTree);
 		Stream<SLTL> functionTallyConstraints = getFunctionCountConstraints(gataTree);
+		Stream<SLTL> functionParamConstraints = getFunctionParamConstraint(gataTree);
 		Stream<SLTL> finalFunctionConstraint = getFinalFunctionConstraint(gataTree);
 
 		return Stream.of(
 			orderConstraints,
 			presentFunctions,
-			functionTallyConstraints,
+			//functionParamConstraints,
+			functionTallyConstraints
+			,
 			finalFunctionConstraint
 		).flatMap(x -> x);
 	}
@@ -127,6 +130,81 @@ public class GataConstraintHandler {
 		resultStream.add(ApeSltlFactory.UseModuleLast(finalFunctionName));
 
 		return resultStream.build();
+	}
+
+	public Stream<SLTL> getFunctionParamConstraint(ParseTree tree) {
+		GataFunctionParamsVisitor visitor = new GataFunctionParamsVisitor();
+		visitor.visit(tree);
+
+		Map<String, List<List<String>>> map = visitor.paramMap;
+		Stream.Builder<SLTL> builder = Stream.builder();
+
+		map.forEach((key, value) -> {
+			for (List<String> parameterList : value)
+				builder.add(transformFunctionParam(key, parameterList));
+		});
+
+		return builder.build();
+	}
+
+	/**
+	 * assumes params is a list of at least and at most two;
+	 * F (
+	 * param1 and (XF(param2 and (name or X name)))
+	 * or
+	 * param2 and (XF(param1 and (name or X name)))
+	 * )
+	 *
+	 * @param functionName
+	 * @param params
+	 * @return
+	 */
+	SLTL transformFunctionParam(String functionName, List<String> params) {
+		String param1 = params.get(0);
+		String param2 = params.get(1);
+
+		SLTLBuilder functionNamePart = getFunctionNameConstraint(functionName);
+
+		SLTLBuilder normalOrder = createSingleParamOrder(functionName, param1, param2);
+		SLTLBuilder reverseOrder = createSingleParamOrder(functionName, param2, param1);
+
+		return normalOrder
+			.addBinaryRight(reverseOrder, BinarySLTLOp.Or)
+			.addUnary(UnarySLTLOp.Finally)
+			.getResult();
+	}
+
+	// param1 and (XF(param2 and (name or X name)))
+	SLTLBuilder createSingleParamOrder(String functionName, String param1, String param2) {
+		// XF(param2 and (name or X name))
+		SLTLBuilder intermediateResult = new SLTLBuilder()
+			.addNext(param2)
+			.addBinaryRight(
+				getFunctionNameConstraint(functionName),
+				BinarySLTLOp.And
+			)
+			.addUnary(UnarySLTLOp.Finally)
+			.addUnary(UnarySLTLOp.Next);
+
+		// param1 and (XF(param2 and (name or X name)))
+		return new SLTLBuilder()
+			.addNext(param1)
+			.addBinaryRight(
+				intermediateResult,
+				BinarySLTLOp.And
+			);
+	}
+
+	// (name or X name)
+	SLTLBuilder getFunctionNameConstraint(String functionName) {
+		return new SLTLBuilder()
+			.addNext(functionName)
+			.addBinaryRight(
+				new SLTLBuilder()
+					.addNext(functionName)
+					.addUnary(UnarySLTLOp.Next),
+				BinarySLTLOp.Or
+			);
 	}
 
 	Stream<SLTL> transformTripleOrder(ArrayList<String> functionOrder, Set<String> multipleParamFunctionSet) {

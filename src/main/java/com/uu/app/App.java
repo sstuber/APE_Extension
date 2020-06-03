@@ -5,6 +5,7 @@ import com.bpodgursky.jbool_expressions.rules.RuleSet;
 import com.uu.app.APE.APEHandler;
 import com.uu.app.APE.ApeSltlFactory;
 import com.uu.app.APE.ToolAnnotationHandler;
+import com.uu.app.GATA.GataFunctionParamsVisitor;
 import com.uu.app.GATA.GataParserHandler;
 import com.uu.app.SLTL.*;
 import com.uu.app.SLTL.StateFold.StateData;
@@ -26,10 +27,13 @@ public class App {
 		//ParseTree tree = GataParserHandler.parse("reify(interpol(noise),sigma(interpol(noise)))");
 		//ParseTree tree = GataParserHandler.parse("reify(pi1(sigmale(bowtie(revert(contour_noise),deify(merge(pi2(sigmae(objectregions_muni, object_Utrecht))))),70)))");
 
-		ParseTree tree = GataParserHandler.parse("groupby_sum (bowtie* (sigmae (otopo (objectregions_households,bowtie (objectregions_neighbourhoods,pi1 (sigmae (otopo (objectregions_neighbourhoods,sigmae (objectregions_muni, object_utrecht)), in) ) )),in),objectcount_households))");
+		ParseTree tree = GataParserHandler.parse("bowtie_ratio (groupby_size (sigmae (lotopo (pi1 (sigmale(revert(contour_noise), 70)),sigmae(objectregions_muni, object_Amsterdam)), in)), groupby_size (sigmae (lotopo (deify (merge (pi2 (objectregions_muni))),sigmae(objectregions_muni, object_Amsterdam)),in)))");
 
-		ArrayList<Expression<StateData>> arrayList = handler.getOrderFunctionConstraints(tree)
-			.skip(6)
+		GataFunctionParamsVisitor visitor = new GataFunctionParamsVisitor();
+
+		visitor.visit(tree);
+
+		ArrayList<Expression<StateData>> arrayList = handler.getFunctionParamConstraint(tree)
 			.peek(System.out::println)
 			.map(sltl -> sltl.StateFold(3))
 			.peek(System.out::println)
@@ -115,7 +119,7 @@ public class App {
 		// NoiseProPortionAmsterdam
 		// BaseCoreConcept
 		try {// AverageTempPerNeighbourhoodUtrecht
-			handler = APEHandler.GataApeHandler("./PeoplePerRegionUtrecht/");
+			handler = APEHandler.GataApeHandler("./AverageTempPerNeighbourhoodUtrecht/");
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.err.println("creating handler failed");
