@@ -4,4 +4,7 @@ public class ToolAnnotationStruct {
 	public String name;
 	public String gataAnnotation;
 
+	public String getName() {
+		return name + "[tool]";
+	}
 }
