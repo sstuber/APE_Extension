@@ -17,7 +17,9 @@ public class GataGraphVisitor extends GatlBaseVisitor<GataNode> {
 		graph.leaves.add(leaf);
 		graph.nodeList.add(leaf);
 
-		return null;
+		graph.AddRoot(leaf);
+
+		return leaf;
 	}
 
 	@Override
