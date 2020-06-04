@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 public class GataGraphVisitor extends GatlBaseVisitor<GataNode> {
 
-	GataGraph graph = new GataGraph();
+	public GataGraph graph = new GataGraph();
 
 	@Override
 	public GataNode visitData(GatlParser.DataContext ctx) {
