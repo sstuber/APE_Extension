@@ -22,6 +22,8 @@ public class GataConstraintHandler {
 	String annotationFileName = "gata_annotation.json";
 	String gataFileName = "gata_input.gata";
 
+	String gataInputString;
+
 	ToolAnnotationHandler toolAnnotationHandler;
 
 	public GataConstraintHandler(String basePath) {
@@ -30,6 +32,7 @@ public class GataConstraintHandler {
 		String annotationPath = basePath + annotationFileName;
 		toolAnnotationHandler = new ToolAnnotationHandler(annotationPath);
 
+		gataInputString = ReadInputString();
 	}
 
 	public Stream<SLTL> getToolAnnotationConstraints() {
@@ -397,7 +400,7 @@ public class GataConstraintHandler {
 	}
 
 
-	private ParseTree getParseTree() {
+	private String ReadInputString() {
 		File gataInputFile = new File(basePath + gataFileName);
 
 		String inputString = "";
@@ -406,8 +409,15 @@ public class GataConstraintHandler {
 		} catch (Error | IOException e) {
 			System.err.println("gata file was wrong");
 		}
+		return inputString;
+	}
 
-		return GataParserHandler.parse(inputString);
+	public String GetInputString() {
+		return gataInputString;
+	}
+
+	private ParseTree getParseTree() {
+		return GataParserHandler.parse(gataInputString);
 	}
 
 }
