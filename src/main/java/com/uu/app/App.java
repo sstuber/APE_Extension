@@ -7,6 +7,8 @@ import com.uu.app.APE.ApeSltlFactory;
 import com.uu.app.APE.ToolAnnotationHandler;
 import com.uu.app.GATA.GataFunctionParamsVisitor;
 import com.uu.app.GATA.GataParserHandler;
+import com.uu.app.GATA.graph.GataGraph;
+import com.uu.app.GATA.graph.GataGraphVisitor;
 import com.uu.app.SLTL.*;
 import com.uu.app.SLTL.StateFold.StateData;
 import nl.uu.cs.ape.sat.core.implSAT.SATsolutionsList;
@@ -29,9 +31,11 @@ public class App {
 
 		ParseTree tree = GataParserHandler.parse("bowtie_ratio (groupby_size (sigmae (lotopo (pi1 (sigmale(revert(contour_noise), 70)),sigmae(objectregions_muni, object_Amsterdam)), in)), groupby_size (sigmae (lotopo (deify (merge (pi2 (objectregions_muni))),sigmae(objectregions_muni, object_Amsterdam)),in)))");
 
-		GataFunctionParamsVisitor visitor = new GataFunctionParamsVisitor();
+		GataGraphVisitor visitor = new GataGraphVisitor();
 
 		visitor.visit(tree);
+
+		GataGraph copy = visitor.graph.Copy();
 
 		ArrayList<Expression<StateData>> arrayList = handler.getFunctionParamConstraint(tree)
 			.peek(System.out::println)

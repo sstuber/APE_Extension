@@ -35,6 +35,8 @@ public class GataGraphVisitor extends GatlBaseVisitor<GataNode> {
 
 		graph.AddRoot(currentNode);
 
+		graph.nodeList.add(currentNode);
+
 		return currentNode;
 	}
 }

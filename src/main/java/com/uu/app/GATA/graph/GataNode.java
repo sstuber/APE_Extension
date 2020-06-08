@@ -66,4 +66,11 @@ public class GataNode {
 			.stream()
 			.flatMap(GataNode::GetLeaves);
 	}
+
+	public Stream<GataNode> GetAllNodes(){
+		return Stream.concat(
+			Stream.of(this),
+			children.stream().flatMap(GataNode::GetAllNodes)
+		);
+	}
 }

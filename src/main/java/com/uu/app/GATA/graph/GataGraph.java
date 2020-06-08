@@ -2,6 +2,7 @@ package com.uu.app.GATA.graph;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GataGraph {
 
@@ -21,11 +22,21 @@ public class GataGraph {
 			root.isRoot = false;
 
 		root = node;
-
-		if (nodeList.contains(node))
-			return;
-
-		nodeList.add(node);
 	}
 
+	public GataGraph Copy() {
+		GataGraph newGraph = new GataGraph();
+		GataNode newRoot = root.Copy();
+
+		newGraph.leaves = newRoot
+			.GetLeaves()
+			.collect(Collectors.toList());
+
+		newGraph.nodeList = newRoot
+			.GetAllNodes()
+			.collect(Collectors.toList());
+
+		newGraph.AddRoot(newRoot);
+		return newGraph;
+	}
 }
