@@ -1,6 +1,7 @@
 package com.uu.app.APE;
 
 import com.uu.app.GataConstraintHandler;
+import com.uu.app.GataGraphFilterHandler;
 import com.uu.app.SLTL.SLTL;
 import guru.nidi.graphviz.attribute.RankDir;
 import nl.uu.cs.ape.sat.APE;
@@ -15,6 +16,7 @@ public class APEHandler {
 	String configPath;
 
 	SATsolutionsList solutionsList;
+	GataGraphFilterHandler filterHandler;
 
 	public APEHandler(String configPath) throws IOException {
 		this.configPath = configPath;
@@ -28,8 +30,15 @@ public class APEHandler {
 		GataConstraintHandler constraintHandler = new GataConstraintHandler(basepath);
 
 		constraintHandler.AddGataConstraintsToApe(handler);
+
+		// Initialize GraphFilterHandler
+		handler.filterHandler = new GataGraphFilterHandler(
+			constraintHandler.GetInputString(),
+			constraintHandler.GetToolAnnotationList()
+		);
 		return handler;
 	}
+
 
 	public void AddConstraint(SLTL constraint) {
 		this.apeFramework.AddExternalConstraint(new SltlToSatConstraintBuilder(constraint));

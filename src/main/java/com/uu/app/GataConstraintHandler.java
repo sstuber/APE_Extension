@@ -1,9 +1,6 @@
 package com.uu.app;
 
-import com.uu.app.APE.APEHandler;
-import com.uu.app.APE.ApeSltlFactory;
-import com.uu.app.APE.AtMostNConstraintBuilder;
-import com.uu.app.APE.ToolAnnotationHandler;
+import com.uu.app.APE.*;
 import com.uu.app.GATA.*;
 import com.uu.app.SLTL.BinarySLTLOp;
 import com.uu.app.SLTL.SLTL;
@@ -414,6 +411,10 @@ public class GataConstraintHandler {
 
 	public String GetInputString() {
 		return gataInputString;
+	}
+
+	public ArrayList<ToolAnnotationStruct> GetToolAnnotationList() {
+		return toolAnnotationHandler.annotationStructs;
 	}
 
 	private ParseTree getParseTree() {
