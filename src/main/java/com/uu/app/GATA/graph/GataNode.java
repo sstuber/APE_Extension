@@ -2,6 +2,8 @@ package com.uu.app.GATA.graph;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class GataNode {
 
@@ -37,5 +39,31 @@ public class GataNode {
 	public void AddChild(GataNode node) {
 		node.parentNode = this;
 		children.add(node);
+	}
+
+	public GataNode Copy() {
+		GataNode result;
+
+		if (isLeaf) {
+			result = GataNode.CreateLeafNode(functionName);
+			return result;
+		}
+
+		result = GataNode.CreateNode(functionName);
+
+		children.stream()
+			.map(GataNode::Copy)
+			.forEach(result::AddChild);
+
+		return result;
+	}
+
+	public Stream<GataNode> GetLeaves() {
+		if (isLeaf)
+			return Stream.of(this);
+
+		return children
+			.stream()
+			.flatMap(GataNode::GetLeaves);
 	}
 }
