@@ -42,6 +42,29 @@ public class GataGraphFilterHandler {
 		return true;
 	}
 
+	public List<GataGraph> CreateAllPossibleGraphs(ArrayList<GataGraph> tools) {
+		List<GataGraph> resultList = new ArrayList<>();
+
+		for (int i = 0; i < tools.size(); i++) {
+			GataGraph newTool = tools.get(i);
+
+			if (resultList.size() == 0) {
+				resultList.add(newTool);
+				continue;
+			}
+
+			List<GataGraph> newList = new ArrayList<>();
+
+			for (GataGraph graph : resultList)
+				for (GataNode leaf : graph.leaves)
+					newList.add(graph.Copy().AddSubGraphToLeaf(leaf, newTool.Copy()));
+
+			resultList = newList;
+		}
+
+		return resultList;
+	}
+
 	private Map<String, String> getIRIToAnnotationMap(List<ToolAnnotationStruct> annotationList) {
 		Map<String, String> result = new HashMap<>();
 
