@@ -39,6 +39,10 @@ public class APEHandler {
 		return handler;
 	}
 
+	public SATsolutionsList FilterSolutions() {
+		return filterHandler.FilterSolutionList(solutionsList);
+	}
+
 
 	public void AddConstraint(SLTL constraint) {
 		this.apeFramework.AddExternalConstraint(new SltlToSatConstraintBuilder(constraint));

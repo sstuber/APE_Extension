@@ -124,7 +124,7 @@ public class App {
 		// NoiseProPortionAmsterdam
 		// BaseCoreConcept
 		try {// AverageTempPerNeighbourhoodUtrecht
-			handler = APEHandler.GataApeHandler("./AverageTempPerNeighbourhoodUtrecht/");
+			handler = APEHandler.GataApeHandler("./PeoplePerRegionUtrecht/");
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.err.println("creating handler failed");
@@ -136,6 +136,8 @@ public class App {
 		System.out.println(
 			testlist.get(0).getReadableSolution()
 		);
+
+		handler.FilterSolutions();
 
 		handler.GenerateGraphs();
 
