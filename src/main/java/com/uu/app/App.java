@@ -36,6 +36,7 @@ public class App {
 		visitor.visit(tree);
 
 		GataGraph copy = visitor.graph.Copy();
+		System.out.println(copy);
 
 		ArrayList<Expression<StateData>> arrayList = handler.getFunctionParamConstraint(tree)
 			.peek(System.out::println)

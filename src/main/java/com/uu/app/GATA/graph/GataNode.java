@@ -1,19 +1,20 @@
 package com.uu.app.GATA.graph;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class GataNode {
 
-	String functionName;
+	public String functionName;
 
-	GataNode parentNode;
-	List<GataNode> children;
+	public GataNode parentNode;
+	public List<GataNode> children;
 
-	boolean isRoot = false;
-	boolean isLeaf = false;
+	public boolean isRoot = false;
+	public boolean isLeaf = false;
 
 	GataNode(String functionName) {
 		this.functionName = functionName;
@@ -67,10 +68,22 @@ public class GataNode {
 			.flatMap(GataNode::GetLeaves);
 	}
 
-	public Stream<GataNode> GetAllNodes(){
+	public Stream<GataNode> GetAllNodes() {
 		return Stream.concat(
 			Stream.of(this),
 			children.stream().flatMap(GataNode::GetAllNodes)
 		);
+	}
+
+	public String toStringTree(int depth) {
+		String childString = "";
+		String indentation = String.join("", Collections.nCopies(depth, "| "));
+
+		if (!isLeaf)
+			childString = children.stream()
+				.map(child -> child.toStringTree(depth + 1))
+				.collect(Collectors.joining());
+
+		return indentation + functionName + "\n" + childString;
 	}
 }

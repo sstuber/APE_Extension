@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 public class GataGraph {
 
-	GataNode root;
+	public GataNode root;
 	List<GataNode> nodeList;
 	List<GataNode> leaves;
 
@@ -38,5 +38,13 @@ public class GataGraph {
 
 		newGraph.AddRoot(newRoot);
 		return newGraph;
+	}
+
+	@Override
+	public String toString() {
+		return "GataGraph\n" +
+			"  root=" + root.functionName + "\n" +
+			"  leaves=" + leaves.stream().map(x -> x.functionName).collect(Collectors.toList()) +
+			"\n  tree =\n" + root.toStringTree(0);
 	}
 }
