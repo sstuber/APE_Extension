@@ -40,7 +40,8 @@ public class APEHandler {
 	}
 
 	public SATsolutionsList FilterSolutions() {
-		return filterHandler.FilterSolutionList(solutionsList);
+		this.solutionsList = filterHandler.FilterSolutionList(solutionsList);
+		return solutionsList;
 	}
 
 

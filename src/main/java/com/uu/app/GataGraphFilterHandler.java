@@ -10,10 +10,7 @@ import nl.uu.cs.ape.sat.core.solutionStructure.ModuleNode;
 import nl.uu.cs.ape.sat.core.solutionStructure.SolutionWorkflow;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -58,6 +55,44 @@ public class GataGraphFilterHandler {
 
 		List<GataGraph> allPossibleGraphs = CreateAllPossibleGraphs(usedToolGraphs);
 
+		for (GataGraph graph : allPossibleGraphs) {
+			// should be refactored to equals function on graph
+			boolean isEqualResult = compareGataGraphs(inputGraph, graph);
+			if (isEqualResult) {
+				System.out.println("found graph");
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private boolean compareGataGraphs(GataGraph graph1, GataGraph graph2) {
+		if (graph1.root.isLeaf && graph2.root.isLeaf)
+			return true;
+
+		Stack<GataNode> graph1NodeStack = new Stack<>();
+		Stack<GataNode> graph2NodeSTack = new Stack<>();
+
+		graph1NodeStack.add(graph1.root);
+		graph2NodeSTack.add(graph2.root);
+
+		while (graph1NodeStack.size() > 0 && graph2NodeSTack.size() > 0) {
+			GataNode currentNode1 = graph1NodeStack.pop();
+			GataNode currentNode2 = graph2NodeSTack.pop();
+
+			if (currentNode1.isLeaf && currentNode2.isLeaf)
+				continue;
+
+			if (!currentNode1.functionName.equals(currentNode2.functionName))
+				return false;
+
+			graph1NodeStack.addAll(currentNode1.children);
+			graph2NodeSTack.addAll(currentNode2.children);
+		}
+
+		System.out.println(graph1);
+		System.out.println(graph2);
 		return true;
 	}
 
