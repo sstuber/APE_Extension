@@ -56,17 +56,24 @@ public class GataGraph {
 		GataNode parent = leaf.parentNode;
 		GataNode newChild = subGraph.root;
 		newChild.isRoot = false;
+
+		//Save the old index of the leaf
+		int childIndex = parent.children.indexOf(leaf);
+		int leafIndex = leaves.indexOf(leaf);
+
 		// remove leaf from current tree
 		parent.children.remove(leaf);
 		leaves.remove(leaf);
+		nodeList.remove(leaf);
 
 		// set references between the new link correct
-		parent.children.add(newChild);
+		parent.children.add(childIndex, newChild);
 		newChild.parentNode = parent;
 
 		// add all the nodes from the sub graph to the graph
 		nodeList.addAll(subGraph.nodeList);
-		leaves.addAll(subGraph.leaves);
+		leaves.addAll(leafIndex, subGraph.leaves);
+
 		return this;
 	}
 }
