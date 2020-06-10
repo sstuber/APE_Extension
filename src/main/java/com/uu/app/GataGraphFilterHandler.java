@@ -50,6 +50,8 @@ public class GataGraphFilterHandler {
 		List<GataGraph> usedToolGraphs = reverseNodeList.stream()
 			.map(x -> x.getUsedModule().getPredicateID())
 			.map(x -> iriToAnnotationMap.get(x))
+			// ignore Conversion tools
+			.filter(Objects::nonNull)
 			.map(this::getGraphFromGataString)
 			.collect(Collectors.toList());
 
