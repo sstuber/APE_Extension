@@ -36,14 +36,14 @@ public class App {
 		visitor.visit(tree);
 
 		GataGraph copy = visitor.graph.Copy();
-		System.out.println(copy);
+//		System.out.println(copy);
 
 		ArrayList<Expression<StateData>> arrayList = handler.getFunctionParamConstraint(tree)
-			.peek(System.out::println)
+//			.peek(System.out::println)
 			.map(sltl -> sltl.StateFold(3))
-			.peek(System.out::println)
+//			.peek(System.out::println)
 			.map(RuleSet::simplify)
-			.peek(System.out::println)
+//			.peek(System.out::println)
 			.collect(Collectors.toCollection(ArrayList::new));
 
 //		ArrayList<Expression<StateData>> arrayList = handler.getOrderFunctionConstraints(tree)
@@ -102,7 +102,8 @@ public class App {
 //
 //
 //		System.out.println(RuleSet.simplify(finalFormula.getResult().StateFold(5)));
-		testSimpleGataDemo();
+		runApeTest();
+		//testSimpleGataDemo();
 
 
 //		testConstraints();
@@ -116,6 +117,27 @@ public class App {
 //		System.out.println(tester.test());
 	}
 
+	public static void runApeTest() {
+		APEHandler handler = null;
+
+		// PeoplePerRegionUtrecht
+		// NoiseProPortionAmsterdam
+		// BaseCoreConcept
+		try {// AverageTempPerNeighbourhoodUtrecht
+			handler = new APEHandler("./APE_Examples/PeoplePerRegionUtrecht/apeExt.configuration");
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.err.println("creating handler failed");
+			return;
+		}
+
+		SATsolutionsList testlist = handler.RunSynthesisWithResults();
+
+		handler.GenerateGraphs();
+
+	}
+
+
 	public static void testSimpleGataDemo() {
 
 		APEHandler handler = null;
@@ -124,7 +146,7 @@ public class App {
 		// NoiseProPortionAmsterdam
 		// BaseCoreConcept
 		try {// AverageTempPerNeighbourhoodUtrecht
-			handler = APEHandler.GataApeHandler("./Gata_Examples/AverageTempPerNeighbourhoodUtrecht/");
+			handler = APEHandler.GataApeHandler("./Gata_Examples/NoiseProPortionAmsterdam/");
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.err.println("creating handler failed");

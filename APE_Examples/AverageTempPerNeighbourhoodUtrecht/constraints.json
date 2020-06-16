@@ -1,3 +1,44 @@
 {
-  "constraints": []
+  "constraints": [
+    {
+      "constraintid": "use_m",
+      "parameters": [
+        [
+          "http://geographicknowledge.de/vocab/GISTools.rdf#MakePointMeasuresFromTable"
+        ]
+      ]
+    },
+    {
+      "constraintid": "use_m",
+      "parameters": [
+        [
+          "http://geographicknowledge.de/vocab/GISTools.rdf#IDWInterval"
+        ]
+      ]
+    },
+    {
+      "constraintid": "use_m",
+      "parameters": [
+        [
+          "http://geographicknowledge.de/vocab/GISTools.rdf#SelectLayerByAttributeObjects"
+        ]
+      ]
+    },
+    {
+      "constraintid": "use_m",
+      "parameters": [
+        [
+          "http://geographicknowledge.de/vocab/GISTools.rdf#SelectLayerByLocationObjects"
+        ]
+      ]
+    },
+    {
+      "constraintid": "use_m",
+      "parameters": [
+        [
+          "http://geographicknowledge.de/vocab/GISTools.rdf#ZonalStatisticsMeanInterval"
+        ]
+      ]
+    }
+  ]
 }
