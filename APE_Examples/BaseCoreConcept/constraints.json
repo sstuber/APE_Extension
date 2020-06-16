@@ -1,3 +1,44 @@
 {
-  "constraints": []
+  "constraints": [
+    {
+      "constraintid": "use_m",
+      "parameters": [
+        [
+          "http://geographicknowledge.de/vocab/GISTools.rdf#ContourToFieldRaster"
+        ]
+      ]
+    },
+    {
+      "constraintid": "use_m",
+      "parameters": [
+        [
+          "http://geographicknowledge.de/vocab/GISTools.rdf#SelectLayerByAttributeObjects"
+        ]
+      ]
+    },
+    {
+      "constraintid": "use_m",
+      "parameters": [
+        [
+          "http://geographicknowledge.de/vocab/GISTools.rdf#ClipField2ObjectExtent"
+        ]
+      ]
+    },
+    {
+      "constraintid": "use_m",
+      "parameters": [
+        [
+          "http://geographicknowledge.de/vocab/GISTools.rdf#LocalMapAlgebraSubOrder"
+        ]
+      ]
+    },
+    {
+      "constraintid": "use_m",
+      "parameters": [
+        [
+          "http://geographicknowledge.de/vocab/GISTools.rdf#RegionFromRasterExtent"
+        ]
+      ]
+    }
+  ]
 }
