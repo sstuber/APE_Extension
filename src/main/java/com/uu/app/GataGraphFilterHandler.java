@@ -40,6 +40,9 @@ public class GataGraphFilterHandler {
 			filteredList.get(i).setIndex(i);
 
 		satSolutionsList.SetSolutionList(filteredList);
+
+		System.out.println(String.format("found %d correct graphs", filteredList.size()));
+
 		return satSolutionsList;
 	}
 
@@ -58,12 +61,9 @@ public class GataGraphFilterHandler {
 		List<GataGraph> allPossibleGraphs = CreateAllPossibleGraphs(usedToolGraphs);
 
 		for (GataGraph graph : allPossibleGraphs) {
-			// should be refactored to equals function on graph
 			boolean isEqualResult = compareGataGraphs(inputGraph, graph);
-			if (isEqualResult) {
-				System.out.println("found graph");
+			if (isEqualResult)
 				return true;
-			}
 		}
 
 		return false;
@@ -92,9 +92,6 @@ public class GataGraphFilterHandler {
 			graph1NodeStack.addAll(currentNode1.children);
 			graph2NodeSTack.addAll(currentNode2.children);
 		}
-
-		System.out.println(graph1);
-		System.out.println(graph2);
 		return true;
 	}
 
