@@ -31,9 +31,9 @@ SimpleDemo/sat_solutions.txt
 /SimpleGataDemo/Figures/
 /SimpleGataDemo/sat_solutions.txt
 /SimpleGataDemo/sat_solutions_Ext.txt
-BaseCoreConcept/figs/
+Gata_Examples/BaseCoreConcept/figs/
 SimpleGataDemo/backup_graphs_simple_constraints/
-BaseCoreConcept/extFigs/
-NoiseProportionAmsterdam/extFigs/
-PeoplePerRegionUtrecht/extFigs/
-AverageTempPerNeighbourhoodUtrecht/extFigs/
+Gata_Examples/BaseCoreConcept/extFigs/
+Gata_Examples/NoiseProportionAmsterdam/extFigs/
+Gata_Examples/PeoplePerRegionUtrecht/extFigs/
+Gata_Examples/AverageTempPerNeighbourhoodUtrecht/extFigs/

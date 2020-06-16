@@ -1,10 +1,10 @@
 {
-  "solutions_path": "./BaseCoreConcept/sat_solutions.txt",
+  "solutions_path": "./Gata_Examples/NoiseProportionAmsterdam/sat_solutions.txt",
   "ontologyPrexifIRI": "http://geographicknowledge.de/vocab/CoreConceptData.rdf#",
-  "solution_graphs_folder": "./BaseCoreConcept/extFigs",
-  "tool_annotations_path": "./BaseCoreConcept/ToolDescription_TransformationAlgebra.json",
-  "ontology_path": "./BaseCoreConcept/GISTaxonomy.rdf",
-  "constraints_path": "./BaseCoreConcept/constraints.json",
+  "solution_graphs_folder": "./Gata_Examples/NoiseProportionAmsterdam/extFigs",
+  "tool_annotations_path": "./Gata_Examples/NoiseProportionAmsterdam/ToolDescription_TransformationAlgebra.json",
+  "ontology_path": "./Gata_Examples/NoiseProportionAmsterdam/GISTaxonomy.rdf",
+  "constraints_path": "./Gata_Examples/NoiseProportionAmsterdam/constraints.json",
   "toolsTaxonomyRoot": "http://geographicknowledge.de/vocab/GISTools.rdf#Tool",
   "dataTaxonomyRoot": "Attribute",
   "dataSubTaxonomyRoot": [
@@ -14,7 +14,7 @@
   ],
   "shared_memory": "true",
   "solution_min_length": "1",
-  "solution_max_length": "9",
+  "solution_max_length": "8",
   "max_solutions": "200",
   "tool_seq_repeat": "false",
   "number_of_execution_scripts": "0",
@@ -33,9 +33,9 @@
   ],
   "outputs": [
     {
-      "CoreConceptQ": ["CoreConceptQ"],
-      "LayerA": ["LayerA"],
-      "NominalA": ["NominalA"]
+         "CoreConceptQ": ["ObjectQ"],
+         "LayerA": ["VectorA"],
+         "NominalA": ["PlainRatioA"]
     }
   ],
   "debug_mode": "true",

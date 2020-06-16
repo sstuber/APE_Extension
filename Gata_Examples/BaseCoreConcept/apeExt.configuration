@@ -1,10 +1,10 @@
 {
-  "solutions_path": "./NoiseProportionAmsterdam/sat_solutions.txt",
+  "solutions_path": "./Gata_Examples/BaseCoreConcept/sat_solutions.txt",
   "ontologyPrexifIRI": "http://geographicknowledge.de/vocab/CoreConceptData.rdf#",
-  "solution_graphs_folder": "./NoiseProportionAmsterdam/extFigs",
-  "tool_annotations_path": "./NoiseProportionAmsterdam/ToolDescription_TransformationAlgebra.json",
-  "ontology_path": "./NoiseProportionAmsterdam/GISTaxonomy.rdf",
-  "constraints_path": "./NoiseProportionAmsterdam/constraints.json",
+  "solution_graphs_folder": "./Gata_Examples/BaseCoreConcept/extFigs",
+  "tool_annotations_path": "./Gata_Examples/BaseCoreConcept/ToolDescription_TransformationAlgebra.json",
+  "ontology_path": "./Gata_Examples/BaseCoreConcept/GISTaxonomy.rdf",
+  "constraints_path": "./Gata_Examples/BaseCoreConcept/constraints.json",
   "toolsTaxonomyRoot": "http://geographicknowledge.de/vocab/GISTools.rdf#Tool",
   "dataTaxonomyRoot": "Attribute",
   "dataSubTaxonomyRoot": [
@@ -33,9 +33,9 @@
   ],
   "outputs": [
     {
-         "CoreConceptQ": ["ObjectQ"],
-         "LayerA": ["VectorA"],
-         "NominalA": ["PlainRatioA"]
+      "CoreConceptQ": ["CoreConceptQ"],
+      "LayerA": ["LayerA"],
+      "NominalA": ["NominalA"]
     }
   ],
   "debug_mode": "true",
