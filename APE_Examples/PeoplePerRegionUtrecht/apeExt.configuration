@@ -1,10 +1,10 @@
 {
-  "solutions_path": "./Gata_Examples/PeoplePerRegionUtrecht/sat_solutions.txt",
+  "solutions_path": "./APE_Examples/Gata_Examples/PeoplePerRegionUtrecht/sat_solutions.txt",
   "ontologyPrexifIRI": "http://geographicknowledge.de/vocab/CoreConceptData.rdf#",
-  "solution_graphs_folder": "./Gata_Examples/PeoplePerRegionUtrecht/extFigs",
-  "tool_annotations_path": "./Gata_Examples/PeoplePerRegionUtrecht/ToolDescription_TransformationAlgebra.json",
-  "ontology_path": "./Gata_Examples/PeoplePerRegionUtrecht/GISTaxonomy.rdf",
-  "constraints_path": "./Gata_Examples/PeoplePerRegionUtrecht/constraints.json",
+  "solution_graphs_folder": "./APE_Examples/Gata_Examples/PeoplePerRegionUtrecht/extFigs",
+  "tool_annotations_path": "./APE_Examples/Gata_Examples/PeoplePerRegionUtrecht/ToolDescription_TransformationAlgebra.json",
+  "ontology_path": "./APE_Examples/Gata_Examples/PeoplePerRegionUtrecht/GISTaxonomy.rdf",
+  "constraints_path": "./APE_Examples/Gata_Examples/PeoplePerRegionUtrecht/constraints.json",
   "toolsTaxonomyRoot": "http://geographicknowledge.de/vocab/GISTools.rdf#Tool",
   "dataTaxonomyRoot": "Attribute",
   "dataSubTaxonomyRoot": [

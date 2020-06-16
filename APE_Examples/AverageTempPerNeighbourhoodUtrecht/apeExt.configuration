@@ -1,10 +1,10 @@
 {
-  "solutions_path": "./Gata_Examples/AverageTempPerNeighbourhoodUtrecht/sat_solutions.txt",
+  "solutions_path": "./APE_Examples/AverageTempPerNeighbourhoodUtrecht/sat_solutions.txt",
   "ontologyPrexifIRI": "http://geographicknowledge.de/vocab/CoreConceptData.rdf#",
-  "solution_graphs_folder": "./Gata_Examples/AverageTempPerNeighbourhoodUtrecht/extFigs",
-  "tool_annotations_path": "./Gata_Examples/AverageTempPerNeighbourhoodUtrecht/ToolDescription_TransformationAlgebra.json",
-  "ontology_path": "./Gata_Examples/AverageTempPerNeighbourhoodUtrecht/GISTaxonomy.rdf",
-  "constraints_path": "./Gata_Examples/AverageTempPerNeighbourhoodUtrecht/constraints.json",
+  "solution_graphs_folder": "./APE_Examples/Gata_Examples/AverageTempPerNeighbourhoodUtrecht/extFigs",
+  "tool_annotations_path": "./APE_Examples/Gata_Examples/AverageTempPerNeighbourhoodUtrecht/ToolDescription_TransformationAlgebra.json",
+  "ontology_path": "./APE_Examples/Gata_Examples/AverageTempPerNeighbourhoodUtrecht/GISTaxonomy.rdf",
+  "constraints_path": "./APE_Examples/Gata_Examples/AverageTempPerNeighbourhoodUtrecht/constraints.json",
   "toolsTaxonomyRoot": "http://geographicknowledge.de/vocab/GISTools.rdf#Tool",
   "dataTaxonomyRoot": "Attribute",
   "dataSubTaxonomyRoot": [
