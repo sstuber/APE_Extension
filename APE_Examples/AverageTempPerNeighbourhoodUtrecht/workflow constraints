@@ -1,0 +1,98 @@
+according to workflow
+groupby_avg (bowtie* (sigmae (lotopo (
+                                  pi1 (field_x),
+                                  bowtie (objectregions_x, pi1 (sigmae (otopo (objectregions_x, sigmae (objectregions_x, object_y)), in) ) )
+                                  ),
+                              in),
+                        interpol (pointmeasures_x, deify (merge (pi2 (objectregions_y))))))
+given
+
+groupby_avg (bowtie* (sigmae (lotopo (
+                                  pi1 (interpol (pointmeasures_x, deify (merge (pi2 (sigmae (objectregions_x, object_y)))))),
+                                  bowtie (objectregions_x, pi1 (sigmae (otopo (objectregions_x, sigmae (objectregions_x, object_y)), in) ) )
+                                  ),
+                              in),
+                        interpol (pointmeasures_x, deify (merge (pi2 (sigmae (objectregions_x, object_y)))))))
+
+
+
+MakePointMeasuresFromTable
+  "inputs": [{
+          "CoreConceptQ": ["FieldQ"],
+          "LayerA": ["PointA"],
+          "NominalA": ["IntervalA"]
+        }],
+   "outputs": [{
+          "CoreConceptQ": ["FieldQ"],
+          "LayerA": ["PointA"],
+          "NominalA": ["PlainIntervalA"]
+        }],
+
+IDWInterval: interpol (pointmeasures_x, deify (merge (pi2 (objectregions_y))))
+ "inputs": [{
+          "CoreConceptQ": ["FieldQ"],
+          "LayerA": ["PointA"],
+          "NominalA": ["IntervalA"]
+        }],
+      "outputs": [{
+          "CoreConceptQ": ["FieldQ"],
+          "LayerA": ["RasterA"],
+          "NominalA": ["PlainIntervalA"]
+        }],
+
+
+SelectLayerByAttributeObjects: sigmae (objectregions_x, object_y)
+https://pro.arcgis.com/en/pro-app/tool-reference/data-management/select-layer-by-attribute.htm
++
+https://pro.arcgis.com/en/pro-app/tool-reference/data-management/copy-features.htm
+    "inputs": [{
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["NominalA"]
+          }],
+      "outputs": [{
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["NominalA"]
+        }
+
+
+SelectLayerByLocationObjects: bowtie (objectregions_x, pi1 (sigmae (otopo (objectregions_x, objectregions_y), in) ) )
+https://pro.arcgis.com/en/pro-app/tool-reference/data-management/select-layer-by-location.htm
++
+https://pro.arcgis.com/en/pro-app/tool-reference/data-management/copy-features.htm
+"inputs": [{
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["NominalA"]
+        },
+        {
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["NominalA"]
+        }],
+      "outputs": [{
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["NominalA"]
+        }],
+
+ZonalStatisticsMeanInterval: groupby_avg (bowtie* (sigmae (lotopo (pi1 (field_x), objectregions_y), in), field_x))
+ "inputs": [{
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA","TessellationA"],
+          "NominalA": ["NominalA"]
+        },
+        {
+          "CoreConceptQ": ["FieldQ"],
+          "LayerA": ["RasterA"],
+          "NominalA": [
+            "IntervalA"
+          ]
+        }
+      ],
+      "outputs": [{
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["TessellationA","VectorA"],
+          "NominalA": ["PlainIntervalA"]
+        }],

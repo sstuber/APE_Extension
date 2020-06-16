@@ -1,0 +1,83 @@
+reify(pi1(sigmale(bowtie(revert(contour_noise),deify(merge(pi2(sigmae(objectregions_muni, object_Utrecht))))),70)))
+
+reify(
+  pi1(
+    sigmale(
+      bowtie(
+        revert(contour_noise),
+        deify(
+          merge(
+            pi2(sigmae(objectregions_muni, object_Utrecht))
+          )
+        )
+      )
+    ,
+      70
+    )
+  )
+)
+
+ContourToFieldRaster: revert (contour_x)
+     "inputs": [{
+          "CoreConceptQ": ["FieldQ"],
+          "LayerA": ["TessellationA"],
+          "NominalA": ["OrdinalA"]
+        },
+         "outputs": [{
+           "CoreConceptQ": ["FieldQ"],
+           "LayerA": ["RasterA"],
+           "NominalA": ["PlainOrdinalA"]
+         }
+SelectLayerByAttributeObjects: sigmae (objectregions_x, object_y)
+    "inputs": [{
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["NominalA"]
+          }],
+      "outputs": [{
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["NominalA"]
+        }
+ClipField2ObjectExtent: bowtie (field_x, deify (merge (pi2 (objectregions_x))))
+      "inputs": [
+        {"CoreConceptQ": ["FieldQ"],
+          "LayerA": ["RasterA"],
+          "NominalA": ["IntervalA"]
+        },
+        {
+        "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["NominalA"]
+        }
+      ],
+      "outputs": [{
+          "CoreConceptQ": ["FieldQ"],
+          "LayerA": ["RasterA"],
+          "NominalA": ["PlainIntervalA"]
+        }
+LocalMapAlgebraSubOrder: sigmale (field_x, ordinal_y)
+      "inputs": [{
+          "CoreConceptQ": ["FieldQ"],
+          "LayerA": ["RasterA"],
+          "NominalA": ["OrdinalA"]
+        }],
+      "outputs": [{
+          "CoreConceptQ": ["FieldQ"],
+          "LayerA": ["RasterA"],
+          "NominalA": ["BooleanA"]
+        }
+RegionFromRasterExtent: reify (pi1 (field_x))
+      "inputs": [{
+          "CoreConceptQ": ["FieldQ"],
+          "LayerA": ["RasterA"],
+          "NominalA": ["NominalA"]
+        }],
+      "outputs": [{
+          "CoreConceptQ": ["CoreConceptQ"],
+          "LayerA": ["LayerA"],
+          "NominalA": ["NominalA"]
+        }
+
+
+

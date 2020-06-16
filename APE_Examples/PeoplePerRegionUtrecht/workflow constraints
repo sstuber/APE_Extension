@@ -1,0 +1,70 @@
+groupby_sum (bowtie* (sigmae (otopo (objectregions_households,bowtie (objectregions_neighbourhoods,pi1 (sigmae (otopo (objectregions_neighbourhoods,sigmae (objectregions_muni, object_utrecht)), in) ) )),in),objectcount_households))
+
+groupby_sum (bowtie* (sigmae (otopo (
+                                     objectregions_households,
+                                     bowtie (objectregions_neighbourhoods,
+                                            pi1 (sigmae (otopo (
+                                                            objectregions_neighbourhoods,
+                                                            sigmae (objectregions_muni, object_utrecht)
+                                                            ), in) ) )
+                                     ),in),
+                      objectcount_households))
+
+SelectLayerByAttributeObjects: sigmae (objectregions_x, object_y)
+https://pro.arcgis.com/en/pro-app/tool-reference/data-management/select-layer-by-attribute.htm
++
+https://pro.arcgis.com/en/pro-app/tool-reference/data-management/copy-features.htm
+    "inputs": [{
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["NominalA"]
+          }],
+      "outputs": [{
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["NominalA"]
+        }
+
+SelectLayerByLocationObjects: bowtie (objectregions_x, pi1 (sigmae (otopo (objectregions_x, objectregions_y), in) ) )
+https://pro.arcgis.com/en/pro-app/tool-reference/data-management/select-layer-by-location.htm
++
+https://pro.arcgis.com/en/pro-app/tool-reference/data-management/copy-features.htm
+"inputs": [{
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["NominalA"]
+        },
+        {
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["NominalA"]
+        }],
+      "outputs": [{
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["NominalA"]
+        }],
+
+SpatialJoinSumTessCount: groupby_sum (bowtie* (sigmae (otopo (objectregions_x, objectregions_y), in), objectcounts_z))
+https://pro.arcgis.com/en/pro-app/tool-reference/analysis/spatial-join.htm
+"inputs": [{
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["VectorA"],
+          "NominalA": ["CountA",
+            "http://geographicknowledge.de/vocab/ExtensiveMeasures.rdf#ERA"]
+        },
+        {
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["TessellationA","VectorA"],
+          "NominalA": ["NominalA"]
+        }
+      ],
+      "outputs": [{
+          "CoreConceptQ": ["ObjectQ"],
+          "LayerA": ["TessellationA","VectorA"],
+          "NominalA": ["CountA",
+            "http://geographicknowledge.de/vocab/ExtensiveMeasures.rdf#ERA"
+          ]
+        }],
+
+
