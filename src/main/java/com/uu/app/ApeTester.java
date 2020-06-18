@@ -5,6 +5,10 @@ import com.uu.app.APE.ApeSltlFactory;
 import nl.uu.cs.ape.sat.core.implSAT.SATsolutionsList;
 import nl.uu.cs.ape.sat.core.solutionStructure.SolutionWorkflow;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +16,9 @@ public class ApeTester {
 
 	APEHandler apeExternalConstraints;
 	APEHandler apeInternalConstraints;
+
+	public ApeTester() {
+	}
 
 	public ApeTester(APEHandler external, APEHandler internal) {
 		this.apeExternalConstraints = external;
@@ -110,6 +117,87 @@ public class ApeTester {
 			});
 
 		return result;
+	}
+
+	public StringBuilder metricEvaluationAPE(String basepath, boolean isGata) {
+		StringBuilder result = new StringBuilder(basepath);
+
+		APEHandler handler = null;
+		try {
+			if (isGata)
+				handler = APEHandler.GataApeHandler(basepath);
+			else
+				handler = new APEHandler(basepath + "apeExt.configuration");
+		} catch (Exception e) {
+			System.err.println("error in reading " + basepath);
+		}
+
+		long time1 = System.currentTimeMillis();
+		SATsolutionsList solutionsList = handler.RunSynthesisWithResults();
+		float synthesisRunTime = (System.currentTimeMillis() - time1) / 1000f;
+		result.append(",").append(synthesisRunTime);
+		System.out.printf("total run time was: %f", synthesisRunTime);
+
+		result.append(",").append(solutionsList.size());
+		int totalSolutionsBeforeFilter = solutionsList.size();
+
+
+		float time2 = 0;
+		if (isGata) {
+			long tmp = System.currentTimeMillis();
+			solutionsList = handler.FilterSolutions();
+			time2 = (System.currentTimeMillis() - tmp) / 1000f;
+		}
+		result.append(",").append(time2);
+
+		result.append(printSolutionsCount(solutionsList, 9));
+
+		return result.append("\n");
+	}
+
+	public StringBuilder printSolutionsCount(SATsolutionsList list, int maxLength) {
+		Map<Integer, Integer> counts = countSollutions(list);
+		StringBuilder result = new StringBuilder();
+
+		for (int i = 1; i <= maxLength; i++)
+			result.append(",").append(counts.getOrDefault(i, 0));
+
+		return result;
+	}
+
+	public void RunAllTests() {
+		String path = "./APE_Examples/PeoplePerRegionUtrecht/";
+
+
+		StringBuilder csvFile = new StringBuilder("name,runtime,TotalSolutions,filtertime");
+
+		for (int i = 1; i <= 9; i++)
+			csvFile.append(",amount").append(i);
+
+		csvFile.append("\n");
+
+		csvFile.append(metricEvaluationAPE(path, false));
+
+		csvFile.append("testComplete");
+
+		try {
+
+
+			String csvPath = ".\\test_results\\results.csv";
+			File file = new File(csvPath);
+
+			if (!file.exists())
+				file.createNewFile();
+
+			FileWriter fw = new FileWriter(file.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
+
+			bw.write(csvFile.toString());
+			bw.close();
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 
 

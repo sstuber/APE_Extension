@@ -102,7 +102,12 @@ public class App {
 //
 //
 //		System.out.println(RuleSet.simplify(finalFormula.getResult().StateFold(5)));
-		runApeTest();
+//		runApeTest();
+
+		ApeTester tester = new ApeTester();
+
+		tester.RunAllTests();
+
 		//testSimpleGataDemo();
 
 
