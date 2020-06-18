@@ -166,8 +166,15 @@ public class ApeTester {
 	}
 
 	public void RunAllTests() {
-		String path = "./APE_Examples/PeoplePerRegionUtrecht/";
-
+		//String path = "./APE_Examples/PeoplePerRegionUtrecht/";
+		ArrayList<StringBuilder> examples = new ArrayList<>();
+		ArrayList<StringBuilder> inputTypes = new ArrayList<>();
+		examples.add(new StringBuilder("PeoplePerRegionUtrecht"));
+		examples.add(new StringBuilder("NoiseProportionAmsterdam"));
+		examples.add(new StringBuilder("BaseCoreConcept"));
+		examples.add(new StringBuilder("AverageTempPerNeighbourhoodUtrecht"));
+		inputTypes.add(new StringBuilder("APE_Examples"));
+		inputTypes.add(new StringBuilder("Gata_Examples"));
 
 		StringBuilder csvFile = new StringBuilder("name,runtime,TotalSolutions,filtertime");
 
@@ -176,14 +183,27 @@ public class ApeTester {
 
 		csvFile.append("\n");
 
-		csvFile.append(metricEvaluationAPE(path, false));
+		for (StringBuilder inputType : inputTypes)
+			for (StringBuilder example : examples) {
+				StringBuilder path = new StringBuilder("./")
+					.append(inputType)
+					.append('/')
+					.append(example)
+					.append('/');
 
-		csvFile.append("testComplete");
+				System.out.println(path);
+				csvFile.append(metricEvaluationAPE(path.toString(), inputType.toString().equals("Gata_Examples")));
+			}
+
+
+		//csvFile.append(metricEvaluationAPE(path, false));
+
+		//csvFile.append("testComplete");
 
 		try {
 
 
-			String csvPath = ".\\test_results\\results.csv";
+			String csvPath = "./test_results/results.csv";
 			File file = new File(csvPath);
 
 			if (!file.exists())
