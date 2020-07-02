@@ -1,0 +1,39 @@
+
+--------\\
+\\
+To translate GATA, I needed to look at the relation between functions themselves and between functions and their relation to certain tools. 
+
+The first thing I noticed is that GATA purely consisted of functions and input parameters. These functions could only be applied when its parameters have been fully applied.  This leads to the ordering of a DAG that a GATA expression represents. The root of the DAG can only applies when all of its parameters have been applied. 
+
+The second thing was that tools themselves also represent some form of GATA expression. This with the ordering of the functions leads to an ordering in the functions. However a tool can be represented by more then a single function. It can be any valid GATA expression. When a tool is executed there is only input and output and no in between steps or results. Thus there is no strict ordering when in relation to tools. A DAG of functions could be applied at the same time. 
+
+Finally, functions could have more than one parameter. This means that all parameters should be fully applied before being able to apply a function with multiple parameters. This also applies when a function is in an expression representing a tool. A tool can only be used when all its parameters on the leaves of the DAG have been fully applied. 
+\\
+%% Before this point we need to discuss we are trying to find constraints to add to APE in addition to the constraints already present in APE
+
+After these initial observations, I could draft some initial constraints to be added to APE. 
+\\
+% try to formally describe the constraints. To do this i first need to formally describe all the DAG
+% 
+----------------------------------------
+Before we can start to formally define our constraints, we need to introduce the formal definition of a directed graph. A directed graph $G$ consists of a pair $(V, E)$ where $V$ is the set of vertices or nodes in the graph and $E$ is the set of arrows or directed edges. The edges consist of a pair of nodes for example $(n_1, n_2)$. I will use this graph definition to reason over GATA expressions and define constraints. GATA itself is a DAG but the difference between a DAG and a directed graph is a guarantee that cycles do not occur in the DAG. 
+
+\todo[inline]{The set of vertices actually should be a list. It matters for the amount of times a function appears also the workflows are lists not sets as functions can (and should be able to) appear multiple times }
+
+Furthermore we have a set of tools $T$. A set of annotations $A$ that exists of pairs $(t, G)$ where $t$ is a tool from the set $T$ and $G$ is a valid graph in GATA. Furthermore there is a set F that consists of all the functions currently available. I will demonstrate the constraints using equation \ref{eq:gata1} as an example running example. This graph will be mentioned as the input graph I.  
+
+
+\begin{equation}
+    reify\ (pi\ (interpol\ (data))) 
+\end{equation}
+ Figure \ref{fig:smallGataGraph1} is a graphical representation of this equation. The graph is build top down. The most outer function is at the top and the leaves are the data input. Data flows from bottom to the top. This means before \textit{ reify} can be applied, \textit{pi} needs to be applied. However there could also exist a tool that applies both \textit{reify} and \textit{pi}. This tool can only be applies if the \textit{interpol} has been applied. This relation holds for every edge in the graph where the a leaf is not part of an edge. 
+ This input graph (I) in the mentioned notation earlier can be found below.
+ 
+ \begin{align*}
+     I &= (V,E) \\
+     V &= \{reify,pi,interpol\} \\
+     E &= \{(reify,pi), (pi,interpol)\}
+ \end{align*}
+
+     \todo[inline]{The sets do not contain the leaves as the leaves are not important for any of the reasoning. However that makes the reasoning incomplete. I could just add a set leaves and add "not in leaves" everywhere but that is very verbose}
+------------------------------------------------
