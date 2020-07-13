@@ -4,15 +4,17 @@
 \usepackage{todonotes}
 \usepackage{float}
 \usepackage{tikz}
+\usepackage{rotating}
 \usepackage{tikz,fullpage}
 \usetikzlibrary{arrows,%
                 petri,%
                 topaths}%
 \usepackage{tkz-berge}
 \usepackage{amsmath}
+\usepackage{ stmaryrd }
 
-\title{MasterThesis}
-\author{s.vanmeerendonk }
+\title{From logic-based to algebra-based specification of geo-analytical workflows}
+\author{Stan van Meerendonk }
 \date{May 2020}
 
 \tikzstyle{qgre}=[rectangle, draw, thin,fill=blue!10, scale=0.8,minimum width=1cm,inner sep=5pt]
@@ -22,7 +24,101 @@
 
 \begin{document}
 
-\maketitle
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage} % Suppresses displaying the page number on the title page and the subsequent page counts as page 1
+	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for horizontal lines, change thickness here
+	
+	\center % Centre everything on the page
+	
+	%------------------------------------------------
+	%	Headings
+	%------------------------------------------------
+	
+	
+	\begin{figure}
+	    \centering
+	    \includegraphics[width=8cm]{Uu_Logo.PNG}
+	\end{figure}
+	\smallskip
+	%\textsc{\LARGE Utrecht University }\\[1.5cm] % Main heading such as the name of your university/college
+	
+	\textsc{\Large Master Thesis}\\[0.5cm] % Major heading such as course name
+	
+	%\textsc{\large Master Thesis}\\[0.5cm] % Minor heading such as course title
+	
+	%------------------------------------------------
+	%	Title
+	%------------------------------------------------
+	
+	\HRule\\[0.4cm]
+	
+	{\huge\bfseries From logic-based to algebra-based specification of geo-analytical workflows}\\[0.4cm] % Title of your document
+	
+	\HRule\\[1.5cm]
+	
+	%------------------------------------------------
+	%	Author(s)
+	%------------------------------------------------
+	
+	\large
+	\textit{Author}: Stan van Meerendonk\\
+	\textit{Program}: Artificial Intelligence\\
+    \vspace{5 mm}
+	\textit{Supervisors}\\
+	Dr. A.L. Lamprecht\\
+	Dr. S.W.B. Prasetya
+	
+%	\begin{minipage}{0.4\textwidth}
+%		\begin{flushleft}
+%			\large
+%			\textit{Author}\\
+%			B.J. \textsc{Blazkowicz} % Your name
+%		\end{flushleft}
+%	\end{minipage}
+%	~
+%	\begin{minipage}{0.4\textwidth}
+%		\begin{flushright}
+%%			\large
+%			\textit{Supervisor}\\
+%			Dr. Caroline \textsc{Becker} % Supervisor's name
+%		\end{flushright}
+%	\end{minipage}
+	
+	% If you don't want a supervisor, uncomment the two lines below and comment the code above
+	%{\large\textit{Author}}\\
+	%John \textsc{Smith} % Your name
+	
+	%------------------------------------------------
+	%	Date
+	%------------------------------------------------
+	
+	\vfill\vfill\vfill % Position the date 3/4 down the remaining page
+	
+	{\large\today} % Date, change the \today to a set date if you want to be precise
+	
+	%------------------------------------------------
+	%	Logo
+	%------------------------------------------------
+	
+	%\vfill\vfill
+	%\includegraphics[width=0.2\textwidth]{placeholder.jpg}\\[1cm] % Include a department/university logo - this will require the graphicx package
+	 
+	%----------------------------------------------------------------------------------------
+	
+	\vfill % Push the date up 1/4 of the remaining page
+	
+\end{titlepage}
+
+\begin{abstract}
+    To be writen
+\end{abstract}
+\newpage
+\tableofcontents
+
+\newpage
 
 \section{Introduction}
 Science becomes increasingly more involved with complex calculations. This forces scientists to  use computational programs to let a computer execute the calculations. A common use case is combining geographical data to create more complex maps. Calculating the livability for elderly people \cite{scheider2009ontology} is an example from the geo-analytical domain. 
@@ -94,17 +190,17 @@ APE is a tool that generates workflows from user intent in a given domain. A wor
 
 To be able to do this, the user needs to present a domain in the form of data taxonomy and tool annotations. The taxonomy contains the abstract and concrete data types that exist in the domain. It also hold the subtype relations between the types. An example from the figures domain would be where $rectangle$ and $circle$ are a subtype of $figure$ and $squares$ would be a subtype of $rectangle$. So if some object is a $square$ it would also be a $rectangle$ and a $figure$. 
 
-This kind of taxonomy helps to figure out what outputs of tools can fit on what input of tools. The tool annotations contain the input and output types for each tool. Tools can have zero or more input types and one or more output types. APE will create workflows where the output of one tool will fit on the input of another and thus creating type correct workflows. To be able to reason over such sequences, APE uses SLTL as constraints for the user intent. 
+The taxonomy is used by APE to figure out what outputs of tools can fit on what input of tools. The tool annotations contain the input and output types for each tool. Tools can have zero or more input types and one or more output types. APE will create workflows where the output of one tool will fit on the input of another and thus creating type correct workflows. To be able to reason over such sequences, APE uses SLTL as constraints for the user intent. 
 
 % not sure how and if i should mention this here
-APE translates its SLTL formulas such that a SAT solver can reason over it.
+%APE translates its SLTL formulas such that a SAT solver can reason over it.
 
 %Discuss APE in depth, how it works, the input, the constraints, SLTL, SLTL translation to propositional formulas
 
 
 \subsubsection{SLTL}
 
-As mentioned earlier, SLTL reasons over alternating sequences of types and tools (or modules). SLTL extends the LTL formalism to the BNF that can be found in equation \ref{eq:sltl}. SLTL reasons over paths like $t_0,\ m_1,\ t_1,\ m_2,\ t_2$. Here $m_1$ is the first tool in the sequence. In this thesis I will only reason over the tool states. Thus I will simplify talking about these sequences of states by leaving out the types as the types are implicit. The previous example will then look like $m_1, m_2$.
+SLTL reasons over alternating sequences of types and tools (also called modules). SLTL extends the LTL formalism to the BNF that can be found in equation \ref{eq:sltl}. SLTL reasons over paths like $t_0,\ m_1,\ t_1,\ m_2,\ t_2$. Here $m_1$ is the first tool in the sequence. In this thesis I will only reason over the tool states as APE handles the type correctness of a sequence. I will simplify talking about these sequences of states by leaving out the types as the types are implicit. The previous example will then look like $m_1, m_2$.
 
 
 %To define the constraints themselves, I will use the earlier introduced SLTL. Using SLTL we will be able to express relations over different states. SLTL also corresponds with the way user intent is modeled in APE. This way it easier to make comparisons between GATA constraints and native APE constraints 
@@ -122,11 +218,74 @@ These sequences of states are called paths. SLTL reasons over potentially infini
     
     \item $<m_c> \Phi$ is satisfied by paths were the second element (and thus the first tool element) satisfies $m_c$. all sub paths must satisfy $\phi$.
     
-    \item $G\Phi$ 
+    \item $\textbf{G}\Phi$ satisfies all paths where $\Phi$ holds globally. There is no state where $\Phi$ does not hold
     \item $\Phi \textbf{U} \Psi$ satisfies all paths where $\Phi$ holds until $\Psi$ holds in the next state. This Strong until operator guarantees that $\Psi$ at some point will be satisfied. 
     \item $\textbf{F}\Phi$ satisfies all paths where $\Phi$ becomes eventually true. It guarantees that $\Phi$ happens at least one time. This operator can be expressed in terms of \textbf{U} like $true\ \textbf{U}\ \Phi$.
     
 \end{itemize}
+
+The constraints in APE are described in SLTL. Users themselves do not directly use the SLTL to create their constraints. APE provides natural language templates that represent the given constraints. This allows users from all domains to use APE. The given constraints can be found below\\
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|p{5cm}|p{5cm}|}
+        \hline
+        Natural language template   & SLTL constraint  \\
+        \hline
+        If Tool\_1 is used, Tool\_2 has to be used subsequently & $\textbf{G}(\neg <\text{Tool\_1}>true\ |\ \textbf{XF} <\text{Tool\_2}>true$\\
+        \hline
+        If Tool\_1 is used, Tool\_2 cannot be used subsequently & $\textbf{G}(\neg <\text{Tool\_1}>true\ |\ \textbf{XG} \neg<\text{Tool\_2}>true$\\
+        \hline
+        If Tool\_1 is used, Tool\_2 must has to be used next in the sequence & $\textbf{G}(\neg <\text{Tool\_1}>true\ |\ \textbf{X} <\text{Tool\_2}>true$\\
+        \hline
+        Use tool Tool\_1 in the solution & $\textbf{F}<\text{Tool\_1}>true$ \\
+        \hline
+        Do not use tool \text{Tool\_1} in the solution & $\textbf{G} \neg <\text{Tool\_1}>true$ \\
+        \hline
+        Use Tool\_1 as last tool in the solution & $\textbf{F}<\text{Tool\_1}>  \&\&\ \textbf{G}(\neg <\text{Tool\_1}>true\ |\ \neg \textbf{XX} true)$\\
+        \hline
+    \end{tabular}
+    
+    \caption{The natural language templates and their SLTL constraints as used by APE }
+    \label{tab:APEConstraints}
+\end{table}
+
+
+The goal of workflow synthesis is finding interpretations or paths that satisfies the constraints. This is similar to the approach of Bounded model checking \cite{Bounded_model_checking}. This approach tries to find a counter example sequence to prove an LTL formula does not hold. Workflow generation wants to find the sequences for which the constraints do hold. Thus we can adapt the algorithm from bounded model checking to our SLTL constraints in our SAT solver based approach. The adaption of SLTL over loop free workflows is introduced in \cite{kasalica2020semantic}. \\
+
+In this translation the notion $\llbracket f \rrbracket^i_n$ refers to the  interpretation of the formula $f$ in the $i$-th state of a sequence of length $n$. Each proposition consists of two components, the name of the proposition $p$ and the module state in which the proposition holds $m_i$. There is a separate notion for type states $t_i$. However, these will not be used can be ignored for this thesis. The resulting formula consists of propositions like $p(m_i)$ to note which state a proposition should hold. A composed expression like $p(m_i)$ can only be true or false as a whole. The translation can be found below. 
+%When a proposition $p$ should hold in a certain state, it is noted like $p(m_i)$ where $m_i$ refers to the $i$-th module state. Each  
+
+\begin{alignat*}{2}
+    &\llbracket \langle p \rangle true \rrbracket^i_n  &&:= p(m_{i+1}) \\
+    &\llbracket \neg f \rrbracket^i_n &&:= \neg \llbracket f \rrbracket^i_n \\
+    &\llbracket f\vee g \rrbracket^i_n &&:= \llbracket f \rrbracket^i_n \vee \llbracket g \rrbracket^i_n \\
+   & \llbracket f\wedge g \rrbracket^i_n &&:=\llbracket f \rrbracket^i_n \wedge \llbracket g \rrbracket^i_n \\
+   &  \llbracket \textbf{G}f \rrbracket^i_n &&:= \llbracket \textbf{G} f \rrbracket^i_n \wedge  \llbracket \textbf{G} f\rrbracket^{i+1}_n \\
+    & \llbracket \textbf{F}f \rrbracket^i_n &&:= \llbracket \textbf{F} f \rrbracket^i_n \vee  \llbracket \textbf{F} f\rrbracket^{i+1}_n \\
+   &  \llbracket \textbf{X}f \rrbracket^i_n &&:=  \llbracket f \rrbracket^{i+1}_n \\
+   & \llbracket f \rrbracket^n_n &&:= 0
+\end{alignat*}
+
+The interpretation for a single type is left out as it is not necessary for the rest of the thesis. A simple example of such translation can be found below.
+
+\begin{equation*}
+    \llbracket \textbf{F} <example\_tool>true \rrbracket^0_2 = example\_tool(m_1) \vee example\_tool(m_2)
+\end{equation*}
+
+These translated propositional formulas can be transformed into CNF. This is the required input for the SAT solver that APE uses.  
+
+%To find a valid interpreation  Formulas like these can be converted into CNF. 
+
+%To be able the use this approach for SLTL formulas, it needs to be
+
+
+%Constraints based on SLTL are not directly usable for an SAT solver. These constraints need to be translated to a propositional formula in CNF. SLTL formula's reason over infinite sequences thus there needs to be a
+
+
+
+
+
 
 
 %I will define my constraints in SLTL. However APE only has support for specific SLTL formulas they supply natural language templates for. To be able to 
@@ -135,7 +294,7 @@ These sequences of states are called paths. SLTL reasons over potentially infini
 
 
 \subsection{GATA}
-As mentioned earlier, GATA describes how to calculate a result. It is defined with a simplified relational algebra as a formal basis. It reasons over relations with zero to two keys. Any of these relations represent a core concept in Geoscience \cite{kuhn2012core}. GATA consists of a set of functions that represent operations over these relations. 
+GATA describes how to calculate a result. It is defined with a simplified relational algebra as a formal basis. It reasons over relations with zero to two keys. Any of these relations represent a core concept in Geoscience \cite{kuhn2012core}. GATA consists of a set of functions that represent operations over these relations. 
 But for the synthesis, the structure of the language is more important. If a workflow has the same GATA representation as the input, they represent the same operations. To determine whether two GATA expressions are the same, we need to look at the structure of the expressions. The GATA grammar is described by the BNF shown by formula \ref{eq:gatabnf}. 
 
 
@@ -200,12 +359,16 @@ Using this notation the input graph I would be represented like equations \ref{e
 I will define some common notations. These notations are used throughout the thesis. The first notation I will introduce is the general set that contains all functions in the current domain, I will call this set $F$. The tools used for APE also have a GATA annotation. The set of these tool annotations will be called $A$. This set $A$ consists of pairs $(t,g)$ where $i$ is the identifier of the tool as in APE and $g$ is the tree representation of a GATA expression. Finally there is the tree that is used as input. This tree will be called $i$. These notations form the basis for reasoning about the GATA expressions with relation to the tools and input.
 \\
 
-For defining constraints, I will use set comprehension adapted from \ref{veanes2008bounded}. These set comprehensions will define sets of SLTL formula's 
+For defining constraints, I will use set comprehension adapted from \cite{veanes2008bounded}. These set comprehensions will define sets of SLTL formulas.  
 
 \begin{align*}
-&\textit{Basic elements}  & E::=   \\
-    &\textit{Sets of formulas}  & S ::= \{\phi\ |\ F \}\ |\ \emptyset\ |\ S \cup S\ |\ S\cap S\ |\ v   \\
-    &Formulas & F ::= \neg F \ |\ F \wedge F\ |\ F \vee F\ |\ \phi == \phi \ |\ F \in S
+&\textit{Basic elements}  & E::=&\ \Phi\ |\ String\ |\ Int\ |\ Boolean\ |\ Func    \\
+&\textit{Tuples} & T::=&\ ( All\ \langle,All\rangle^*)
+\\
+    &\textit{Sets of formulas}  & S ::=&\ \{\phi\ |\ F\langle,F\rangle^* \}\ |\ \emptyset\ |\ S \cup S\ |\ S\cap S\ |\ v   \\
+    &Formulas & F ::=&\ \neg F \ |\ F \wedge F\ |\ F \vee F\ |\ \phi == \phi \ |\ F \in S \\
+    &\textit{Function} & Func ::=&\ Ident( \ param\ \langle,param\rangle^*) = S \\
+    &\textit{All types} & All ::=&\ E\ |\ S\ |\ T
 \end{align*}
 
 tuples and sets.
@@ -223,13 +386,13 @@ maybe make the nodes a tuple of ID and name or something
 
 
 \section{Method}
-\begin{itemize}
-    \item 
-    \item How GATA relates to APE
-    \item  
-\end{itemize}
+%\begin{itemize}
+%    \item 
+%    \item How GATA relates to APE
+%    \item  
+%\end{itemize}
 
-To use GATA as constraints for APE, I need to figure out how GATA relates to a domain used by APE. In the Geo science domain GIS tools do calculations. These calculations can be described by a GATA expression. Whether an expression is complex or not, when a tool is applied all the operations in its GATA representations will also be applied. Thus a workflow represents a sequence of GATA expressions. These expressions combined make a more complex expression. To use GATA as input to APE, we want workflows that represent a complex expression that need to be composed of smaller components. To be able to do this we need to find all the possible ways to break a complex expression into different smaller expressions. This has to be done in such a way that the original expression remains the same. I will use the example from \ref{eq:gata1} to explain this. 
+To use GATA as constraints for APE, I need to figure out how GATA relates to a domain used by APE. In the Geo science domain GIS tools do calculations. These calculations can be described by a GATA expression. When a tool is applied all the operations in its GATA representations will be applied. Thus a workflow represents a sequence of GATA expressions. These expressions combined make a more complex expression. To use GATA as input to APE, we want workflows that represent a complex expression that need to be composed of smaller components. To be able to do this we need to find all the possible ways to break a complex expression into different smaller expressions. This has to be done in such a way that the original expression remains the same. I will use the example from \ref{eq:gata1} to explain this. 
 \\
 
 %this is the place to introduce s_i or stick to m_i from the SLTL 
@@ -828,36 +991,479 @@ Thus multi parameter functions exponentially increase the amount of solutions ne
 
 
 \section{Comparison between native APE and GATA constraints}
-To test the usefullness of the gata constraints and the filtering we compare it against the same usecases with trying to just use the constraints as defined in APE.
+%To test the usefullness of the gata constraints and the filtering we compare it against the same usecases with trying to just use the constraints as defined in APE.\\
+
+In this section I will compare using the constraints available in APE to the constraints generated by a GATA input. First I will explain the examples I will be using. Then I will compare do a metric evaluation of both approaches. Finally both approaches will be compared conceptually. 
+
 
 \subsection{Examples}
 
+For the evaluation, I will use four different examples. These examples have been prepared by Simon Scheider of the Geoscience department. The examples are increasingly complex. I will give an explanation, the GATA representation and the ape constraints of each example. For each example an example GATA expression and workflow have been prepared by Simon Scheider of the Geoscience department.
+
+\subsubsection{Noise portion}
+This is the first and most simple example. This example represents the question "Where in Amsterdam is noise more intense than 70 dB?". The target workflow consists of 5 tools and can be seen in figure \ref{figure:noisePortionworkflow}. The given GATA expression can be seen below. The tools relevant to this example can be seen in table \ref{tab:example1tools}
+
+% Maybe ook de tools in een tabel er bij zetten
+
+\begin{sidewaysfigure}
+  \centering
+    \includegraphics[width=23cm]{example1_workflow.png}
+    \caption{The given workflow for the noise portion example }
+    \label{figure:noisePortionworkflow}
+\end{sidewaysfigure}
+
+\begin{tabbing}    
+\hspace{0.5cm}     \= \hspace{0.5cm}  \= \hspace{0.5cm}  \= \hspace{0.5cm}  \=\hspace{0.5cm}  \=\hspace{0.5cm} \= \hspace{0.5cm}  \= \hspace{0.5cm} \= \hspace{0.5cm} \= \hspace{0.5cm}\kill
+reify( \\
+\> pi1 ( \\
+\>\>sigmale(\\
+\>\>\>bowtie(\\
+\>\>\>\>revert(contour\_noise),\\ 
+\>\>\>\>deify(\\
+\>\>\>\>\>merge(\\
+\>\>\>\>\>\>pi2(\\
+\>\>\>\>\>\>\>sigmae(objectregions\_muni, object\_utrect)\\
+\>\>\>\>\>\>)\\
+\>\>\>\>\>)\\
+\>\>\>\>)\\
+\>\>\>),\\
+\>\>\>70\\
+\>\>)\\
+\>)\\
+)
+\end{tabbing}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        Tool name & GATA expression  \\
+        \hline
+        ContourToFieldRaster & $revert (contour\_x)$\\
+        \hline
+        SelectLayerByAttributeObjects & $sigmae (objectregions\_x, object\_y)$\\
+        \hline
+        ClipField2ObjectExtent & $bowtie (field\_x, deify (merge (pi2 (objectregions\_x))))$\\
+        \hline
+        LocalMapAlgebraSubOrder & $sigmale (field\_x, ordinal\_y)$\\
+        \hline
+        RegionFromRasterExtent & $reify (pi1 (field\_x))$\\
+        \hline
+    \end{tabular}
+    \caption{Tools required for the noise portion example}
+    \label{tab:example1tools}
+\end{table}
+\subsubsection{Noise proportion}
+The second example has the longest resulting workflows. All the solutions have 7 tools in their workflow. Figure \ref{figure:noiseProportionworkflow} is an example of this. The question this example tries to solve is "What is the proportion of the region where noise is greater than 70 dB in Amsterdam?". The GATA expression that calculates this can be seen below. The tools relevant can be found in table \ref{tab:example2tools}. A possible workflow can be seen in in figure
+The GATA expression branches high in the parse tree.  This allows for a lot of variation in when a part of the expression is represented in the workflow. 
+
+\begin{sidewaysfigure}
+  \centering
+    \includegraphics[width=23cm]{example2_workflow.png}
+    \caption{The given workflow for the noise proportion example }
+    \label{figure:noiseProportionworkflow}
+\end{sidewaysfigure}
+\begin{tabbing}
+\hspace{0.5cm}     \= \hspace{0.5cm}  \= \hspace{0.5cm}  \= \hspace{0.5cm}  \=\hspace{0.5cm}  \=\hspace{0.5cm} \= \hspace{0.5cm}  \= \hspace{0.5cm} \= \hspace{0.5cm} \= \hspace{0.5cm}\kill
+bowtie\_ratio ( \\
+\>groupby\_size ( \\
+\>\>sigmae (\\
+\>\>\>lotopo (\\ 
+\>\>\>\>pi1 (\\
+\>\>\>\>\>sigmale(revert(contour\_noise), 70)\\
+\>\>\>\>),\\
+\>\>\>\>sigmae(objectregions\_muni, object\_Amsterdam)\\
+\>\>\>),\\
+\>\>\>in\\
+\>\>)\\
+\>),\\ 
+\>groupby\_size (\\
+\>\>sigmae (\\
+\>\>\>lotopo (\\
+\>\>\>\>deify (\\
+\>\>\>\>\>merge (\\
+\>\>\>\>\>\>pi2 (objectregions\_muni)\\
+\>\>\>\>\>)\\
+\>\>\>\>),\\
+\>\>\>\>sigmae(objectregions\_muni, object\_Amsterdam)\\
+\>\>\>),\\
+\>\>\>in\\
+\>\>)\\
+\>)\\
+)
+\end{tabbing}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|p{10.5cm}|}
+        \hline
+        Tool name & GATA expression  \\
+        \hline
+        ContourToFieldRaster & $revert (contour\_x)$\\
+        \hline
+        SelectLayerByAttributeObjects & $sigmae (objectregions\_x, object\_y)$\\
+        \hline
+        LocalMapAlgebraSubOrder & $sigmale (field\_x, ordinal\_y)$\\
+        \hline
+        ZonalStatisticsSize & $groupby\_size (sigmae (lotopo (pi1 (field\_x), objectregions\_y), in))$ \\
+        \hline
+        AddArea & 
+        $\begin{array} {lcl} groupby\_size (sigmae &(lotopo (deify (merge (pi2 (objectregions\_x))), \\ & objectregions\_x), in)) \end{array}$
+        \\ 
+        \hline
+        CalculateRatio & $bowtie\_ratio (objects\_x, objects\_y)$\\
+        \hline
+    \end{tabular}
+    \caption{Tools required for the noise proportion example}
+    \label{tab:example2tools}
+\end{table}
+% groupby\_size (sigmae (lotopo (deify (merge (pi2 (objectregions\_x))), objectregions\_x), in))$
+
+
+\subsubsection{Object amount and distribution}
+
+The third example has the shortest workflow. The GATA expression is relatively complex for solutions with only 3 tools as can be seen in figure \ref{figure:objectAmountWorkflow}. The question this example tries to solve is "What is the number of people for each neighborhood in Utrecht?". The GATA expression that calculates this can be seen below. The tools required can be found in table \ref{tab:example3tools} . 
+%What is the neighborhood distribution of people in Utrecht?
+%What is the number of people for each neighborhood in Utrecht?
+
+
+\begin{sidewaysfigure}
+  \centering
+    \includegraphics[width=23cm]{example3_workflow.png}
+    \caption{The given workflow for the Object amount and distribution example }
+    \label{figure:objectAmountWorkflow}
+\end{sidewaysfigure}
+\begin{tabbing}
+\hspace{0.5cm}     \= \hspace{0.5cm}  \= \hspace{0.5cm}  \= \hspace{0.5cm}  \=\hspace{0.5cm}  \=\hspace{0.5cm} \= \hspace{0.5cm}  \= \hspace{0.5cm} \= \hspace{0.5cm} \= \hspace{0.5cm}\kill
+groupby\_sum (\\
+\>bowtie* (\\
+\>\>sigmae (\\
+\>\>\>otopo (\\
+\>\>\>\>objectregions\_households,\\
+\>\>\>\>bowtie (\\
+\>\>\>\>\>objectregions\_neighbourhoods,\\
+\>\>\>\>\>pi1 (\\
+\>\>\>\>\>\>sigmae (\\
+\>\>\>\>\>\>\>otopo (\\
+\>\>\>\>\>\>\>\>objectregions\_neighbourhoods,\\
+\>\>\>\>\>\>\>\>sigmae (objectregions\_muni, object\_utrecht)\\
+\>\>\>\>\>\>\>), \\
+\>\>\>\>\>\>\>in\\
+\>\>\>\>\>\>) \\
+\>\>\>\>\>) \\
+\>\>\>\>)\\
+\>\>\>),\\
+\>\>\>in\\
+\>\>),\\
+\>\>objectcount\_households\\
+\>)\\
+)\\
+\end{tabbing}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        Tool name & GATA expression  \\
+        \hline
+
+        SelectLayerByAttributeObjects & $sigmae (objectregions\_x, object\_y)$\\
+        \hline
+        SelectLayerByLocationObjects & $bowtie (objectregions\_x, pi1 (sigmae (otopo (objectregions\_x, objectregions\_y), in) ) )$\\
+        \hline
+        SpatialJoinSumTessCount & $\begin{array} {lcl} groupby\_sum (bowtie* &(sigmae (otopo (objectregions\_x,objectregions\_y),in),\\ &   objectcounts\_z)) \end{array}$\\
+        \hline
+    \end{tabular}
+    \caption{Tools required for the Object amount and distribution example}
+    \label{tab:example3tools}
+\end{table}
+
+\subsubsection{Field amount and distribution}
+The final example has the most interesting dynamics. The question this examples tries to solve is "What is the average temperature for each neighborhood in Utrecht" The GATA expression that calculates this can be seen below. The tools required can be found in table \ref{tab:example4tools}. 
+This example includes a conversion tool. The conversion tool is a necessity in concrete workflows. However it bloats the amount of possible workflows by repeated appeared as it is not bound by constraints. But including it is a necessity as it is required in concrete workflows. 
+The example also shows that tools with the same GATA representation can be used interchangeably. Figures (\ref{figure:fieldamount1workflow},\ref{figure:fieldamount2workflow}) show both example workflows. 
+
+%What is the distribution of temperature in Utrecht across neighborhoods?
+%What is the average temperature for each neighborhood in Utrecht
+    \begin{sidewaysfigure}
+  \centering
+   \includegraphics[width=23cm]{example4_workflow.png}
+    \caption{The given workflow for the Object amount and distribution example }
+    \label{figure:fieldamount1workflow}
+\end{sidewaysfigure}
+
+\begin{sidewaysfigure}
+        \includegraphics[width=23cm]{example5_workflow.png}
+    \caption{The given workflow for the Object amount and distribution example }
+    \label{figure:fieldamount2workflow}
+\end{sidewaysfigure}
+
+
+
+\begin{tabbing}
+\hspace{0.5cm}     \= \hspace{0.5cm}  \= \hspace{0.5cm}  \= \hspace{0.5cm}  \=\hspace{0.5cm}  \=\hspace{0.5cm} \= \hspace{0.5cm}  \= \hspace{0.5cm} \= \hspace{0.5cm} \= \hspace{0.5cm}\kill
+groupby\_avg (\\
+\>bowtie* (\\
+\>\>sigmae (\\
+\>\>\>lotopo (\\
+\>\>\>\>pi1 (field\_x),\\
+\>\>\>\>bowtie (\\
+\>\>\>\>\>objectregions\_x, \\
+\>\>\>\>\>pi1 (\\
+\>\>\>\>\>\>sigmae (\\
+\>\>\>\>\>\>\>\>otopo (\\
+\>\>\>\>\>\>\>\>\>objectregions\_x, \\
+\>\>\>\>\>\>\>\>\>sigmae (objectregions\_x, object\_y)\\
+\>\>\>\>\>\>\>\>), \\
+\>\>\>\>\>\>\>in\\
+\>\>\>\>\>\>)\\
+\>\>\>\>\>) \\
+\>\>\>\>)\\
+\>\>\>),\\
+\>\>\>in\\
+\>\>),\\
+\>\>interpol (\\
+\>\>\>pointmeasures\_x, \\
+\>\>\>deify (merge (pi2 (objectregions\_y)))\\
+\>\>)\\
+\>)\\
+)
+\end{tabbing}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        Tool name & GATA expression  \\
+        \hline
+        MakePointMeasuresFromTable & $conversion$\\
+        \hline
+        SelectLayerByAttributeObjects & $sigmae (objectregions\_x, object\_y)$\\
+        \hline
+        SelectLayerByLocationObjects & $bowtie (objectregions\_x, pi1 (sigmae (otopo (objectregions\_x, objectregions\_y), in) ) )$\\
+        \hline
+        IDWInterval & $interpol (pointmeasures\_x, deify (merge (pi2 (objectregions\_y)))) $\\
+        \hline
+        KrigingInterval & $interpol (pointmeasures\_x, deify (merge (pi2 (objectregions\_y)))) $\\
+        \hline
+        ZonalStatisticsMeanInterval & $groupby\_avg (bowtie* (sigmae (lotopo (pi1 (field\_x), objectregions\_y), in), field\_x))$\\
+        \hline
+    \end{tabular}
+    \caption{Tools required for the Field amount and distribution example}
+    \label{tab:example4tools}
+\end{table}
+
+
 \subsection{Metric evaluation}
- Comparison will be run time, max usable length, amount of solutions
+In this section I will evaluate the results of running APE with the GATA constraints. First I will discuss the GATA results and later compare these to the runs with native APE constraints. 
+
+The evaluation runs use APE configuration files with same the relevant parameters. The maximum amount of solutions that we allow is set to 1000. It takes a lot of effort for a user to already compare 1000 solutions and pick the best one. Thus generating more than 1000 would not be relevant for any use case. Also usually the best solutions are the shortest solutions. From testing, Generating 1000 solutions is enough to find all solutions for the shortest two solution lengths for a specific use case. For the maximum solution length, I use a max length of 9. This length is longer then all the relevant solutions to compare to. I will separately compare the run time for length 9 to length 10.  
+
+%I use 9 as the maximum solution length. This length is longer then all the relevant solutions to 
+
+\subsubsection{Amount of solutions}
+In this section I will evaluate the amount of solutions each method generate per solution length. This will tell us how easy it will be for the user to pick a solution to use. The amount of solutions generated using the GATA constraints are the amount after the graph filtering. For each example I have prepared graphs showing only the GATA solutions and graph showing GATA and APE in the same graph. 
+
+
+
+
+\begin{figure}[H]
+  \centering
+    \includegraphics{solutions_per_length_NoisePortion.png}
+    \caption{The amount of solutions for each workflow length for the Noise portion example}
+    \label{figure:solutionsperLengthPortion}
+\end{figure}
+\begin{figure}[H]
+  \centering
+    \includegraphics{GATA_vs_APE_solutions_NoisePortion.png}
+    \caption{A comparison between the amount of solutions  GATA and APE constraints generate for each workflow length for the Noise portion example}
+    \label{figure:solutionsperLengthPortion}
+\end{figure}
+
+
+
+
+\begin{figure}[H]
+  \centering
+    \includegraphics{solutions_per_length_NoiseProportion.png}
+    \caption{The amount of solutions for each workflow length for the Noise proportion example}
+    \label{figure:solutionsperLengthPortion}
+\end{figure}
+\begin{figure}[H]
+  \centering
+    \includegraphics{GATA_vs_APE_solutions_NoiseProportion.png}
+    \caption{A comparison between the amount of solutions  GATA and APE constraints generate for each workflow length for the Noise proportion example}
+    \label{figure:solutionsperLengthPortion}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics{solutions_per_length_ObjectAmount.png}
+    \caption{The amount of solutions for each workflow length for the Object amount example}
+    \label{figure:solutionsperLengthPortion}
+\end{figure}
+\begin{figure}[H]
+  \centering
+    \includegraphics{GATA_vs_APE_solutions_ObjectAmount.png}
+    \caption{A comparison between the amount of solutions  GATA and APE constraints generate for each workflow length for the Object amount example}
+    \label{figure:solutionsperLengthPortion}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics{solutions_per_length_FieldAmount.png}
+    \caption{The amount of solutions for each workflow length for the Field amount example}
+    \label{figure:solutionsperLengthPortion}
+\end{figure}
+\begin{figure}[H]
+  \centering
+    \includegraphics{GATA_vs_APE_solutions_Field_amount.png}
+    \caption{A comparison between the amount of solutions  GATA and APE constraints generate for each workflow length for the Field amount example}
+    \label{figure:solutionsperLengthPortion}
+\end{figure}
+
+The first thing that is remarkable, is that the amount of solutions for GATA is quite low. The Noise portion example shows only one results. The Noise portion example has a small GATA expression with specific tools in the domain. This shows with the GATA constraints it will find the specific workflow that the user would be looking for. 
+
+The Noise proportion example has 13 solutions. This example has more solutions as the GATA branches early in the parse tree. This means two entirely separate calculations need to be done before the final tool. The order only needs to be taking into account for each branch of the GATA expression. This means interleaving of the tools of these branches can happen and result in multiple correct workflows. This example shows this by having 13 solutions. 
+
+The Object amount example also only has one solution. This example has a complex GATA but yields a solution that contain three tools. This shows the GATA constraints also can yield simple workflows when the domain allows it. But as the workflow contains a small amount of tools, there is no variation allowed in the solution. 
+%that when a GATA expression has only a specific implementation that 
+
+The Field amount example has workflows of all lengths of four and longer. This happens as the types of the tools of the required workflow allow for the one conversion tool to be included. This explains the variation in solution length. At length four, the tool is not included. At every subsequent length, the tool is included one or more times. Another thing to note is that for the length of 4 is there are 6 solutions. But for either example workflow of figure \ref{figure:fieldamount1workflow} or figure \ref{figure:fieldamount2workflow} there are only 3 ways to keep the tool order as the GATA expression. This shows that both examples are found in the results. \\
+
+When comparing the Solutions from APE and GATA we make a two of observations. The first observation is that the APE runs always reach the maximum of 1000 results before reaching the maximum solution length. The second is that the APE runs always have solutions in multiple solution lengths. This shows that GATA constraints are specific in comparison to APE.
+
+\subsubsection{Run time evaluation}
+Next I will evaluate the run time of both constraint approaches. In this section I will compare just the APE synthesis run time of both approaches. The graph filtering will be evaluated next section. 
+
+\begin{figure}[H]
+  \centering
+    \includegraphics{Synthesis_runtime.png}
+    \caption{An overview of the runtime for the synthesis portion of both approaches. Compared per example}
+    \label{figure:synthesisRuntime}
+\end{figure}
+
+An overview of the synthesis runtime per example can be found in figure \ref{figure:synthesisRuntime}. The first thing I notice is that the runtime for the noise proportion example is a couple times longer longer than the other times. The runtime for the GATA examples is mostly determined by the time it takes to convert the GATA expressions into constraints specific for each solution length. This is the reason there is such a big of a difference between runtimes of examples. 
+
+The APE runtimes are all closer to each other. The limiting factor for native ape is the amount of solutions the synthesis must generate. The APE constraints used are much less restrictive thus it for these examples. Thus the synthesis algorithm generates the maximum amount of solutions. \\
+
+The constraint conversion into CNF is the biggest flaw for the GATA approach. The longer the solutions are the longer the translation time into CNF. This is especially evident when comparing the problem set up time for the solution length of 9 and 10. This can be seen in figure \ref{figure:problemsetup}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=12.5cm]{Generation_Time_GATA.png}
+    \caption{An overview of the problem set using the GATA constraints for solution length 9 and 10}
+    \label{figure:problemsetup}
+\end{figure}
+
+
+
+%First runtime of of both approaches up until length 9.\\
+
+%Then compare GATA run time of length 9 to run time of length 10\\
+
+
+\subsubsection{Graph filtering Evaluation}
+In this section, I will evaluate the graph filtering part of the GATA constraint part. This post processing step ensures that all solutions comply with the input expression. The trade-off is that there will be some time spend recreating and comparing the graphs. but the amount of solutions it reduces is quite significant. as can be seen in figure \ref{figure:graphFilterAmount}. 
+
+
+\begin{figure}[H]
+  \centering
+    \includegraphics{Graph_filtering_solution_amount.png}
+    \caption{The amount of solutions before and after the graph filter portion of the GATA constraints.}
+    \label{figure:graphFilterAmount}
+\end{figure}
+
+The impact on the noise portion and object amount examples is minimal as the amount of solutions was already small. For the other examples it reduces the amount of solutions by about half. The noise proportion example has some tool orders that do not comply as the solution length is quite long. The field amount example has the most solutions removed as it also has the most solutions generated. In these examples the filtering definitely has an impact. as it removes a lot of solutions that would be considered wrong. \\
+
+For the time efficiency we need to look at the run time for the graph filtering. This can be found in figure\ref{figure:graphFiltertime}. For most examples the runtime is below half a second. These are times that would not impact the general run time much. However, the runtime for the noise proportion example is more than 8 seconds. This is quite long. It is not unacceptable for the guarantee that the resulting solutions comply with the input. But the naive approach to the filtering shows in the runtime of this example. 
+
+
+%For the noise portion and object amount examples, the graph filter algorithm does not reduce much if at all.
+
+
+
+\begin{figure}[H]
+  \centering
+    \includegraphics{Graph_filtering_runtime.png}
+    \caption{The runtime for the graph filter portion of the GATA constraints displayed for each example. }
+    \label{figure:graphFiltertime}
+\end{figure}
+
+
+ %Comparison will be run time, max usable length, amount of solutions
+ 
+% \begin{itemize}
+ %    \item compare solutions found per length
+ %    \item compare total solutions found
+%     \item evaluate graph filtering \begin{itemize}
+%         \item compare amount of solutions before and after filtering
+%         \item compare time spend filtering
+%     \end{itemize}
+%     \item compare run time specific just of length 9 to run time of length 10
+ %\end{itemize}
+ 
 
 \subsection{Approach comparison}
- talk about the differences in how to approach creating a workflow. 
+This section will compare both approaches semantically. The approaches try to accomplish the same goal but in different ways. The GATA constraints build upon APE, the way the domain knowledge is handled is the same. It relies on the property of ape to combine tools in a correct way. Only the way the user constraints encoded is different.\\
 
- With ape you can really specifically specify the tools you need but it takes some iterations. It also takes longer if you don't know the tools themselves and have to experiment 
+A user of APE specifies the input and output of their workflows. In addition to this the user specifies some constraints. These either reason over a specific tool or an abstract tool. By using abstract tools the user can loosely specify what kind of behaviour they seek. 
+However these constraints are domain dependent. If a user wanted to have a workflow in a related but different domain, say the same area like Geoscience, but implemented in a different tool set. The user would have to specify the constraints again. 
+\\
 
- With GATA you can specify the meaning of the workflow and recieve only workflows that can satisfy the input graph. 
+This is in contrast to using GATA as constraints. 
+A GATA expression precisely specifies the required operations. 
+%This specification is independent of the domain. 
+This expression is used to find workflows that explicitly match that input expression. The user expresses their intents using an independent language instead of the domain directly. This results in a small amount of specific workflows. 
+\\
 
 
+
+
+
+
+% talk about the differences in how to approach creating a workflow. 
+
+% With ape you can really specifically specify the tools you need but it takes some iterations. It also takes longer if you don't know the tools themselves and have to experiment 
+
+ %With GATA you can specify the meaning of the workflow and recieve only workflows that can satisfy the input graph. 
+
+\section{Conclusion}
+
+In this thesis I have shown that an using another language as an input is possible. For GATA, the ordering in the expression and the possibility by representing the tools by the the same expressions made it possible. I was able to translate a GATA input expression and the annotated tools into constraints that are usable by the synthesis algorithm of APE. This allows a user to express their intent in GATA and get multiple types of workflows. I was able the filter the resulting solutions by comparing the solutions to the input graph. This resulted in a reduced set of solutions that was guaranteed to comply with the input. 
+
+I have shown that this approach to user intent in workflow generation is able to work. However it is not perfect. For solutions longer than a length of 9 the generations of the CNF formula for the SAT solver takes longer than preferred. The same holds for the graph filtering. This process takes longer than preferred on complex graphs. The graph reconstruction algorithm I used is naive and first creates all possible graphs before starting to compare them. Due time constraints, I was not able to improve on it further. There is a lot of room for improvement and it is worth it to try to explore this approach. Especially with eye on full automation on QuAnGIS. Here the guarantee that the workflows comply with the input is required for a user to be able to trust the system. 
+
+ %Conclude findings shortly, especially from the comparison section
 
 
 
 
 \section{Future work}
 
-introducing variables in GATA. This will make it easier to define a clear order between certain parts. it will increase the readability of the language. and it will make it clear that some parts are reused in the calculation. 
-\\
+As this is the first try on this approach, there is definitely room for improvement. The translation to CNF takes much longer than preferred. The prototype used a specific library to handle the propositional formulas and the transformation to CNF. There is no guarantee that it translates in the most efficient way possible. Thus the transformation can be improved. 
 
- Optimisations in the graph finding algorithm an surely be found. 
- generating the constraints for a workflow longer than 8 and/or a large input takes an unreasonable This could also be improved. \\
+Another way to reduce transformation time is to research the impact of the SLTL formulas used. I settled on the set of constraints before experimenting with graph filtering. The removal of certain constraints can reduce the problem set up time with minimal increases in amount of incorrect solutions. Graph filtering can offset this change and ensure correctness. 
 
-Lots of decisions were based on taking too much time to translate to CNF. One reason might be the library used for this translation. There is a possibility that refactoring this approach with another library for CNF translation could create a significant decrease in calculation time.\\
+The graph filter algorithm can also be improved. It uses a naive approach of creating all possible graph combinations. It only compares at the end when all graphs have been created. This can be improved by partial comparing. After combining the expressions of two graphs already compare the partial graph to the original input. This can greatly reduce the amount of generated graphs in exchange for comparing more often. 
 
-GATA types can be used to in the graph composition
+Another way to improve the graph filter algorithm is to take into account the data types of GATA. GATA expressions are typed and so its inputs. Thus not all expressions can fit on all the data leaves of another expression. This check will take barely any time and will reduce the amount of graphs to compare. But the algorithm needs to be made aware of the types in GATA. I had not enough time to develop it but it is worth to investigate this in the future.\\
+
+
+This thesis focused on using GATA as constraints for ArcGIS. It would be worth while to annotate tools in a different domain with GATA and compare this to the results of ArcGIS tools. One of the goals of GATA is using it as a single input for workflows in multiple domains. This thesis has shown it works for ArcGIS tools. Investigation is necessary to show that GATA can be used this way. 
+
+Finally, the set of tools and examples used to test are relatively small compared to the actual tool set available in ArcGIS. It is enough to prove it is worth investigating further but representative for actual usage.   
+
+
+
+%introducing variables in GATA. This will make it easier to define a clear order between certain parts. it will increase the readability of the language. and it will make it clear that some parts are reused in the calculation. \\
+
+ %Optimisations in the graph finding algorithm an surely be found. 
+ %generating the constraints for a workflow longer than 8 and/or a large input takes an unreasonable This could also be improved. \\
+
+%Lots of decisions were based on taking too much time to translate to CNF. One reason might be the library used for this translation. There is a possibility that refactoring this approach with another library for CNF translation could create a significant decrease in calculation time.\\
+
+%GATA types can be used to in the graph composition\\
+
+%Maybe using an SMT solver instead of a SAT solver the time to for these constraints to transform into CNF will be reduced. The bottleneck of the longer constraints is the translation into CNF. 
 
 \section{Relevance in AI}
 
@@ -866,8 +1472,7 @@ Also Using a complex set of logical rules to find a solution is one way to creat
 
 
 
-\section{Conclusion}
- Conclude findings shortly, especially from the comparison section
+
 
 
 \bibliographystyle{apalike}
