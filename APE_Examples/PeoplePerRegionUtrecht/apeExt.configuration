@@ -16,7 +16,7 @@
   "solution_min_length": "1",
   "solution_max_length": "9",
   "tool_seq_repeat": "false",
-  "max_solutions": "10000",
+  "max_solutions": "1000",
   "number_of_execution_scripts": "0",
   "number_of_generated_graphs": "20",
   "inputs": [

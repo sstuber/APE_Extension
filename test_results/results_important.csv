@@ -1,0 +1,9 @@
+name,runtime,TotalSolutions,filtertime,amount1,amount2,amount3,amount4,amount5,amount6,amount7,amount8,amount9
+./APE_Examples/PeoplePerRegionUtrecht/,4.384,1000,0.0,0,0,6,108,886,0,0,0,0
+./APE_Examples/NoiseProportionAmsterdam/,5.003,1000,0.0,0,0,0,0,0,120,880,0,0
+./APE_Examples/BaseCoreConcept/,3.415,1000,0.0,0,0,0,0,29,971,0,0,0
+./APE_Examples/AverageTempPerNeighbourhoodUtrecht/,3.809,1000,0.0,0,0,0,0,20,667,313,0,0
+./Gata_Examples/PeoplePerRegionUtrecht/,2.406,2,0.015,0,0,1,0,0,0,0,0,0
+./Gata_Examples/NoiseProportionAmsterdam/,16.353,30,8.77,0,0,0,0,0,0,13,0,0
+./Gata_Examples/BaseCoreConcept/,3.137,1,0.001,0,0,0,0,1,0,0,0,0
+./Gata_Examples/AverageTempPerNeighbourhoodUtrecht/,5.041,332,0.373,0,0,0,6,12,20,30,42,56
