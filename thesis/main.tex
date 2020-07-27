@@ -125,7 +125,7 @@ Science becomes increasingly more involved with complex calculations. This force
 %The result of this calculation can be seen in figure \ref{figure:livability}. 
 This can be calculated by combining geographical data regarding noise levels (Figure \ref{figure:noisevisual}), population and facilities of the neighbourhoods like the distance to a green area (Figure \ref{figure:livability}). Calculating the livability manually  is not a trivial task. 
 
-Usually each specific use case is a sequence of already available computational components or program functions. Such a sequence of components is called a workflow. The scientific community has worked on solutions to assist scientists in creating these workflows. Workflow management systems assist the user in developing workflows. Examples of such systems include Apache Taverna \cite{wolstencroft2013taverna}, Kepler \cite{altintas2004kepler} and ArcGIS ModelBuilder \cite{allen2011getting}. Although these systems solve some of the problems scientists face, the user is required to have full knowledge of all the available tools to combine them in a correct way. 
+Usually each specific use case is a sequence of already available computational components or program functions. Such sequence of components is called a workflow. The scientific community has worked on solutions to assist scientists in creating these workflows. Workflow management systems assist the user in developing workflows. Examples of such systems include Apache Taverna \cite{wolstencroft2013taverna}, Kepler \cite{altintas2004kepler} and ArcGIS ModelBuilder \cite{allen2011getting}. Although these systems solve some of the problems scientists face, the user is required to have full knowledge of all the available tools to combine them in a correct way. 
 
 
 
@@ -136,7 +136,7 @@ Usually each specific use case is a sequence of already available computational 
     \label{figure:livability}
 \end{figure}
 
-To support the users with workflow composition, these workflow management systems can be integrated with workflow synthesis systems. Such a system takes user created constraints and will generate a possible combination of components, a workflow. A user only has to worry about specifying their intent in the workflow management system. The synthesis process handles the combining of components into workflows. 
+To support the users with workflow composition, these workflow management systems can be integrated with workflow synthesis systems. Such system takes user created constraints and generates a possible combination of components, a workflow. A user only has to worry about specifying their intent in the workflow management system. The synthesis process handles the combining of components into workflows. 
 
 Common input methods for workflow synthesis systems are natural language templates or visual models. DECLARE \cite{pesic2007declare} and PROPHETS \cite{Prophets} are examples of both visual modeling and natural language template based systems. In these systems, the given templates and models represent some form of predetermined temporal formula reasoning over concrete or abstract tools. Examples of this are "Use tool1" or "If tool1 is used tool2 also has to be used". Modeling systems have similar constraints represented by visual models. These temporal constraints are then used to find workflows that satisfy them.
 
@@ -149,9 +149,11 @@ How could we use input that semantically describes the goal of the workflow? Thi
 This project will explore Geo-anatytical Transformation Algebra (GATA), an algebra currently being developed by the geoscience department of the University of Utrecht.
 This language describes geo analytical concepts on a semantic level using relational algebra. This allows to reason over calculations without a need to specify an implementation. 
 
-GATA is part of the research to try and solve Geo-analytical question-answering (QA) \cite{scheider2020geo}. QA tries to find a solution for a domain specific natural language based question. In this area GATA serves as a language that expresses the answer of a question semantically. Using GATA as an input language for workflow synthesis will lead to automatic generation of Geospastial Information Systems (GIS) workflows from a single natural language question.
+GATA is part of the research to try and solve Geo-analytical question-answering (QuAnGIS) \cite{scheider2020geo}. QuAnGIS tries to find a solution for a domain specific natural language based question. In this area GATA serves as a language that expresses the answer of a question semantically. Using GATA as an input language for workflow synthesis will lead to automatic generation of Geospastial Information Systems (GIS) workflows from a single natural language question.
 
 GATA is used to express GIS operations in terms of operations on Geospatial concepts. The algebra consists of functions that are based on relational algebra.  
+
+\todo[inline]{explain the project a bit more with now that gata is introduced*}
 
 % Discuss more in dept on how gata works and what it means in it's context
 
@@ -160,13 +162,14 @@ GATA is used to express GIS operations in terms of operations on Geospatial conc
 \section{Related work }
 %mention work to build upon
 % show you know the state and i can make the next step
-To realise this project I will build upon earlier work. Generating valid type correct workflows of tools is difficult on its own. \cite{kasalica2020semantic} have developed a framework for this problem. Their program called Automatic Pipeline Explorer (APE) takes tool annotations, type systems and user intent as input and generate type correct workflows. APE translates these inputs into CNF constraints for a SAT solver. 
+To realise this project I will build upon earlier work. Generating valid type correct workflows of tools is difficult on its own. \cite{kasalica2020semantic} have developed a framework for this problem. Their API called Automatic Pipeline Explorer (APE) takes tool annotations, type systems and user intent as input and generate type correct workflows. APE translates the problem into CNF and uses a SAT solver as reasoning engine. 
 
-User intent is modeled using semantic Linear temporal logic (SLTL) \cite{Steffen93moduleconfiguration}. SLTL is an extension of Linear Temporal Logic (LTL) \cite{emerson1990temporal}. This extension allows to express sequences of modules or tools that need to have corresponding types. An example of this would be $t_0,\ m_1,\ t_1,\ m_2,\ t_2$ where $t_i$ represents the types and $m_i$ the modules or tools. The initial type of the sequence is  $t_0$ and the result type is $t_2$. $t_1$ is only placed once, as it is the output of $m_1$ and the input of $m_2$. As the types implicit with the modules the sequence could be shortened as $m_1,\ m_2$. This sequence represents a type correct sequence. Thus SLTL allows express constraints over a type correct sequence of tools therefore it is the input representation for APE. 
+User intent is modeled using semantic Linear temporal logic (SLTL) \cite{Steffen93moduleconfiguration}. SLTL is an extension of Linear Temporal Logic (LTL) \cite{emerson1990temporal}. This extension allows to express sequences of modules or tools that need to have corresponding types. SLTL allows express constraints over a type correct sequence of tools therefore it is the input representation for APE. 
 % should i mention loop free? 
-For APE to use these constraints, they need to be translated into boolean CNF formulas. \cite{Bounded_model_checking} discuss a way to use SAT solvers for bounded model checking, a technique for program verification. A necessary part of this process is to encode LTL formulas into boolean formulas. For this encoding, a program is viewed as a set of state transitions. For bounded model checking you only verify your constraints for a sequence of state transition up until a certain bound. 
+%For APE to use these constraints, they need to be translated into boolean CNF formulas. \cite{Bounded_model_checking} discuss a way to use SAT solvers for bounded model checking, a technique for program verification. A necessary part of this process is to encode LTL formulas into boolean formulas. For this encoding, a program is viewed as a set of state transitions. For bounded model checking you only verify your constraints for a sequence of state transition up until a certain bound. 
 
-APE adopts this technique to find all workflows for a bound and then increases the bound. This approach yields all possible workflows within the max bound of the program. The workflow synthesis system\cite{lamprecht2010synthesis} based on the minimal modal algorithm\cite{Steffen93moduleconfiguration} works somewhat similar.
+%APE adopts this technique to find all workflows for a bound and then increases the bound. This approach yields all possible workflows within the max bound of the program. 
+The workflow synthesis system\cite{lamprecht2010synthesis} based on the minimal modal algorithm\cite{Steffen93moduleconfiguration} works somewhat similar to APE.
 %There are have been other approaches to finding valid workflows. \cite{lamprecht2010synthesis} have made a workflow synthesis system based on the minimal model algorithm of \cite{Steffen93moduleconfiguration}. 
 They loosely specify the constraints on their domain using SLTL and a type system. The SLTL constraints are then used to search the synthesis domain using the minimal modal algorithm to find valid workflows.  
 This algorithm has been implemented by \cite{Prophets} in the PROPHETS system.
@@ -344,46 +347,59 @@ Using this notation the input graph I would be represented like equations \ref{e
      V &= \{reify,pi,interpol, data\} \nonumber \\
      E &= \{(reify,pi), (pi,interpol), (interpol,data)\} \label{eq:inputgraphexample}
  \end{align}
+ 
+ Finally nodes are considered unique. This holds even when different nodes represent the same function and thus have the same name. Functions can occur multiple times in the same expression. The same name appearing multiple times is not allowed in sets. However this could be circumvented by giving all nodes an id number and making the nodes a tuple of id and function name. This would increase the complexity of the given definitions and thus will be omitted. When a node is compared like $n1 == n2$ it stands for comparing the name of two different nodes instead comparing the whole nodes themselves. 
+ 
+ 
+ 
 \\ % add that when comparing a node, we compare the name of the node and that nodes with the same name can occur multiple times. 
 
 
 
 %Before we can start to formally define our constraints, we need to introduce the formal definition of a directed graph. A directed graph $G$ consists of a pair $(V, E)$ where $V$ is the set of vertices or nodes in the graph and $E$ is the set of arrows or directed edges. The edges consist of a pair of nodes for example $(n_1, n_2)$. I will use this graph definition to reason over GATA expressions and define constraints. GATA itself is a DAG but the difference between a DAG and a directed graph is a guarantee that cycles do not occur in the DAG. 
 
-\todo[inline]{The set of vertices actually should be a list. It matters for the amount of times a function appears also the workflows are lists not sets as functions can (and should be able to) appear multiple times }
+%\todo[inline]{The set of vertices actually should be a list. It matters for the amount of times a function appears also the workflows are lists not sets as functions can (and should be able to) appear multiple times }
 
 %Furthermore we have a set of tools $T$. A set of annotations $A$ that exists of pairs $(t, G)$ where $t$ is a tool from the set $T$ and $G$ is a valid graph in GATA. Furthermore there is a set F that consists of all the functions currently available. I will demonstrate the constraints using equation \ref{eq:gata1} as an example running example. This graph will be mentioned as the input graph I.  
 
 \subsection{Notations}
 
-I will define some common notations. These notations are used throughout the thesis. The first notation I will introduce is the general set that contains all functions in the current domain, I will call this set $F$. The tools used for APE also have a GATA annotation. The set of these tool annotations will be called $A$. This set $A$ consists of pairs $(t,g)$ where $i$ is the identifier of the tool as in APE and $g$ is the tree representation of a GATA expression. Finally there is the tree that is used as input. This tree will be called $i$. These notations form the basis for reasoning about the GATA expressions with relation to the tools and input.
+I will define some common notations. These notations are used throughout the thesis. The first notation I will introduce is the general set that contains all functions in the current domain, I will call this set $F$. The tools used for APE also have a GATA annotation. The set of these tool annotations will be called $A$. This set $A$ consists of pairs $(t,g)$ where $t$ is the identifier of the tool as in APE and $g$ is the tree representation of a GATA expression. Finally there is the tree that is used as input. This tree will be called $i$. I will refer to the nodes of the input tree as $V_i$ and the edges as $E_i$ These notations form the basis for reasoning about the GATA expressions with relation to the tools and input.
 \\
 
-For defining constraints, I will use set comprehension adapted from \cite{veanes2008bounded}. These set comprehensions will define sets of SLTL formulas.  
+For defining constraints, I will use set comprehension adapted from \cite{veanes2008bounded}. These set comprehensions will define sets of SLTL formulas. A BNF representing the set comprehensions can be found at \ref{eq:setcomprehensionbnf}
 
-\begin{align*}
-&\textit{Basic elements}  & E::=&\ \Phi\ |\ String\ |\ Int\ |\ Boolean\ |\ Func    \\
-&\textit{Tuples} & T::=&\ ( All\ \langle,All\rangle^*)
+\begin{align}
+&\textit{Basic elements}  & E::=&\ \Phi\ |\ String\ |\ Int\ |\ Boolean\ |\ Func\ |\ T \ |\ x \nonumber  \\
+&\textit{Tuples} & T::=&\ ( All\ \langle,All\rangle^*)  \nonumber
 \\
-    &\textit{Sets of formulas}  & S ::=&\ \{\phi\ |\ F\langle,F\rangle^* \}\ |\ \emptyset\ |\ S \cup S\ |\ S\cap S\ |\ v   \\
-    &Formulas & F ::=&\ \neg F \ |\ F \wedge F\ |\ F \vee F\ |\ \phi == \phi \ |\ F \in S \\
-    &\textit{Function} & Func ::=&\ Ident( \ param\ \langle,param\rangle^*) = S \\
-    &\textit{All types} & All ::=&\ E\ |\ S\ |\ T
-\end{align*}
+    &\textit{Sets of formulas}  & S ::=&\ \{\phi\ |\ F\langle,F\rangle^* \}\ |\ \emptyset\ |\ S \cup S\ |\ S\cap S\ |\ v    \nonumber\\
+    &Formulas & F ::=&\ \neg F \ |\ F \wedge F\ |\ F \vee F\ |\ E == E \ |\ E \in S \ |\ E \in Func \nonumber \\
+    &\textit{All types} & All ::=&\ E\ |\ S\ \nonumber\\
+    &\textit{Function} & Func ::=&\ Ident( \ param\ \langle,param\rangle^*) = All \label{eq:setcomprehensionbnf}
+\end{align}
 
-tuples and sets.
-tuples can have tuples and sets as basis. 
-tuples and sets can have variables and that could be tuples and sets
-variables are names that are in the <> operator of SLTL 
+The important thing to note here is that tuples can also contain sets of items. This is necessary to reason over the tool annotations. Another introduction is general use functions. Some constraints are recursively created thus introduced the need for recursive functions. The $\Phi$ in basic elements represents the SLTL structures defined earlier. Furthermore I will use a function $count$ that returns the amount of elements in the set. These set comprehensions will be used to reason over the GATA tree of the input and over the set of GATA annotations to create sets of SLTL formula's
 
-maybe make the nodes a tuple of ID and name or something
+%tuples and sets.
+%tuples can have tuples and sets as basis. 
+%tuples and sets can have variables and that could be tuples and sets
+%variables are names that are in the <> operator of SLTL 
+
+%maybe make the nodes a tuple of ID and name or something
 
 
 
 %Discuss The set notation used 
 
 %Discuss the graph, the formal definition, how it looks, how its build. 
+\subsection{Relevance in AI}
+This thesis is part of the research into QuAnGIS. This research aims to automatically generate workflows from natural language questions. GATA is researched as a language to capture the calculations needed to answer the natural language question. By extending APE to allow GATA as input I automate the part of the process to generate workflows from a question. QuAnGIS will benefit from the automatic generation of workflows from a GATA expression. 
 
+%I have established a logical translation from a GATA expression to a set of constraints. These constraint 
+
+%Discuss how this thesis will contribute to the QuAnGis, The research that tries to automate creating workflows from a natural language question. 
+%Also Using a complex set of logical rules to find a solution is one way to create "intelligence" in AI 
 
 \section{Method}
 %\begin{itemize}
@@ -446,14 +462,14 @@ Using this set of tools we can verify the possible workflows. There are only 2 p
 
 
 Constraints are the logical rules that a workflow must comply with.
-For a constraint to be usable it needs 2 things. It cannot exclude a correct workflow and it must be able to be calculated within reasonable time. 
+For a constraint to be usable it needs two things. It cannot exclude a correct workflow and it must be able to be calculated within reasonable time. 
 A correct workflow is defined as a workflow that can be used to represent the original GATA input. A workflow can represent the input if the tools algebra related to the tools can reconstruct a graph that matches the input. The reconstruction is done in reverse order in comparison to the workflow. The last tool should represent the root function of the original gata graph. If there is a reconstructed graph that matches the original input, the workflow is deemed correct. 
 To ensure this, any possible spread over states of the original input should be valid. The order of functions of the original graph should be maintained. For our example input \ref{eq:gata1}, this means one of the state equations (\ref{eq:states1}) should hold. 
 
 To accomplish this, I first added constraints that link tools to constraints. A tool occurrence only is one time step. However a tool represents a graph. A function can only present or absent in a state. This lead to abstracting the graphs that represent a tool. Tools will only be represented by the set of functions. Now we can define a set of SLTL formulas $TA$ (Tool Annotations). This set $TA$ is expressed by equation \ref{eq:toolannotation} 
 
 \begin{equation}
-    TA = \{ \textbf{F}(t \rightarrow \bigwedge V) | (t,(V,E))  \in A \} \label{eq:toolannotation}
+    TA = \{ \textbf{F}(t \rightarrow \bigwedge^V_{n \in V} n)\ |\ (t,(V,E))  \in A \} \label{eq:toolannotation}
 \end{equation}
 
 \begin{align*}
@@ -464,12 +480,12 @@ To accomplish this, I first added constraints that link tools to constraints. A 
     &\textbf{F}( \text{unusedTool} \rightarrow revert) & \}
 \end{align*}
 
-The next concern is ensuring functions are also linked to tools. The previous constraint ensures certain functions are true when a tool is true. The reverse also need to be defined. When a tool is true, one of the tools that represent is must be true. This is represented by the following constraint set TU (Tool Usage) seen in equation \ref{eq:toolusage}.
+The next concern is ensuring functions are also linked to tools. The previous constraint ensures certain functions are true when a tool is true. The reverse also need to be defined. When a tool is true, one of the tools that represent is must be true. This is represented by the following constraint set TU (Tool Usage) seen in equation \ref{eq:toolusage}. It uses helper function $TF$ that returns a set of tool names that have a specific function in their annotation which can be found in equation  
 
-\begin{equation}
-    TU =  \{  \textbf{F} ( f \rightarrow \bigvee \{ t\ |\ f \in V, (t,(V,E))  \in A  \} )\ |\ f \in F \} \label{eq:toolusage}
-\end{equation}
-
+\begin{align}
+    TU &=  \{  \textbf{F} ( f \rightarrow \bigvee^{TF(f)}_{x \in TF(f)} x )\ |\ f \in F \} \label{eq:toolusage}\\
+    TF(f) &= \{ t\ |\ f \in V, (t,(V,E))  \in A  \}
+\end{align}
 \begin{align*}
     TU_{example}= \{&\textbf{F} (reify \rightarrow \text{reifyTool}), &\\
     &\textbf{F} (pi \rightarrow \text{combinedTool} \vee \text{piTool}), &\\
@@ -488,7 +504,7 @@ Now that functions and tools are linked, the environment to reason about functio
 %These constraints create the environment to reason over the functions. A function relates to a one of the tools and a tool relates to a set of functions. This enforces tools to be used when functions are required to be true. Thus this allows to create constraints just using functions
 
 \begin{equation}
-    FU = \{ \textbf{F}(f)\ |\ f \in Vertices\ |\ (Vertices,Edges) \in InputGraph \}
+    FU = \{ \textbf{F}(f)\ |\ f \in V_i\ \}
     \label{eq:functionusage}
 \end{equation}
 
@@ -501,7 +517,7 @@ Now that functions and tools are linked, the environment to reason about functio
 The last simple constraint is regarding function prevention. The meaning of a workflow would change if a function is used that is not present in the original input. To realize this I will prevent functions not present in the input to appear in the workflows. This constraint is shown by equation \ref{eq:functionprevention}
 
 \begin{equation}
-    FP = \{ \textbf{G}(\neg f)    \ |\ f \notin V,\ (V,E) \in I,\ f \in F\} \label{eq:functionprevention}
+    FP = \{ \textbf{G}(\neg f)    \ |\ f \notin V_i,\ f \in F\} \label{eq:functionprevention}
 \end{equation}
 \begin{align*}
     FP_{example} = \{& \textbf{G}(\neg\ revert)\} 
@@ -529,7 +545,7 @@ The last simple constraint is regarding function prevention. The meaning of a wo
 % also talk about some of the more basic constraints as tools linked to functions and functions linked to tools
 
  
-The next set of constraints are a bit more complex. They take the structure of the graph into account. The first constraint of this set ensures the order of the graph. This concerns the edges of the graph. As shown in figure \ref{fig:smallGataGraph1}, \textit{pi} needs to be calculated before or at the same time as \textit{reify}. This holds for the whole graph thus there is a relation for each edge. This leads to the order constraints (ORD) described by equation \ref{eq:orderconstraint}.
+The next set of constraints are a bit more complex. They take the structure of the graph into account. The first constraint of this set ensures the order of the graph. This concerns the edges of the graph. As shown in figure \ref{fig:parsetree}, \textit{pi} needs to be calculated before or at the same time as \textit{reify}. This holds for the whole graph thus there is a relation for each edge. This leads to the order constraints (ORD) described by equation \ref{eq:orderconstraint}.
 
 \begin{equation}
     ORD = \{\textbf{F}((e_2 \wedge e_1) \vee (e_2 \wedge \textbf{X} (e_1)  )\  |\  (e_1,e_2) \in  E ,\ (V,E) \in  I  \} \label{eq:orderconstraint}
@@ -549,8 +565,7 @@ furthermore we can limit the amount of results by enforcing the root of the inpu
 
 %F <Tool 1>true & G(¬ <Tool 1>true | ¬ X X true)
 \begin{equation}
-    LF = \{ \textbf{F} (r) \wedge \textbf{G} ( \neg\ r \vee \neg (\textbf{X X})) \ |\ r \not = e_2,\ r \in V,\ (e_1, e_2) \in E,\  (V,E) \in  I
-    \}
+    LF = \{ \textbf{F} (r) \wedge \textbf{G} ( \neg\ r \vee \neg (\textbf{X X})) \ |\ r \not = e_2,\ r \in V_i,\ (e_1, e_2) \in E_i \}
     \label{eq:lastfunction}
 \end{equation}
 
@@ -565,9 +580,10 @@ For this we use the helper function \textit{generateFC}
 
 % only works when multiple occurrences may appear in the sets of the same function. 
 \begin{equation}
-    FC = \{   generateFC(|\{ f_2\ |\ f_2 = f_1, f_2 \in V \}|, f_1)\ |\ f_1 \in V, (V,E) \in  I \} \label{eq:functioncount}
+    FC = \{   generateFC(countFn(f_1), f_1)\ |\ f_1 \in V_i\} \label{eq:functioncount}
 \end{equation}
-\begin{align*}
+\begin{align*} 
+countFn(f_1) =& count(\{ f_2\ |\ f_2 = f_1, f_2 \in V_i \})\\
     generateFC(0,f) =&\ true \\
     generateFC(i,f) =&\ \textbf{F}(f \wedge \textbf{X}\ \text{generateFC}(i-1,f))
 \end{align*}
@@ -575,7 +591,7 @@ For this we use the helper function \textit{generateFC}
 The last used constraint also regards the amount of times a function can appear. This constraint limits the amount of time a function can appear. A function should not appear more times than it appears in the graph. This leads to the function limiting constraint (\textit{FL}) that is shown by equation \ref{eq:functionlimiting}. It reuses the \textit{generateFC} function. It will prevent any combination of functions longer the amount of times it appears in the input.
 
 \begin{equation}
-    FL = \{ \textbf{G}( \neg  generateFC(|\{ f_2\ |\ f_2 = f_1, f_2 \in V \}| +1, f_1))\ |\ f_1 \in V, (V,E) \in  I \} \label{eq:functionlimiting}
+    FL = \{ \textbf{G}( \neg  generateFC(countFn(f_1) +1, f_1))\ |\ f_1 \in V_i \} \label{eq:functionlimiting}
 \end{equation}
 
 
@@ -600,7 +616,7 @@ Thus the complete set of constraints would look like equation \ref{eq:complete1}
 \subsubsection{Functions with more parameters}
 \todo[inline]{Introduce a small example that has a function with more parameters and how it changes some things. order becomes less strikt}
 
-The set of constraints from equation \ref{eq:complete1} covers the graphs that look like figure \ref{fig:smallGataGraph1}. However, functions are able to have more than a single parameter. Examples of this are the functions \textit{lotopo} and \textit{sigma}. This can be seen in equation \ref{eq:multipleparamExample} and figure \ref{fig:smallGataGraph2}. 
+The set of constraints from equation \ref{eq:complete1} covers the graphs that look like figure \ref{fig:parsetree}. However, functions are able to have more than a single parameter. Examples of this are the functions \textit{lotopo} and \textit{sigma}. This can be seen in equation \ref{eq:multipleparamExample} and figure \ref{fig:smallGataGraph2}. 
 \begin{equation}
 lotopo(pi(interpol(data1)),sigma(data2,data3)) \label{eq:multipleparamExample}
 \end{equation}
@@ -655,8 +671,8 @@ Before the function \textit{lotopo} can be applied, both \textit{pi} and \textit
 The original order constraint is not sufficient to capture this behaviour. For functions that have multiple parameters, there is no strict ordering. To loosen the strictness of this ordering, I revise the original constraint to look like equation $ORD_{revised}$
 
 \begin{align*}
-        ORD_{rev} =\{& \{\textbf{F}((e_2 \wedge e_1) \vee (e_2 \wedge \textbf{X} (e_1)  )&  &|\ e_2 = e_3,\ (e_1,e_3) \in  E ,\ (e_1,e_2) \in  E ,\ (V,E) \in  I  \}, \\
-        &\{\textbf{F}(e_2 \wedge \textbf{F} e_1) &  &|\ e_2 \not= e_3,\ (e_1,e_3) \in  E ,\ (e_1,e_2) \in  E,\    (V,E) \in I\}\}
+        ORD_{rev} =\{& \{\textbf{F}((e_2 \wedge e_1) \vee (e_2 \wedge \textbf{X} (e_1)  )&  &|\ e_2 = e_3,\ (e_1,e_3) \in  E_i ,\ (e_1,e_2) \in  E_i \}, \\
+        &\{\textbf{F}(e_2 \wedge \textbf{F} e_1) &  &|\ e_2 \not= e_3,\ (e_1,e_3) \in  E_i ,\ (e_1,e_2) \in  E_i\}\}
 \end{align*}
 
 \begin{align*}
@@ -683,11 +699,11 @@ The earlier mentioned constraint are fast to compute to CNF, however they are no
 One constraint I tested was a more precise order constraint. Each constraint would fully define a branch of the tree from the root to a leaf. When a workflow represents all possible branches, it should represent the whole tree more precise. Defining the whole tree in a single constraint would result in a unnecessary long and complex constraint. The constraint is represented by equation \ref{eq:branchConstraint} and uses the helper function \textit{generateBranches}.
 
 \begin{equation}
-    BRANCH = \{ generateBranches(l)\ |\ l \not = e_1,\ l \in V,\ (e_1, e_2) \in E,\  (V,E) \in  I \} \label{eq:branchConstraint}
+    BRANCH = \{ generateBranches(l)\ |\ l \not = e_1,\ l \in V_i,\ (e_1, e_2) \in E_i \} \label{eq:branchConstraint}
 \end{equation}
 \begin{align*}
     generateBranches(n) = \{
-    &\textbf{F}(n \wedge f)\ |\ f \in generateBranches(e_2) , n = e_2 ,(e_1,e_2) \in E, n \in V  ,(V,E) \in I \}
+    &\textbf{F}(n \wedge f)\ |\ f \in generateBranches(e_2) ,\ n = e_2 ,\ (e_1,e_2) \in E_i,\ n \in V_i \}
 \end{align*}
 \begin{align*}
     BRANCH_{example}=\{& \textbf{F}(interpol \wedge \textbf{F}(pi \wedge \textbf{F}(lotopo))), \\
@@ -710,7 +726,7 @@ The constraint multiple parameter (\textit{MP}) can be found in equation \ref{eq
 
 \begin{align}
      MP=\{\textbf{F}(& (e_2 \wedge \textbf{XF}(e_3 \wedge (e_1 \vee \textbf{X}(e_1)))\    \vee \nonumber \\
-     &(e_3 \wedge \textbf{XF}(e_2 \wedge (e_1 \vee \textbf{X}(e_1)))  ) \ |\ e_2 \not= e_3,\ (e_1,e_3) \in  E ,\ (e_1,e_2) \in  E ,\ (V,E) \in  I\}  \label{eq:multipleParameterConstraint}
+     &(e_3 \wedge \textbf{XF}(e_2 \wedge (e_1 \vee \textbf{X}(e_1)))  ) \ |\ e_2 \not= e_3,\ (e_1,e_3) \in  E_i ,\ (e_1,e_2) \in  E_i\}  \label{eq:multipleParameterConstraint}
 \end{align}
 
 This given constraint only handles functions with 2 parameters. The examples and the tool annotations I tested on only had functions with at most 2 parameters. Thus it was sufficient to capture the wanted behaviour. 
@@ -718,7 +734,7 @@ The behaviour it simulates is based on domain knowledge. Tool annotations could 
 
 This leads to this constraint being more precise than $ORD_{revised}$ regarding the multiple parameter functions. The constraint is also more complex. This leads to an increase in translation time. For the examples I had the reduction in possible examples was not an enough trade-of to warrant its inclusion. Further research is required to determine its usefulness for bigger examples or on a bigger environment. \\
 
-\todo[inline]{Add table of results to compare the calculation times. i guess?}
+%\todo[inline]{Add table of results to compare the calculation times. i guess?}
 
 %\todo[inline]{Talk about All the other considered constraints. Why they would work and why they are not included. However they could be included or used as a starting point for someone else}
 
@@ -734,7 +750,7 @@ This leads to this constraint being more precise than $ORD_{revised}$ regarding 
 
 % talk about how the ideal constraints can be reduced to simpler constraints. They lose some of the restrictiveness they had 
 
-\todo[inline]{Add somewhere the conversion from SLTL To propositional so it actually is used in ape}
+%\todo[inline]{Add somewhere the conversion from SLTL To propositional so it actually is used in ape}
 
 %\subsection{Constraint usage}
 
@@ -889,14 +905,14 @@ The last use case is when a tool converts data types in between other functions.
 The single parameter function is represented by figure \ref{fig:conversionEx3}. To allow this behaviour we need to look at the constraint of the constraint of the edge. For the specific edge of $(pi,interpol)$ the constraint looks like $F((interpol \wedge pi) \vee (interpol \wedge X(pi))$. This constraint enforces $pi$ and $interpol$ in the same state or $interpol$ in one state and $pi$ in state directly after it. However if we want to allow a conversion tool in between these tools we also need to allow the specific case that $s0$ constains $interpol$, that $s1$ contains a conversion tool and that $s2$ containts $pi$. If we take this into account the constraint for this specific edge looks like $\textbf{F}((interpol \wedge pi) \vee (interpol \wedge \textbf{X}(pi)) \vee (interpol \wedge \textbf{X}(conversion \wedge \textbf{X}(pi))))$. This can be generalised and be used to revise the $ORD_{rev}$ constraint. The new constraint $ORD_{conv}$ can be found in equation \ref{eq:orderConversion}.
     \begin{align}
         ORD_{conv} =\{& \{\textbf{F}((e_2 \wedge e_1) \vee (e_2 \wedge \textbf{X} (e_1)\ \vee \nonumber \\ 
-        &\ \ (e_2 \wedge \textbf{X}(conversion \wedge \textbf{X}(e_1)))  )&  &|\ e_2 = e_3,\ (e_1,e_3) \in  E ,\ (e_1,e_2) \in  E ,\ (V,E) \in  I  \}, \nonumber \\
-        &\{\textbf{F}(e_2 \wedge \textbf{F} e_1) &  &|\ e_2 \not= e_3,\ (e_1,e_3) \in  E ,\ (e_1,e_2) \in  E,\    (V,E) \in I\}\} \label{eq:orderConversion}
+        &\ \ (e_2 \wedge \textbf{X}(conversion \wedge \textbf{X}(e_1)))  )&  &|\ e_2 = e_3,\ (e_1,e_3) \in  E_i ,\ (e_1,e_2) \in  E_i \}, \nonumber \\
+        &\{\textbf{F}(e_2 \wedge \textbf{F} e_1) &  &|\ e_2 \not= e_3,\ (e_1,e_3) \in  E_i ,\ (e_1,e_2) \in  E_i\}\} \label{eq:orderConversion}
 \end{align}
  
  However, for this constraint to be able to work, Conversion tools need to be annotated with a special tag. Otherwise I can't enforce that only conversion tools can be allowed using the $ORD_{conv}$ constraint. This $conversion$ tag needs to be included with the $TA$ and $TU$ constraints. Otherwise $conversion$ can be true without a conversion tool being used. Furthermore, the $conversion$ tag can't be included in the $FP$ constraint. As $conversion$ is never in the input, it would always be excluded. Thus $FP$ needs to be adapted to $FP_{conv}$ which can be found in equation \ref{eq:functionpreventionConv}.
  
  \begin{equation}
-         FP_{conv} = \{ \textbf{G}(\neg f)    \ |\ f\not= conversion , f \notin V,\ (V,E) \in I,\ f \in F\} \label{eq:functionpreventionConv}
+         FP_{conv} = \{ \textbf{G}(\neg f)    \ |\ f\not= conversion , f \notin V_i,\ f \in F\} \label{eq:functionpreventionConv}
  \end{equation}
  
  The multiple parameter function is represented by figure \ref{fig:conversionEx4}. Like with the single parameter function, I need to look at the edge and how it is represented in the constraint. For the edge of $(lotopo,sigma)$, the constraint looks like $\textbf{F}(sigma \wedge \textbf{F}(lotopo))$. This constraint already include the additional case of allowing the conversion tool. Thus for the multiple parameter functions we do not need to revise constraints. 
@@ -911,7 +927,7 @@ As I have shown, with minimal changes to the constraints I can allow conversion 
 %The conversion tool in the example can only occur in the beginning of 
 
 \subsection{Graph Comparing and filtering}
-Using the GATA input to generate these constraints reduce the amount of possible workflows APE is able to generate. However the constraints are not exactly compliant with the input. There might be some workflows in the resulting solutions that do not represent the input correctly. There is also the issue that in the tool annotation the ordering of the functions is discarded. This might lead to incorrect tools appearing in the resulting workflow. Tools where the correct functions are present but they are in the wrong order. Thus representing a different GATA expression. Using more precise constraint comes with an increase in constraint generation time. Another approach is to filter the solutions APE returns. 
+Using the GATA input to generate these constraints reduces the amount of possible workflows APE is able to generate. However the constraints are not exactly compliant with the input. There might be some workflows in the resulting solutions that do not represent the input correctly. There is also the issue that in the tool annotation the ordering of the functions is discarded. This might lead to incorrect tools appearing in the resulting workflow. Tools where the correct functions are present but are in the wrong order. Thus those tools represent a different GATA expression. The use of more precise constraint comes with an increase in constraint generation time. Another approach is to filter the solutions APE returns. 
 \\
 
 % Should i create example comparisons? 
@@ -974,20 +990,18 @@ To recreate the original parse tree we need to start at the outer most function.
   \label{fig:combineGATA}
 \end{figure}
 
-This is a simple example that only consists of two tools that have single parameter GATA representations. Usually workflows consist of more than two tools. In this case, I repeat this process from the last tool to the first tool in the workflows. Adding each new GATA representation to the accumulated graph. This creates a more complex expression that represents the workflow. When this expression is equivalent to the input expression, the workflow is a valid workflow for that input. 
+This is a simple example that only consists of two tools that have single parameter GATA representations. Usually workflows consist of more than two tools. In this case, I repeat this process from the last tool to the first tool in the workflows. Adding each new GATA representation to the accumulated graph. This creates a more complex expression that represents the workflow. When this expression is equivalent to the input expression, the workflow is a valid workflow for that input. \\
 
 However, The process is more complex when GATA expression consists of multi parameter expressions. This increases the amount of possible combinations. If there is a function with 2 parameters, all subsequent functions have 2 possible leaves to substitute. In a situation where in a workflow of 3 tools the last tool has 2 parameters, the amount of possible solutions for this example is $2^2$. This is the amount of parameters to the power of the amount of subsequent tools left.
 
-Each of these solutions needs to be verified until a matching solution has been found. If no matching solution can be found. The workflow is invalid and should not be considered a solution.
+Each of these solutions needs to be verified until a matching solution has been found. If no matching solution can be found. The workflow is invalid and should not be considered a solution. Thus multi parameter functions exponentially increase the amount of solutions needed to be verified. However this method guarantees only valid workflows are returned as solutions. 
 
-Thus multi parameter functions exponentially increase the amount of solutions needed to be verified. But this method guarantees only valid workflows are returned as solutions. 
-
-\begin{itemize}
-    \item can't capture the order of a tool, just the functions a tool consists of.
-    \item The constraints are not strictly describing correct solutions so bad graph representations are still returned.
-    \item describe how to build a graph 
-    \item describe how to compare a graph 
-\end{itemize}
+%\begin{itemize}
+ %   \item can't capture the order of a tool, just the functions a tool consists of.
+ %   \item The constraints are not strictly describing correct solutions so bad graph representations are still returned.
+ %   \item describe how to build a graph 
+ %   \item describe how to compare a graph 
+%\end{itemize}
 
 
 \section{Comparison between native APE and GATA constraints}
@@ -1255,7 +1269,7 @@ groupby\_avg (\\
 \subsection{Metric evaluation}
 In this section I will evaluate the results of running APE with the GATA constraints. First I will discuss the GATA results and later compare these to the runs with native APE constraints. 
 
-The evaluation runs use APE configuration files with same the relevant parameters. The maximum amount of solutions that we allow is set to 1000. It takes a lot of effort for a user to already compare 1000 solutions and pick the best one. Thus generating more than 1000 would not be relevant for any use case. Also usually the best solutions are the shortest solutions. From testing, Generating 1000 solutions is enough to find all solutions for the shortest two solution lengths for a specific use case. For the maximum solution length, I use a max length of 9. This length is longer then all the relevant solutions to compare to. I will separately compare the run time for length 9 to length 10.  
+The evaluation runs use APE configuration files with same the relevant parameters. The maximum amount of solutions that we allow is set to 1000. It takes a lot of effort for a user to already compare 1000 solutions and pick the best one. Thus generating more than 1000 would not be relevant. Also usually the best solutions are the shortest solutions. From testing, Generating 1000 solutions is enough to find all solutions for the shortest two solution lengths for a specific use case. For the maximum solution length, I use a max length of 9. This length is longer then all the relevant solutions to compare to. I will separately compare the run time for length 9 to length 10.  
 
 %I use 9 as the maximum solution length. This length is longer then all the relevant solutions to 
 
@@ -1374,7 +1388,7 @@ In this section, I will evaluate the graph filtering part of the GATA constraint
 
 The impact on the noise portion and object amount examples is minimal as the amount of solutions was already small. For the other examples it reduces the amount of solutions by about half. The noise proportion example has some tool orders that do not comply as the solution length is quite long. The field amount example has the most solutions removed as it also has the most solutions generated. In these examples the filtering definitely has an impact. as it removes a lot of solutions that would be considered wrong. \\
 
-For the time efficiency we need to look at the run time for the graph filtering. This can be found in figure\ref{figure:graphFiltertime}. For most examples the runtime is below half a second. These are times that would not impact the general run time much. However, the runtime for the noise proportion example is more than 8 seconds. This is quite long. It is not unacceptable for the guarantee that the resulting solutions comply with the input. But the naive approach to the filtering shows in the runtime of this example. 
+For the time efficiency, we need to look at the run time for the graph filtering. This can be found in figure \ref{figure:graphFiltertime}. For most examples the runtime is below half a second. These are times that would not impact the general run time much. However, the runtime for the noise proportion example is more than 8 seconds. This is quite long. It is not unacceptable for the guarantee that the resulting solutions comply with the input. But the naive approach to the filtering shows in the runtime of this example. 
 
 
 %For the noise portion and object amount examples, the graph filter algorithm does not reduce much if at all.
@@ -1428,9 +1442,9 @@ This expression is used to find workflows that explicitly match that input expre
 
 \section{Conclusion}
 
-In this thesis I have shown that an using another language as an input is possible. For GATA, the ordering in the expression and the possibility by representing the tools by the the same expressions made it possible. I was able to translate a GATA input expression and the annotated tools into constraints that are usable by the synthesis algorithm of APE. This allows a user to express their intent in GATA and get multiple types of workflows. I was able the filter the resulting solutions by comparing the solutions to the input graph. This resulted in a reduced set of solutions that was guaranteed to comply with the input. 
+In this thesis I showed that an using another language as an input is possible. For GATA, the ordering in the expression and the possibility by representing the tools by the the same expressions made it possible. I was able to translate a GATA input expression and the annotated tools into constraints that are usable by the synthesis algorithm of APE. This allows a user to express their intent in GATA and get multiple types of workflows. I was able the filter the resulting solutions by comparing the solutions to the input graph. This resulted in a reduced set of solutions that was guaranteed to comply with the input. 
 
-I have shown that this approach to user intent in workflow generation is able to work. However it is not perfect. For solutions longer than a length of 9 the generations of the CNF formula for the SAT solver takes longer than preferred. The same holds for the graph filtering. This process takes longer than preferred on complex graphs. The graph reconstruction algorithm I used is naive and first creates all possible graphs before starting to compare them. Due time constraints, I was not able to improve on it further. There is a lot of room for improvement and it is worth it to try to explore this approach. Especially with eye on full automation on QuAnGIS. Here the guarantee that the workflows comply with the input is required for a user to be able to trust the system. 
+I showed that this approach to user intent in workflow generation is able to work. However it is not perfect. For solutions longer than a length of 9 the generations of the CNF formula for the SAT solver takes longer than preferred. The same holds for the graph filtering. This process takes longer than preferred on complex graphs. The graph reconstruction algorithm I used is naive and first creates all possible graphs before starting to compare them. Due time constraints, I was not able to improve on it further. There is a lot of room for improvement and it is worth it to try to explore this approach. Especially with eye on full automation on QuAnGIS. Here the guarantee that the workflows comply with the input is required for a user to be able to trust the system. 
 
  %Conclude findings shortly, especially from the comparison section
 
@@ -1465,10 +1479,7 @@ Finally, the set of tools and examples used to test are relatively small compare
 
 %Maybe using an SMT solver instead of a SAT solver the time to for these constraints to transform into CNF will be reduced. The bottleneck of the longer constraints is the translation into CNF. 
 
-\section{Relevance in AI}
 
-Discuss how this thesis will contribute to the QuAnGis, The research that tries to automate creating workflows from a natural language question. 
-Also Using a complex set of logical rules to find a solution is one way to create "intelligence" in AI 
 
 
 
